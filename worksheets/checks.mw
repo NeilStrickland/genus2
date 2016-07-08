@@ -1,0 +1,842 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<Worksheet>
+<Version major="18" minor="2"/>
+<Label-Scheme value="2" prefix=""/>
+<View-Properties presentation="false" autoexpanding_sections="true">
+</View-Properties>
+<MapleNet-Properties elisiondigitsbefore="100" labelling="true" indentamount="4" elisiontermsthreshold="10000" ansi="false" errorbreak="1" useclientjvm="true" echo="1" imaginaryunit="I" labelwidth="20" unitattributes="&quot;fontweight&quot; = &quot;bold&quot;" contextmenusize="automatic" plotdriver="opengl" elisiondigitsafter="100" plotoutput="terminal" helpbrowser="standard" rtablesize="10" elisiontermsbefore="100" elisiondigitsthreshold="10000" typesetting="standard" plotdevice="inline" verboseproc="1" showassumed="1" quiet="false" errorcursor="false" longdelim="true" plotoptions="" elisiontermsafter="100" screenwidth="79" preplot="" prettyprint="3" displayprecision="-1" screenpixelheight="768" warnlevel="3" screenheight="25" latexwidth="8.0" postplot="" prompt="&gt; " ShowLabels="true"/>
+<Styles>
+<Font name="Ordered List 1" background="[255,255,255]" bold="false" executable="false" family="Times New Roman" foreground="[0,0,0]" italic="false" opaque="false" readonly="false" size="12" subscript="false" superscript="false" underline="false" placeholder="false"/>
+<Font name="Annotation Text" background="[255,255,255]" bold="false" executable="false" family="Times New Roman" foreground="[0,0,0]" italic="false" opaque="false" readonly="false" size="12" subscript="false" superscript="false" underline="false" placeholder="false"/>
+<Font name="Ordered List 2" background="[255,255,255]" bold="false" executable="false" family="Times New Roman" foreground="[0,0,0]" italic="false" opaque="false" readonly="false" size="12" subscript="false" superscript="false" underline="false" placeholder="false"/>
+<Font name="Ordered List 3" background="[255,255,255]" bold="false" executable="false" family="Times New Roman" foreground="[0,0,0]" italic="false" opaque="false" readonly="false" size="12" subscript="false" superscript="false" underline="false" placeholder="false"/>
+<Font name="Ordered List 4" background="[255,255,255]" bold="false" executable="false" family="Times New Roman" foreground="[0,0,0]" italic="false" opaque="false" readonly="false" size="12" subscript="false" superscript="false" underline="false" placeholder="false"/>
+<Font name="Ordered List 5" background="[255,255,255]" bold="false" executable="false" family="Times New Roman" foreground="[0,0,0]" italic="false" opaque="false" readonly="false" size="12" subscript="false" superscript="false" underline="false" placeholder="false"/>
+<Font name="Author" background="[255,255,255]" bold="false" executable="false" family="Times New Roman" foreground="[0,0,0]" italic="false" opaque="false" readonly="false" size="12" subscript="false" superscript="false" underline="false" placeholder="false"/>
+<Font name="Annotation Title" background="[255,255,255]" bold="true" executable="false" family="Times New Roman" foreground="[0,0,0]" italic="false" opaque="false" readonly="false" size="18" subscript="false" superscript="false" underline="false" placeholder="false"/>
+<Font name="Warning" background="[255,255,255]" bold="false" executable="false" family="Courier New" foreground="[0,0,255]" italic="false" opaque="false" readonly="true" size="12" subscript="false" superscript="false" underline="false" placeholder="false"/>
+<Font name="Caption Reference" background="[255,255,255]" bold="true" executable="false" family="Times New Roman" foreground="[0,0,0]" italic="false" opaque="false" readonly="false" size="12" subscript="false" superscript="false" underline="false" placeholder="false"/>
+<Font name="Maple Input Placeholder" background="[255,255,255]" bold="true" executable="true" family="Courier New" foreground="[200,0,200]" italic="false" opaque="false" readonly="false" size="12" subscript="false" superscript="false" underline="false" placeholder="true"/>
+<Font name="Maple Plot" background="[255,255,255]" bold="false" executable="false" family="Times New Roman" foreground="[0,0,0]" italic="false" opaque="false" readonly="false" size="12" subscript="false" superscript="false" underline="false" placeholder="false"/>
+<Font name="Code" background="[255,255,255]" bold="false" executable="false" family="Courier New" foreground="[255,0,0]" italic="false" opaque="false" readonly="false" size="12" subscript="false" superscript="false" underline="false" placeholder="false"/>
+<Font name="Line Printed Output" background="[255,255,255]" bold="false" executable="false" family="Courier New" foreground="[0,0,255]" italic="false" opaque="false" readonly="true" size="12" subscript="false" superscript="false" underline="false" placeholder="false"/>
+<Font name="Text Output" background="[255,255,255]" bold="false" executable="false" family="Courier New" foreground="[0,0,255]" italic="false" opaque="false" readonly="true" size="12" subscript="false" superscript="false" underline="false" placeholder="false"/>
+<Font name="Diagnostic" background="[255,255,255]" bold="false" executable="false" family="Courier New" foreground="[40,120,40]" italic="false" opaque="false" readonly="true" size="12" subscript="false" superscript="false" underline="false" placeholder="false"/>
+<Font name="2D Inert Output" background="[255,255,255]" bold="false" executable="true" family="Times New Roman" foreground="[144,144,144]" italic="false" opaque="false" readonly="false" size="12" subscript="false" superscript="false" underline="false" placeholder="false"/>
+<Font name="Normal" background="[255,255,255]" bold="false" executable="false" family="Times New Roman" foreground="[0,0,0]" italic="false" opaque="false" readonly="false" size="12" subscript="false" superscript="false" underline="false" placeholder="false"/>
+<Font name="Hyperlink" background="[255,255,255]" bold="false" executable="false" family="Times New Roma" foreground="[0,128,128]" italic="false" opaque="false" readonly="false" size="12" subscript="false" superscript="false" underline="true" placeholder="false"/>
+<Font name="Maple Output" background="[255,255,255]" bold="false" executable="false" family="Times New Roman" foreground="[0,0,0]" italic="false" opaque="false" readonly="false" size="12" subscript="false" superscript="false" underline="false" placeholder="false"/>
+<Font name="Dash Item" background="[255,255,255]" bold="false" executable="false" family="Times New Roman" foreground="[0,0,0]" italic="false" opaque="false" readonly="false" size="12" subscript="false" superscript="false" underline="false" placeholder="false"/>
+<Font name="2D Math" background="[255,255,255]" bold="false" executable="false" family="Times New Roman" foreground="[0,0,0]" italic="false" opaque="false" readonly="false" size="12" subscript="false" superscript="false" underline="false" placeholder="false"/>
+<Font name="Maple Input" background="[255,255,255]" bold="true" executable="true" family="Courier New" foreground="[255,0,0]" italic="false" opaque="false" readonly="false" size="12" subscript="false" superscript="false" underline="false" placeholder="false"/>
+<Font name="2D Output" background="[255,255,255]" bold="false" executable="false" family="Times New Roman" foreground="[0,0,255]" italic="false" opaque="false" readonly="true" size="12" subscript="false" superscript="false" underline="false" placeholder="false"/>
+<Font name="2D Input" background="[255,255,255]" bold="false" executable="true" family="Times New Roman" foreground="[0,0,0]" italic="false" opaque="false" readonly="false" size="12" subscript="false" superscript="false" underline="false" placeholder="false"/>
+<Font name="HyperlinkError" background="[255,255,255]" bold="false" executable="false" family="Courier New" foreground="[255,0,255]" italic="false" opaque="false" readonly="true" size="12" subscript="false" superscript="false" underline="true" placeholder="false"/>
+<Font name="Header and Footer" background="[255,255,255]" bold="false" executable="false" family="Times New Roman" foreground="[0,0,0]" italic="false" opaque="false" readonly="false" size="10" subscript="false" superscript="false" underline="false" placeholder="false"/>
+<Font name="Error" background="[255,255,255]" bold="false" executable="false" family="Courier New" foreground="[255,0,255]" italic="false" opaque="false" readonly="true" size="12" subscript="false" superscript="false" underline="false" placeholder="false"/>
+<Font name="Title" background="[255,255,255]" bold="true" executable="false" family="Times New Roman" foreground="[0,0,0]" italic="false" opaque="false" readonly="false" size="18" subscript="false" superscript="false" underline="false" placeholder="false"/>
+<Font name="Heading 1" background="[255,255,255]" bold="true" executable="false" family="Times New Roma" foreground="[0,0,0]" italic="false" opaque="false" readonly="false" size="18" subscript="false" superscript="false" underline="false" placeholder="false"/>
+<Font name="Text" background="[255,255,255]" bold="false" executable="false" family="Times New Roman" foreground="[0,0,0]" italic="false" opaque="false" readonly="false" size="12" subscript="false" superscript="false" underline="false" placeholder="false"/>
+<Font name="Bullet Item" background="[255,255,255]" bold="false" executable="false" family="Times New Roman" foreground="[0,0,0]" italic="false" opaque="false" readonly="false" size="12" subscript="false" superscript="false" underline="false" placeholder="false"/>
+<Font name="Heading 4" background="[255,255,255]" bold="false" executable="false" family="Times New Roma" foreground="[0,0,0]" italic="true" opaque="false" readonly="false" size="12" subscript="false" superscript="false" underline="false" placeholder="false"/>
+<Font name="Equation Label" background="[255,255,255]" bold="true" executable="false" family="Times New Roman" foreground="[0,0,0]" italic="false" opaque="false" readonly="false" size="12" subscript="false" superscript="false" underline="false" placeholder="false"/>
+<Font name="Heading 3" background="[255,255,255]" bold="true" executable="false" family="Times New Roma" foreground="[0,0,0]" italic="true" opaque="false" readonly="false" size="14" subscript="false" superscript="false" underline="false" placeholder="false"/>
+<Font name="Heading 2" background="[255,255,255]" bold="true" executable="false" family="Times New Roma" foreground="[0,0,0]" italic="false" opaque="false" readonly="false" size="16" subscript="false" superscript="false" underline="false" placeholder="false"/>
+<Font name="HyperlinkWarning" background="[255,255,255]" bold="false" executable="false" family="Courier New" foreground="[0,0,255]" italic="false" opaque="false" readonly="true" size="12" subscript="false" superscript="false" underline="true" placeholder="false"/>
+<Font name="Dictionary Hyperlink" background="[255,255,255]" bold="false" executable="false" family="Times New Roma" foreground="[147,0,15]" italic="false" opaque="false" readonly="false" size="12" subscript="false" superscript="false" underline="true" placeholder="false"/>
+<Font name="Atomic Variable" background="[255,255,255]" bold="false" executable="false" family="Times New Roman" foreground="[175,0,175]" italic="true" opaque="false" readonly="false" size="12" subscript="false" superscript="false" underline="false" placeholder="false"/>
+<Font name="Caption Text" background="[255,255,255]" bold="true" executable="false" family="Times New Roman" foreground="[0,0,0]" italic="false" opaque="false" readonly="false" size="12" subscript="false" superscript="false" underline="false" placeholder="false"/>
+<Font name="List Item" background="[255,255,255]" bold="false" executable="false" family="Times New Roman" foreground="[0,0,0]" italic="false" opaque="false" readonly="false" size="12" subscript="false" superscript="false" underline="false" placeholder="false"/>
+<Layout name="Ordered List 1" alignment="left" bullet="numeric" firstindent="0" leftmargin="0" rightmargin="0" linespacing="0.0" spaceabove="3" spacebelow="3" linebreak="space" pagebreak-before="false" initial="-1" bulletsuffix=""/>
+<Layout name="Ordered List 2" alignment="left" bullet="alphabetic" firstindent="0" leftmargin="36" rightmargin="0" linespacing="0.0" spaceabove="3" spacebelow="3" linebreak="space" pagebreak-before="false" initial="-1" bulletsuffix=""/>
+<Layout name="Ordered List 3" alignment="left" bullet="roman" firstindent="0" leftmargin="72" rightmargin="0" linespacing="0.0" spaceabove="3" spacebelow="3" linebreak="space" pagebreak-before="false" initial="-1" bulletsuffix=""/>
+<Layout name="Ordered List 4" alignment="left" bullet="ALPHABETIC" firstindent="0" leftmargin="108" rightmargin="0" linespacing="0.0" spaceabove="3" spacebelow="3" linebreak="space" pagebreak-before="false" initial="-1" bulletsuffix=""/>
+<Layout name="Ordered List 5" alignment="left" bullet="ROMAN" firstindent="0" leftmargin="144" rightmargin="0" linespacing="0.0" spaceabove="3" spacebelow="3" linebreak="space" pagebreak-before="false" initial="-1" bulletsuffix=""/>
+<Layout name="Author" alignment="centred" bullet="none" firstindent="0" leftmargin="0" rightmargin="0" linespacing="0.0" spaceabove="8" spacebelow="8" linebreak="space" pagebreak-before="false" initial="0" bulletsuffix=""/>
+<Layout name="Warning" alignment="left" bullet="none" firstindent="0" leftmargin="0" rightmargin="0" linespacing="0.0" spaceabove="0" spacebelow="0" linebreak="space" pagebreak-before="false" initial="0" bulletsuffix=""/>
+<Layout name="Annotation Title" alignment="centred" bullet="none" firstindent="0" leftmargin="0" rightmargin="0" linespacing="0.0" spaceabove="12" spacebelow="12" linebreak="space" pagebreak-before="false" initial="0" bulletsuffix=""/>
+<Layout name="Maple Plot" alignment="centred" bullet="none" firstindent="0" leftmargin="0" rightmargin="0" linespacing="0.0" spaceabove="0" spacebelow="0" linebreak="space" pagebreak-before="false" initial="0" bulletsuffix=""/>
+<Layout name="Line Printed Output" alignment="left" bullet="none" firstindent="0" leftmargin="0" rightmargin="0" linespacing="0.0" spaceabove="0" spacebelow="0" linebreak="any" pagebreak-before="false" initial="0" bulletsuffix=""/>
+<Layout name="Text Output" alignment="left" bullet="none" firstindent="0" leftmargin="0" rightmargin="0" linespacing="0.0" spaceabove="0" spacebelow="0" linebreak="newline" pagebreak-before="false" initial="0" bulletsuffix=""/>
+<Layout name="Diagnostic" alignment="left" bullet="none" firstindent="0" leftmargin="0" rightmargin="0" linespacing="0.0" spaceabove="0" spacebelow="0" linebreak="any" pagebreak-before="false" initial="0" bulletsuffix=""/>
+<Layout name="Normal" alignment="left" bullet="none" firstindent="0" leftmargin="0" rightmargin="0" linespacing="0.0" spaceabove="0" spacebelow="0" linebreak="space" pagebreak-before="false" initial="0" bulletsuffix=""/>
+<Layout name="Maple Output" alignment="centred" bullet="none" firstindent="0" leftmargin="0" rightmargin="0" linespacing="0.3" spaceabove="0" spacebelow="0" linebreak="space" pagebreak-before="false" initial="0" bulletsuffix=""/>
+<Layout name="Dash Item" alignment="left" bullet="dash" firstindent="0" leftmargin="0" rightmargin="0" linespacing="0.0" spaceabove="3" spacebelow="3" linebreak="space" pagebreak-before="false" initial="0" bulletsuffix=""/>
+<Layout name="HyperlinkError" alignment="left" bullet="none" firstindent="0" leftmargin="0" rightmargin="0" linespacing="0.0" spaceabove="0" spacebelow="0" linebreak="space" pagebreak-before="false" initial="0" bulletsuffix=""/>
+<Layout name="Error" alignment="left" bullet="none" firstindent="0" leftmargin="0" rightmargin="0" linespacing="0.0" spaceabove="0" spacebelow="0" linebreak="space" pagebreak-before="false" initial="0" bulletsuffix=""/>
+<Layout name="Title" alignment="centred" bullet="none" firstindent="0" leftmargin="0" rightmargin="0" linespacing="0.0" spaceabove="12" spacebelow="12" linebreak="space" pagebreak-before="false" initial="0" bulletsuffix=""/>
+<Layout name="Heading 1" alignment="left" bullet="none" firstindent="0" leftmargin="0" rightmargin="0" linespacing="0.0" spaceabove="8" spacebelow="4" linebreak="space" pagebreak-before="false" initial="0" bulletsuffix=""/>
+<Layout name="Bullet Item" alignment="left" bullet="dot" firstindent="0" leftmargin="0" rightmargin="0" linespacing="0.0" spaceabove="3" spacebelow="3" linebreak="space" pagebreak-before="false" initial="0" bulletsuffix=""/>
+<Layout name="Heading 4" alignment="left" bullet="none" firstindent="0" leftmargin="0" rightmargin="0" linespacing="0.0" spaceabove="0" spacebelow="0" linebreak="space" pagebreak-before="false" initial="0" bulletsuffix=""/>
+<Layout name="Heading 3" alignment="left" bullet="none" firstindent="0" leftmargin="0" rightmargin="0" linespacing="0.0" spaceabove="0" spacebelow="0" linebreak="space" pagebreak-before="false" initial="0" bulletsuffix=""/>
+<Layout name="Heading 2" alignment="left" bullet="none" firstindent="0" leftmargin="0" rightmargin="0" linespacing="0.0" spaceabove="8" spacebelow="2" linebreak="space" pagebreak-before="false" initial="0" bulletsuffix=""/>
+<Layout name="HyperlinkWarning" alignment="left" bullet="none" firstindent="0" leftmargin="0" rightmargin="0" linespacing="0.0" spaceabove="0" spacebelow="0" linebreak="space" pagebreak-before="false" initial="0" bulletsuffix=""/>
+<Layout name="List Item" alignment="left" bullet="indent" firstindent="0" leftmargin="0" rightmargin="0" linespacing="0.0" spaceabove="3" spacebelow="3" linebreak="space" pagebreak-before="false" initial="0" bulletsuffix=""/>
+<Pencil-style name="Pencil 5" pen-color="[255,0,0]" pen-height="5.0" pen-width="5.0" pen-opacity="1.0"/>
+<Pencil-style name="Pencil 4" pen-color="[0,0,255]" pen-height="3.0" pen-width="3.0" pen-opacity="1.0"/>
+<Pencil-style name="Pencil 3" pen-color="[0,0,0]" pen-height="3.0" pen-width="3.0" pen-opacity="1.0"/>
+<Pencil-style name="Pencil 2" pen-color="[0,0,255]" pen-height="1.0" pen-width="1.0" pen-opacity="1.0"/>
+<Pencil-style name="Pencil 1" pen-color="[0,0,0]" pen-height="1.0" pen-width="1.0" pen-opacity="1.0"/>
+<Highlighter-style name="Highlighter 2" pen-color="[255,204,0]" pen-height="14.0" pen-width="14.0" pen-opacity="0.8"/>
+<Highlighter-style name="Highlighter 1" pen-color="[255,153,255]" pen-height="12.0" pen-width="8.0" pen-opacity="0.8"/>
+<Highlighter-style name="Highlighter 4" pen-color="[0,255,255]" pen-height="32.0" pen-width="32.0" pen-opacity="0.8"/>
+<Highlighter-style name="Highlighter 3" pen-color="[51,255,0]" pen-height="24.0" pen-width="24.0" pen-opacity="0.8"/>
+<Highlighter-style name="Highlighter 5" pen-color="[255,255,0]" pen-height="48.0" pen-width="48.0" pen-opacity="0.8"/>
+</Styles>
+<Task-table>
+    <Task-category name="&lt;default&gt;"/>
+</Task-table>
+<Task/>
+<Group labelreference="L5911" drawlabel="true">
+<Input>
+<Text-field style="Text" layout="Normal">This worksheet is designed to make it convenient to run all the checks in one or several of the checking </Text-field>
+<Text-field style="Text" layout="Normal">files.  To run all possible checks, it is better to use the worksheet <Font style="Maple Input" executable="false">check_all.mw</Font></Text-field>
+</Input>
+</Group>
+<Group labelreference="L1" drawlabel="true">
+<Input>
+<Text-field prompt="&gt; " style="Maple Input" layout="Normal">restart;
+interface(quiet=true):
+olddir := currentdir(&quot;../maple&quot;):
+Digits := 100:
+read(&quot;genus2.mpl&quot;):
+currentdir(olddir):
+interface(quiet=false):
+read(&quot;../maple/checks.mpl&quot;):</Text-field>
+</Input>
+<Output>
+<Text-field style="Line Printed Output" layout="Line Printed Output">Reading util.mpl
+Reading class.mpl
+Reading Rn.mpl</Text-field>
+<Text-field style="Line Printed Output" layout="Line Printed Output">Reading brent.mpl
+Reading group.mpl</Text-field>
+<Text-field style="Line Printed Output" layout="Line Printed Output">Reading groupoid.mpl
+Reading cromulent.mpl</Text-field>
+<Text-field style="Line Printed Output" layout="Line Printed Output">Reading nets.mpl
+Reading latex.mpl
+Reading plots.mpl
+Reading checks.mpl
+Reading quadrature/quadrature.mpl
+Reading domain/domain.mpl
+Reading domain/domain_point.mpl
+Reading domain/domain_edge.mpl
+Reading domain/domain_face.mpl
+Reading domain/grid.mpl
+Reading embedded/EX.mpl</Text-field>
+<Text-field style="Line Printed Output" layout="Line Printed Output">Reading embedded/invariants.mpl</Text-field>
+<Text-field style="Line Printed Output" layout="Line Printed Output">Reading embedded/geometry.mpl</Text-field>
+<Text-field style="Line Printed Output" layout="Line Printed Output">Reading embedded/curvature.mpl
+Reading embedded/EX0.mpl</Text-field>
+<Text-field style="Line Printed Output" layout="Line Printed Output">Reading embedded/extra_curves.mpl
+Reading embedded/extra_vertices.mpl</Text-field>
+<Text-field style="Line Printed Output" layout="Line Printed Output">Reading embedded/annular_charts.mpl
+Reading embedded/disc_proj.mpl
+Reading embedded/cayley.mpl</Text-field>
+<Text-field style="Line Printed Output" layout="Line Printed Output">Reading embedded/barycentric.mpl
+Reading embedded/E_domain.mpl</Text-field>
+<Text-field style="Line Printed Output" layout="Line Printed Output">Reading embedded/E_quadrature.mpl
+Reading embedded/homology.mpl
+Reading embedded/roothalf/E_roothalf.mpl</Text-field>
+<Text-field style="Line Printed Output" layout="Line Printed Output">Reading embedded/roothalf/cayley_surface.mpl
+Reading embedded/roothalf/E_atlas.mpl
+Reading embedded/roothalf/EH_atlas.mpl</Text-field>
+<Text-field style="Line Printed Output" layout="Line Printed Output">Reading embedded/roothalf/crease.mpl
+Reading embedded/roothalf/forms.mpl
+Reading embedded/roothalf/rational.mpl</Text-field>
+<Text-field style="Line Printed Output" layout="Line Printed Output">Reading embedded/roothalf/square_diffeo.mpl</Text-field>
+<Text-field style="Line Printed Output" layout="Line Printed Output">Reading embedded/roothalf/zeta.mpl
+Reading embedded/roothalf/sphere_quotients.mpl
+Reading embedded/roothalf/better_sphere_quotients.mpl</Text-field>
+<Text-field style="Line Printed Output" layout="Line Printed Output">Reading embedded/roothalf/E_to_S.mpl
+Reading embedded/roothalf/torus_quotients.mpl</Text-field>
+<Text-field style="Line Printed Output" layout="Line Printed Output">Reading embedded/roothalf/group64.mpl</Text-field>
+<Text-field style="Line Printed Output" layout="Line Printed Output">Reading embedded/roothalf/galois.mpl</Text-field>
+<Text-field style="Line Printed Output" layout="Line Printed Output">Reading embedded/roothalf/KT_subfields.mpl</Text-field>
+<Text-field style="Line Printed Output" layout="Line Printed Output">Reading embedded/roothalf/plots.mpl
+Reading embedded/roothalf/isometric_grid.mpl
+Reading projective/PX.mpl
+Reading projective/galois.mpl
+Reading projective/ellquot.mpl</Text-field>
+<Text-field style="Line Printed Output" layout="Line Printed Output">Reading projective/picard_fuchs.mpl
+Reading projective/PX0.mpl</Text-field>
+<Text-field style="Line Printed Output" layout="Line Printed Output">Reading hyperbolic/Pi.mpl
+Reading hyperbolic/HX.mpl</Text-field>
+<Text-field style="Line Printed Output" layout="Line Printed Output">Reading hyperbolic/HX0.mpl</Text-field>
+<Text-field style="Line Printed Output" layout="Line Printed Output">Reading hyperbolic/H_to_P.mpl
+Reading hyperbolic/P_to_H.mpl
+Reading hyperbolic/geodesics.mpl</Text-field>
+<Text-field style="Line Printed Output" layout="Line Printed Output">Reading hyperbolic/schwarz.mpl</Text-field>
+<Text-field style="Line Printed Output" layout="Line Printed Output">Reading hyperbolic/plots.mpl
+Reading hyperbolic/automorphic.mpl</Text-field>
+</Output>
+</Group>
+<Group labelreference="L5608" drawlabel="true">
+<Input>
+<Text-field prompt="&gt; " style="Maple Input" layout="Normal"></Text-field>
+</Input>
+</Group>
+<Section collapsed="true" MultipleChoiceAnswerIndex="-1" MultipleChoiceRandomizeChoices="false" TrueFalseAnswerIndex="-1" EssayAnswerRows="5" EssayAnswerColumns="60"><Title>
+<Text-field style="Heading 1" layout="Heading 1">general</Text-field></Title>
+<Group labelreference="L5495" drawlabel="true">
+<Input>
+<Text-field prompt="&gt; " style="Maple Input" layout="Normal">check_precromulent(&quot;E&quot;);
+check_precromulent(&quot;P&quot;);
+check_precromulent(&quot;H&quot;);</Text-field>
+</Input>
+<Output>
+<Text-field style="2D Output" layout="Maple Output"><Equation executable="false" style="2D Output">SSV0cnVlRyUqcHJvdGVjdGVkRw==</Equation></Text-field>
+</Output>
+<Output>
+<Text-field style="2D Output" layout="Maple Output"><Equation executable="false" style="2D Output">SSV0cnVlRyUqcHJvdGVjdGVkRw==</Equation></Text-field>
+</Output>
+<Output>
+<Text-field style="2D Output" layout="Maple Output"><Equation executable="false" style="2D Output">SSV0cnVlRyUqcHJvdGVjdGVkRw==</Equation></Text-field>
+</Output>
+</Group>
+<Group labelreference="L5493" drawlabel="true">
+<Input>
+<Text-field prompt="&gt; " style="Maple Input" layout="Normal">checklist := []:
+read(&quot;../maple/brent_check.mpl&quot;);
+check_all();</Text-field>
+</Input>
+<Output>
+<Text-field style="Line Printed Output" layout="Line Printed Output">check_brent()</Text-field>
+</Output>
+</Group>
+<Group labelreference="L5863" drawlabel="true">
+<Input>
+<Text-field prompt="&gt; " style="Maple Input" layout="Normal"></Text-field>
+</Input>
+</Group>
+<Group labelreference="L5494" drawlabel="true">
+<Input>
+<Text-field prompt="&gt; " style="Maple Input" layout="Normal">checklist := []:
+read(&quot;../maple/groupoid_check.mpl&quot;);
+check_all();</Text-field>
+</Input>
+<Output>
+<Text-field style="Line Printed Output" layout="Line Printed Output">check_groupoid()</Text-field>
+</Output>
+</Group>
+<Group labelreference="L5913" drawlabel="true">
+<Input>
+<Text-field prompt="&gt; " style="Maple Input" layout="Normal"></Text-field>
+</Input>
+</Group>
+<Group labelreference="L5872" drawlabel="true">
+<Input>
+<Text-field prompt="&gt; " style="Maple Input" layout="Normal">checklist := []:
+read(&quot;../maple/group_check.mpl&quot;);
+check_all();</Text-field>
+</Input>
+</Group>
+<Group labelreference="L5912" drawlabel="true">
+<Input>
+<Text-field prompt="&gt; " style="Maple Input" layout="Normal"></Text-field>
+</Input>
+</Group>
+<Group labelreference="L5870" drawlabel="true">
+<Input>
+<Text-field prompt="&gt; " style="Maple Input" layout="Normal">checklist := []:
+read(&quot;../maple/homology_check.mpl&quot;);
+check_all();</Text-field>
+</Input>
+<Output>
+<Text-field style="Line Printed Output" layout="Line Printed Output">check_homology()</Text-field>
+</Output>
+</Group>
+<Group labelreference="L5490" drawlabel="true">
+<Input>
+<Text-field prompt="&gt; " style="Maple Input" layout="Normal"></Text-field>
+</Input>
+</Group>
+<Group labelreference="L5492" drawlabel="true">
+<Input>
+<Text-field prompt="&gt; " style="Maple Input" layout="Normal">checklist := []:
+read(&quot;../maple/nets_check.mpl&quot;);
+check_all();</Text-field>
+</Input>
+<Output>
+<Text-field style="Line Printed Output" layout="Line Printed Output">check_nets()</Text-field>
+</Output>
+</Group>
+<Group labelreference="L5491" drawlabel="true">
+<Input>
+<Text-field prompt="&gt; " style="Maple Input" layout="Normal"></Text-field>
+</Input>
+</Group>
+<Group labelreference="L5489" drawlabel="true">
+<Input>
+<Text-field prompt="&gt; " style="Maple Input" layout="Normal">checklist := []:
+read(&quot;../maple/Rn_check.mpl&quot;);
+check_all();</Text-field>
+</Input>
+<Output>
+<Text-field style="Line Printed Output" layout="Line Printed Output">check_Rn()</Text-field>
+</Output>
+</Group>
+<Group labelreference="L5873" drawlabel="true">
+<Input>
+<Text-field prompt="&gt; " style="Maple Input" layout="Normal"></Text-field>
+</Input>
+</Group>
+</Section>
+<Section collapsed="true" MultipleChoiceAnswerIndex="-1" MultipleChoiceRandomizeChoices="false" TrueFalseAnswerIndex="-1" EssayAnswerRows="5" EssayAnswerColumns="60"><Title>
+<Text-field style="Heading 1" layout="Heading 1">embedded</Text-field></Title>
+<Group labelreference="L5416" drawlabel="true">
+<Input>
+<Text-field prompt="&gt; " style="Maple Input" layout="Normal">checklist := []:
+read(&quot;../maple/embedded/EX_check.mpl&quot;);
+check_all();</Text-field>
+</Input>
+<Output>
+<Text-field style="Line Printed Output" layout="Line Printed Output">check_R4_action()</Text-field>
+<Text-field style="Line Printed Output" layout="Line Printed Output">check_smoothness()
+check_symmetry()
+check_fixed_points()
+check_E_F4()
+check_E_F16()
+check_retract_F16_E()</Text-field>
+<Text-field style="Line Printed Output" layout="Line Printed Output">check_c_param_E()</Text-field>
+</Output>
+</Group>
+<Group labelreference="L5441" drawlabel="true">
+<Input>
+<Text-field prompt="&gt; " style="Maple Input" layout="Normal"></Text-field>
+</Input>
+</Group>
+<Group labelreference="L5545" drawlabel="true">
+<Input>
+<Text-field prompt="&gt; " style="Maple Input" layout="Normal">checklist := []:
+read(&quot;../maple/embedded/annular_charts_check.mpl&quot;):
+check_all();</Text-field>
+</Input>
+<Output>
+<Text-field style="Line Printed Output" layout="Line Printed Output">check_annular_charts()</Text-field>
+</Output>
+</Group>
+<Group labelreference="L5546" drawlabel="true">
+<Input>
+<Text-field prompt="&gt; " style="Maple Input" layout="Normal"></Text-field>
+</Input>
+</Group>
+<Group labelreference="L5440" drawlabel="true">
+<Input>
+<Text-field prompt="&gt; " style="Maple Input" layout="Normal">checklist := []:
+read(&quot;../maple/embedded/barycentric_check.mpl&quot;):
+check_all();</Text-field>
+</Input>
+<Output>
+<Text-field style="Line Printed Output" layout="Line Printed Output">check_barycentric()</Text-field>
+</Output>
+</Group>
+<Group labelreference="L5544" drawlabel="true">
+<Input>
+<Text-field prompt="&gt; " style="Maple Input" layout="Normal"></Text-field>
+</Input>
+</Group>
+<Group labelreference="L5497" drawlabel="true">
+<Input>
+<Text-field prompt="&gt; " style="Maple Input" layout="Normal">checklist := []:
+read(&quot;../maple/embedded/cayley_check.mpl&quot;):
+check_all();</Text-field>
+</Input>
+<Output>
+<Text-field style="Line Printed Output" layout="Line Printed Output">check_cayley()</Text-field>
+</Output>
+</Group>
+<Group labelreference="L5876" drawlabel="true">
+<Input>
+<Text-field prompt="&gt; " style="Maple Input" layout="Normal"></Text-field>
+</Input>
+</Group>
+<Group labelreference="L5875" drawlabel="true">
+<Input>
+<Text-field prompt="&gt; " style="Maple Input" layout="Normal">checklist := []:
+read(&quot;../maple/embedded/curvature_check.mpl&quot;):
+check_all();</Text-field>
+</Input>
+<Output>
+<Text-field style="Line Printed Output" layout="Line Printed Output">check_sphere_curvature()</Text-field>
+<Text-field style="Line Printed Output" layout="Line Printed Output">check_EX_curvature()</Text-field>
+</Output>
+</Group>
+<Group labelreference="L5874" drawlabel="true">
+<Input>
+<Text-field prompt="&gt; " style="Maple Input" layout="Normal"></Text-field>
+</Input>
+</Group>
+<Group labelreference="L5443" drawlabel="true">
+<Input>
+<Text-field prompt="&gt; " style="Maple Input" layout="Normal">checklist := []:
+read(&quot;../maple/embedded/disc_proj_check.mpl&quot;):
+check_all();</Text-field>
+</Input>
+<Output>
+<Text-field style="Line Printed Output" layout="Line Printed Output">check_disc_delta()</Text-field>
+<Text-field style="Line Printed Output" layout="Line Printed Output">check_disc_pi()
+check_disc_zeta()</Text-field>
+</Output>
+</Group>
+<Group labelreference="L5438" drawlabel="true">
+<Input>
+<Text-field prompt="&gt; " style="Maple Input" layout="Normal"></Text-field>
+</Input>
+</Group>
+<Group labelreference="L5439" drawlabel="true">
+<Input>
+<Text-field prompt="&gt; " style="Maple Input" layout="Normal">checklist := []:
+read(&quot;../maple/embedded/extra_curves_check.mpl&quot;):
+check_all();</Text-field>
+</Input>
+<Output>
+<Text-field style="Line Printed Output" layout="Line Printed Output">check_extra_curves()</Text-field>
+</Output>
+</Group>
+<Group labelreference="L5485" drawlabel="true">
+<Input>
+<Text-field prompt="&gt; " style="Maple Input" layout="Normal"></Text-field>
+</Input>
+</Group>
+<Group labelreference="L5484" drawlabel="true">
+<Input>
+<Text-field prompt="&gt; " style="Maple Input" layout="Normal">checklist := []:
+read(&quot;../maple/embedded/extra_vertices_check.mpl&quot;):
+check_all();</Text-field>
+</Input>
+<Output>
+<Text-field style="Line Printed Output" layout="Line Printed Output">check_extra_vertices()</Text-field>
+</Output>
+</Group>
+<Group labelreference="L5426" drawlabel="true">
+<Input>
+<Text-field prompt="&gt; " style="Maple Input" layout="Normal"></Text-field>
+</Input>
+</Group>
+<Group labelreference="L5907" drawlabel="true">
+<Input>
+<Text-field prompt="&gt; " style="Maple Input" layout="Normal">checklist := []:
+read(&quot;../maple/embedded/E_quadrature_check.mpl&quot;):
+check_all();</Text-field>
+</Input>
+<Output>
+<Text-field style="Line Printed Output" layout="Line Printed Output">check_E_quadrature()</Text-field>
+</Output>
+</Group>
+<Group labelreference="L5906" drawlabel="true">
+<Input>
+<Text-field prompt="&gt; " style="Maple Input" layout="Normal"></Text-field>
+</Input>
+</Group>
+<Group labelreference="L5421" drawlabel="true">
+<Input>
+<Text-field prompt="&gt; " style="Maple Input" layout="Normal">checklist := []:
+read(&quot;../maple/embedded/geometry_check.mpl&quot;):
+check_all();</Text-field>
+</Input>
+<Output>
+<Text-field style="Line Printed Output" layout="Line Printed Output">check_stereo()</Text-field>
+<Text-field style="Line Printed Output" layout="Line Printed Output">check_omega()
+check_g()
+check_quadratic_chart()
+check_laplacian_a()
+check_laplacian_b()</Text-field>
+<Text-field style="Line Printed Output" layout="Line Printed Output">check_laplacian_z()</Text-field>
+</Output>
+</Group>
+<Group labelreference="L5425" drawlabel="true">
+<Input>
+<Text-field prompt="&gt; " style="Maple Input" layout="Normal"></Text-field>
+</Input>
+</Group>
+<Group labelreference="L5589" drawlabel="true">
+<Input>
+<Text-field prompt="&gt; " style="Maple Input" layout="Normal">checklist := []:
+read(&quot;../maple/embedded/homology_check.mpl&quot;);
+check_all();</Text-field>
+</Input>
+<Output>
+<Text-field style="Line Printed Output" layout="Line Printed Output">check_homology_embedded()</Text-field>
+</Output>
+</Group>
+<Group labelreference="L5590" drawlabel="true">
+<Input>
+<Text-field prompt="&gt; " style="Maple Input" layout="Normal"></Text-field>
+</Input>
+</Group>
+<Group labelreference="L5431" drawlabel="true">
+<Input>
+<Text-field prompt="&gt; " style="Maple Input" layout="Normal">checklist := []:
+read(&quot;../maple/embedded/invariants_check.mpl&quot;);
+check_all();</Text-field>
+</Input>
+<Output>
+<Text-field style="Line Printed Output" layout="Line Printed Output">check_invariants()</Text-field>
+<Text-field style="Line Printed Output" layout="Line Printed Output">check_square()</Text-field>
+</Output>
+</Group>
+<Group labelreference="L5547" drawlabel="true">
+<Input>
+<Text-field prompt="&gt; " style="Maple Input" layout="Normal"></Text-field>
+</Input>
+</Group>
+<Section collapsed="true" MultipleChoiceAnswerIndex="-1" MultipleChoiceRandomizeChoices="false" TrueFalseAnswerIndex="-1" EssayAnswerRows="5" EssayAnswerColumns="60"><Title>
+<Text-field style="Heading 2" layout="Heading 2">roothalf</Text-field></Title>
+<Group labelreference="L5447" drawlabel="true">
+<Input>
+<Text-field prompt="&gt; " style="Maple Input" layout="Normal">checklist := []:
+read(&quot;../maple/embedded/roothalf/E_roothalf_check.mpl&quot;);
+check_all();</Text-field>
+</Input>
+<Output>
+<Text-field style="Line Printed Output" layout="Line Printed Output">check_r_rels()</Text-field>
+<Text-field style="Line Printed Output" layout="Line Printed Output">check_t_proj()
+check_oval()
+check_elliptic_b()
+check_tangent_a()
+check_tangent_b()
+check_cubic_chart()</Text-field>
+<Text-field style="Line Printed Output" layout="Line Printed Output">check_extra_annular_charts()</Text-field>
+</Output>
+</Group>
+<Group labelreference="L5886" drawlabel="true">
+<Input>
+<Text-field prompt="&gt; " style="Maple Input" layout="Normal"></Text-field>
+</Input>
+</Group>
+<Group labelreference="L5448" drawlabel="true">
+<Input>
+<Text-field prompt="&gt; " style="Maple Input" layout="Normal">checklist := []:
+read(&quot;../maple/embedded/roothalf/better_sphere_quotients_check.mpl&quot;);
+check_all();</Text-field>
+</Input>
+<Output>
+<Text-field style="Line Printed Output" layout="Line Printed Output">check_energy_formula()</Text-field>
+<Text-field style="Line Printed Output" layout="Line Printed Output">check_map_to_S2()</Text-field>
+</Output>
+</Group>
+<Group labelreference="L5593" drawlabel="true">
+<Input>
+<Text-field prompt="&gt; " style="Maple Input" layout="Normal"></Text-field>
+</Input>
+</Group>
+<Group labelreference="L5591" drawlabel="true">
+<Input>
+<Text-field prompt="&gt; " style="Maple Input" layout="Normal">checklist := []:
+read(&quot;../maple/embedded/roothalf/cayley_surface_check.mpl&quot;);
+check_all();</Text-field>
+</Input>
+<Output>
+<Text-field style="Line Printed Output" layout="Line Printed Output">check_cayley_surface()</Text-field>
+</Output>
+</Group>
+<Group labelreference="L5592" drawlabel="true">
+<Input>
+<Text-field prompt="&gt; " style="Maple Input" layout="Normal"></Text-field>
+</Input>
+</Group>
+<Group labelreference="L5453" drawlabel="true">
+<Input>
+<Text-field prompt="&gt; " style="Maple Input" layout="Normal">checklist := []:
+read(&quot;../maple/embedded/roothalf/crease_check.mpl&quot;);
+check_all();</Text-field>
+</Input>
+<Output>
+<Text-field style="Line Printed Output" layout="Line Printed Output">check_crease()</Text-field>
+</Output>
+</Group>
+<Group labelreference="L5452" drawlabel="true">
+<Input>
+<Text-field prompt="&gt; " style="Maple Input" layout="Normal"></Text-field>
+</Input>
+</Group>
+<Group labelreference="L5456" drawlabel="true">
+<Input>
+<Text-field prompt="&gt; " style="Maple Input" layout="Normal">checklist := []:
+read(&quot;../maple/embedded/roothalf/forms_check.mpl&quot;);
+check_all();</Text-field>
+</Input>
+<Output>
+<Text-field style="Line Printed Output" layout="Line Printed Output">check_forms()</Text-field>
+</Output>
+</Group>
+<Group labelreference="L5454" drawlabel="true">
+<Input>
+<Text-field prompt="&gt; " style="Maple Input" layout="Normal"></Text-field>
+</Input>
+</Group>
+<Group labelreference="L5557" drawlabel="true">
+<Input>
+<Text-field prompt="&gt; " style="Maple Input" layout="Normal">checklist := []:
+read(&quot;../maple/embedded/roothalf/galois_check.mpl&quot;);
+check_all();</Text-field>
+</Input>
+<Output>
+<Text-field style="2D Output" layout="Maple Output"><Equation executable="false" style="2D Output">NyRJLWNoZWNrX2dhbG9pc0c2IkkzY2hlY2tfS1Rfc3ViZmllbGRzR0Yk</Equation></Text-field>
+</Output>
+<Output>
+<Text-field style="Line Printed Output" layout="Line Printed Output">check_galois()</Text-field>
+<Text-field style="Line Printed Output" layout="Line Printed Output">check_KT_subfields()</Text-field>
+</Output>
+</Group>
+<Group labelreference="L5895" drawlabel="true">
+<Input>
+<Text-field prompt="&gt; " style="Maple Input" layout="Normal"></Text-field>
+</Input>
+</Group>
+<Group labelreference="L5459" drawlabel="true">
+<Input>
+<Text-field prompt="&gt; " style="Maple Input" layout="Normal">checklist := []:
+read(&quot;../maple/embedded/roothalf/rational_check.mpl&quot;);
+check_all();</Text-field>
+</Input>
+<Output>
+<Text-field style="Line Printed Output" layout="Line Printed Output">check_rational()</Text-field>
+</Output>
+</Group>
+<Group labelreference="L5458" drawlabel="true">
+<Input>
+<Text-field prompt="&gt; " style="Maple Input" layout="Normal"></Text-field>
+</Input>
+</Group>
+<Group labelreference="L5602" drawlabel="true">
+<Input>
+<Text-field prompt="&gt; " style="Maple Input" layout="Normal">checklist := []:
+read(&quot;../maple/embedded/roothalf/sphere_quotients_check.mpl&quot;);
+check_all();</Text-field>
+</Input>
+<Output>
+<Text-field style="Line Printed Output" layout="Line Printed Output">check_map_to_S2_charts()</Text-field>
+<Text-field style="Line Printed Output" layout="Line Printed Output">check_map_to_S2_quotients()</Text-field>
+</Output>
+</Group>
+<Group labelreference="L5605" drawlabel="true">
+<Input>
+<Text-field prompt="&gt; " style="Maple Input" layout="Normal"></Text-field>
+</Input>
+</Group>
+<Group labelreference="L5462" drawlabel="true">
+<Input>
+<Text-field prompt="&gt; " style="Maple Input" layout="Normal">checklist := []:
+read(&quot;../maple/embedded/roothalf/square_diffeo_check.mpl&quot;);
+check_all();</Text-field>
+</Input>
+<Output>
+<Text-field style="Line Printed Output" layout="Line Printed Output">check_square_diffeo_E0()</Text-field>
+</Output>
+</Group>
+<Group labelreference="L5555" drawlabel="true">
+<Input>
+<Text-field prompt="&gt; " style="Maple Input" layout="Normal"></Text-field>
+</Input>
+</Group>
+<Group labelreference="L5606" drawlabel="true">
+<Input>
+<Text-field prompt="&gt; " style="Maple Input" layout="Normal">checklist := []:
+read(&quot;../maple/embedded/roothalf/torus_quotients_check.mpl&quot;);
+check_all();</Text-field>
+</Input>
+<Output>
+<Text-field style="Line Printed Output" layout="Line Printed Output">check_torus_diagrams()</Text-field>
+<Text-field style="Line Printed Output" layout="Line Printed Output">check_torus_T()</Text-field>
+<Text-field style="Line Printed Output" layout="Line Printed Output">check_torus_Tp()</Text-field>
+<Text-field style="Line Printed Output" layout="Line Printed Output">check_torus_Tm()</Text-field>
+<Text-field style="Line Printed Output" layout="Line Printed Output">check_torus_Tmq()</Text-field>
+<Text-field style="Line Printed Output" layout="Line Printed Output">check_torus_jacobian()</Text-field>
+<Text-field style="Line Printed Output" layout="Line Printed Output">check_torus_inverse()</Text-field>
+</Output>
+</Group>
+<Group labelreference="L5831" drawlabel="true">
+<Input>
+<Text-field prompt="&gt; " style="Maple Input" layout="Normal"></Text-field>
+</Input>
+</Group>
+<Group labelreference="L5461" drawlabel="true">
+<Input>
+<Text-field prompt="&gt; " style="Maple Input" layout="Normal">checklist := []:
+read(&quot;../maple/embedded/roothalf/zeta_check.mpl&quot;);
+check_all();</Text-field>
+</Input>
+<Output>
+<Text-field style="Line Printed Output" layout="Line Printed Output">check_zeta()</Text-field>
+</Output>
+</Group>
+<Group labelreference="L5568" drawlabel="true">
+<Input>
+<Text-field prompt="&gt; " style="Maple Input" layout="Normal"></Text-field>
+</Input>
+</Group>
+<Group labelreference="L5586" drawlabel="true">
+<Input>
+<Text-field prompt="&gt; " style="Maple Input" layout="Normal"></Text-field>
+</Input>
+</Group>
+</Section>
+</Section>
+<Section collapsed="true" MultipleChoiceAnswerIndex="-1" MultipleChoiceRandomizeChoices="false" TrueFalseAnswerIndex="-1" EssayAnswerRows="5" EssayAnswerColumns="60"><Title>
+<Text-field style="Heading 1" layout="Heading 1">projective</Text-field></Title>
+<Group labelreference="L5470" drawlabel="true">
+<Input>
+<Text-field prompt="&gt; " style="Maple Input" layout="Normal">checklist := []:
+read(&quot;../maple/projective/PX_check.mpl&quot;);
+check_all();</Text-field>
+</Input>
+<Output>
+<Text-field style="Line Printed Output" layout="Line Printed Output">check_r_P_cofactors()</Text-field>
+<Text-field style="Line Printed Output" layout="Line Printed Output">check_P_action()
+check_j_P()</Text-field>
+</Output>
+</Group>
+<Group labelreference="L5465" drawlabel="true">
+<Input>
+<Text-field prompt="&gt; " style="Maple Input" layout="Normal"></Text-field>
+</Input>
+</Group>
+<Group labelreference="L5910" drawlabel="true">
+<Input>
+<Text-field prompt="&gt; " style="Maple Input" layout="Normal">checklist := []:
+read(&quot;../maple/projective/ellquot_check.mpl&quot;);
+check_all();</Text-field>
+</Input>
+<Output>
+<Text-field style="Line Printed Output" layout="Line Printed Output">check_ellquot()</Text-field>
+<Text-field style="Line Printed Output" layout="Line Printed Output">check_translations()</Text-field>
+<Text-field style="Line Printed Output" layout="Line Printed Output">check_isogenies()</Text-field>
+<Text-field style="Line Printed Output" layout="Line Printed Output">check_weierstrass()</Text-field>
+<Text-field style="Line Printed Output" layout="Line Printed Output">check_Ep0_circle()</Text-field>
+</Output>
+</Group>
+<Group labelreference="L5908" drawlabel="true">
+<Input>
+<Text-field prompt="&gt; " style="Maple Input" layout="Normal"></Text-field>
+</Input>
+</Group>
+<Group labelreference="L5464" drawlabel="true">
+<Input>
+<Text-field prompt="&gt; " style="Maple Input" layout="Normal">checklist := []:
+read(&quot;../maple/projective/galois_check.mpl&quot;);
+check_all();</Text-field>
+</Input>
+<Output>
+<Text-field style="Line Printed Output" layout="Line Printed Output">check_PK_action()</Text-field>
+</Output>
+</Group>
+<Group labelreference="L5467" drawlabel="true">
+<Input>
+<Text-field prompt="&gt; " style="Maple Input" layout="Normal"></Text-field>
+</Input>
+</Group>
+<Group labelreference="L5471" drawlabel="true">
+<Input>
+<Text-field prompt="&gt; " style="Maple Input" layout="Normal"></Text-field>
+</Input>
+</Group>
+<Group labelreference="L5466" drawlabel="true">
+<Input>
+<Text-field prompt="&gt; " style="Maple Input" layout="Normal">checklist := []:
+read(&quot;../maple/projective/picard_fuchs_check.mpl&quot;);
+check_all();</Text-field>
+</Input>
+<Output>
+<Text-field style="Line Printed Output" layout="Line Printed Output">check_picard_fuchs()</Text-field>
+<Text-field style="Line Printed Output" layout="Line Printed Output">check_period_integrals()</Text-field>
+<Text-field style="Line Printed Output" layout="Line Printed Output">check_periods()</Text-field>
+</Output>
+</Group>
+<Group labelreference="L5482" drawlabel="true">
+<Input>
+<Text-field prompt="&gt; " style="Maple Input" layout="Normal"></Text-field>
+</Input>
+</Group>
+</Section>
+<Section collapsed="true" MultipleChoiceAnswerIndex="-1" MultipleChoiceRandomizeChoices="false" TrueFalseAnswerIndex="-1" EssayAnswerRows="5" EssayAnswerColumns="60"><Title>
+<Text-field style="Heading 1" layout="Heading 1">hyperbolic</Text-field></Title>
+<Group labelreference="L5474" drawlabel="true">
+<Input>
+<Text-field prompt="&gt; " style="Maple Input" layout="Normal">checklist := []:
+read(&quot;../maple/hyperbolic/HX_check.mpl&quot;);
+check_all();</Text-field>
+</Input>
+<Output>
+<Text-field style="Line Printed Output" layout="Line Printed Output">check_hyperbolic_metric()</Text-field>
+<Text-field style="Line Printed Output" layout="Line Printed Output">check_Pi_action()
+check_v_H()</Text-field>
+<Text-field style="Line Printed Output" layout="Line Printed Output">check_c_H_monodromy()</Text-field>
+<Text-field style="Line Printed Output" layout="Line Printed Output">check_H_F1()
+check_F1_area()</Text-field>
+<Text-field style="Line Printed Output" layout="Line Printed Output">check_xi()</Text-field>
+</Output>
+</Group>
+<Group labelreference="L5903" drawlabel="true">
+<Input>
+<Text-field prompt="&gt; " style="Maple Input" layout="Normal"></Text-field>
+</Input>
+</Group>
+<Group labelreference="L5473" drawlabel="true">
+<Input>
+<Text-field prompt="&gt; " style="Maple Input" layout="Normal">checklist := []:
+read(&quot;../maple/hyperbolic/Pi_check.mpl&quot;);
+check_all();</Text-field>
+</Input>
+<Output>
+<Text-field style="Line Printed Output" layout="Line Printed Output">check_Pi_relations()</Text-field>
+<Text-field style="Line Printed Output" layout="Line Printed Output">check_Pi_alpha()
+check_Pi_sigma()</Text-field>
+</Output>
+</Group>
+<Group labelreference="L5478" drawlabel="true">
+<Input>
+<Text-field prompt="&gt; " style="Maple Input" layout="Normal"></Text-field>
+</Input>
+</Group>
+<Group labelreference="L5563" drawlabel="true">
+<Input>
+<Text-field prompt="&gt; " style="Maple Input" layout="Normal">checklist := []:
+read(&quot;../maple/hyperbolic/geodesics_check.mpl&quot;);
+check_all();</Text-field>
+</Input>
+<Output>
+<Text-field style="Line Printed Output" layout="Line Printed Output">check_geodesic_H()</Text-field>
+</Output>
+</Group>
+<Group labelreference="L5564" drawlabel="true">
+<Input>
+<Text-field prompt="&gt; " style="Maple Input" layout="Normal"></Text-field>
+</Input>
+</Group>
+<Group labelreference="L5475" drawlabel="true">
+<Input>
+<Text-field prompt="&gt; " style="Maple Input" layout="Normal">checklist := []:
+read(&quot;../maple/hyperbolic/schwarz_check.mpl&quot;);
+check_all();</Text-field>
+</Input>
+<Output>
+<Text-field style="Line Printed Output" layout="Line Printed Output">check_schwarz()</Text-field>
+<Text-field style="Line Printed Output" layout="Line Printed Output">check_heun()</Text-field>
+</Output>
+</Group>
+<Group labelreference="L5481" drawlabel="true">
+<Input>
+<Text-field prompt="&gt; " style="Maple Input" layout="Normal"></Text-field>
+</Input>
+</Group>
+</Section>
+<Section collapsed="true" MultipleChoiceAnswerIndex="-1" MultipleChoiceRandomizeChoices="false" TrueFalseAnswerIndex="-1" EssayAnswerRows="5" EssayAnswerColumns="60"><Title>
+<Text-field style="Heading 1" layout="Heading 1">quadrature</Text-field></Title>
+<Group labelreference="L5479" drawlabel="true">
+<Input>
+<Text-field prompt="&gt; " style="Maple Input" layout="Normal">checklist := []:
+read(&quot;../maple/quadrature/quadrature_check.mpl&quot;);
+check_all();</Text-field>
+</Input>
+<Output>
+<Text-field style="Line Printed Output" layout="Line Printed Output">check_quadrature()</Text-field>
+</Output>
+</Group>
+<Group labelreference="L5480" drawlabel="true">
+<Input>
+<Text-field prompt="&gt; " style="Maple Input" layout="Normal"></Text-field>
+</Input>
+</Group>
+</Section>
+</Worksheet>

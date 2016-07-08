@@ -1,0 +1,219 @@
+\documentclass[reqno]{amsart}
+\usepackage{hyperref}
+\usepackage{fullpage}
+\usepackage{amsrefs}
+\usepackage{tikz}
+\usetikzlibrary{arrows}
+\usepackage{newverbs}
+\usepackage{fancyvrb}
+
+\newif\ifshowkeys
+\showkeysfalse
+
+\ifshowkeys
+\newcommand{\lbl}[1]{\label{#1}\textup{[\texttt{#1}]}\ \\}
+\else
+\newcommand{\lbl}{\label}
+\fi
+
+\input xypic
+\newdir{ >}{{}*!/-9pt/\dir{>}}
+
+\definecolor{maplecyan}{rgb}{0,1,1}
+\definecolor{maplegreen}{rgb}{0.04,0.98,0.04}
+\definecolor{maplemagenta}{rgb}{1,0.02,1}
+\definecolor{mapleblue}{rgb}{0,0,1}
+\definecolor{maplered}{rgb}{1,0,0}
+\definecolor{maplepurple}{rgb}{0.5,0,0.5}
+
+\definecolor{olivegreen}{cmyk}{0.64,0,0.95,0.40}
+\definecolor{rawsienna}{cmyk}{0,0.72,1,0.45}
+
+\newcommand{\Aut}	{\operatorname{Aut}}
+\newcommand{\Hom}	{\operatorname{Hom}}
+\newcommand{\Inn}	{\operatorname{Inn}}
+\newcommand{\Out}	{\operatorname{Out}}
+
+\newcommand{\alg}	{\operatorname{alg}}
+\newcommand{\stab}	{\operatorname{stab}}
+
+\newcommand{\Dl}        {\Delta}
+\newcommand{\Gm}        {\Gamma}
+\newcommand{\Lm}        {\Lambda}
+\newcommand{\Sg}        {\Sigma}
+\newcommand{\Om}        {\Omega}
+
+\newcommand{\al}        {\alpha}
+\newcommand{\bt}        {\beta} 
+\newcommand{\gm}        {\gamma}
+\newcommand{\dl}        {\delta}
+\newcommand{\ep}        {\epsilon}
+\newcommand{\zt}        {\zeta}
+\newcommand{\ztb}       {\overline{\zt}}
+\newcommand{\tht}       {\theta}
+\newcommand{\lm}        {\lambda}
+\newcommand{\om}        {\omega}
+\newcommand{\sg}        {\sigma}
+
+\newcommand{\xla}       {\xleftarrow}
+\newcommand{\xra}       {\xrightarrow}
+
+\newcommand{\Z}         {{\mathbb{Z}}}
+\newcommand{\Q}         {{\mathbb{Q}}}
+\newcommand{\R}         {{\mathbb{R}}}
+\newcommand{\C}         {{\mathbb{C}}}
+
+\newcommand{\ov}[1]     {\overline{#1}}
+\newcommand{\ip}[1]     {\langle #1\rangle}
+\newcommand{\st}        {\;|\;}
+\newcommand{\tm}        {\times}
+\newcommand{\sm}        {\setminus}
+\newcommand{\bbm}       {\left[\begin{matrix}}
+\newcommand{\ebm}       {\end{matrix}\right]}
+\newcommand{\Wedge}     {\vee}
+\newcommand{\sse}       {\subseteq}
+\newcommand{\half}      {\tfrac{1}{2}}
+
+\newcommand{\tA}	{\widetilde{A}}
+\newcommand{\tC}	{\widetilde{C}}
+\newcommand{\tF}	{\widetilde{F}}
+\newcommand{\tG}	{\widetilde{G}}
+\newcommand{\tU}	{\widetilde{U}}
+\newcommand{\tX}	{\widetilde{X}}
+\newcommand{\ta}	{\widetilde{a}}
+\newcommand{\tc}	{\widetilde{c}}
+\newcommand{\tq}	{\widetilde{q}}
+\newcommand{\tu}	{\widetilde{u}}
+
+\newcommand{\CX}        {\mathcal{X}}
+
+\newcommand{\ab}	{\overline{a}}
+\newcommand{\bb}	{\overline{b}}
+\newcommand{\ub}        {\overline{u}}
+\newcommand{\vb}	{\overline{v}}
+\newcommand{\zb}	{\overline{z}}
+\newcommand{\alb}	{\overline{\alpha}}
+\newcommand{\lmb}	{\overline{\lambda}}
+
+\newcommand{\hc}        {\widehat{c}}
+\newcommand{\pp}        {\hphantom{+}}
+\newcommand{\rt}        {\sqrt{2}}
+
+\newcommand{\sss}{\scriptscriptstyle}
+\renewcommand{\ss}{\scriptstyle}
+\renewcommand{\:}{\colon}
+
+\newcommand{\uc}        {\uncover}
+
+\newtheorem{theorem}{Theorem}[section]
+\newtheorem{conjecture}[theorem]{Conjecture}
+\newtheorem{lemma}[theorem]{Lemma}
+\newtheorem{proposition}[theorem]{Proposition}
+\newtheorem{corollary}[theorem]{Corollary}
+\theoremstyle{definition}
+\newtheorem{remark}[theorem]{Remark}
+\newtheorem{definition}[theorem]{Definition}
+\newtheorem{example}[theorem]{Example}
+
+\newtheorem{notation}{Notation}
+\renewcommand{\thenotation}{} % make the notation environment unnumbered
+
+\title{An interesting surface of genus two}
+\author{Neil Strickland \\
+(with computational help from Gemma Halliwell)
+}
+
+\renewcommand{\ttdefault}{pcr}
+
+\DefineVerbatimEnvironment{checks}{Verbatim}{formatcom=\color{blue},fontfamily=courier}
+\DefineVerbatimEnvironment{mcodeblock}{Verbatim}{formatcom=\color{red}}
+\newverbcommand{\mcode}{\color{red}}{}
+\newverbcommand{\fname}{\color{green}}{}
+
+\begin{document}
+
+ \begin{center}
+  \begin{tikzpicture}[scale=3.1]
+   \def\ya{0.7}
+   \def\yb{1.4}
+   \def\yc{2.1}
+   \def\xa{0.8}
+   \def\xb{1.6}
+   \def\Da{( 0.0, 0.0)}
+   \def\Ba{(-\xa, \ya)}
+   \def\Bb{( \xa, \ya)}
+   \def\Ca{(   0, \ya)}
+   \def\Aa{(-\xb, \yb)}
+   \def\Ab{( \xa, \yb)}
+   \def\Ac{(-\xa, \yb)}
+   \def\Ad{( \xb, \yb)}
+   \def\Za{(   0, \yb)}
+   \def\Ta{(   0, \yc)}
+   \begin{scope}[xshift=1cm]
+    \draw \Da node{$H_{10}=D_8$};
+    \draw \Ca node{$H_3=\ip{\lm}$};
+    \draw \Ba node{$H_8=\ip{\lm^2,\mu}$};
+    \draw \Bb node{$H_9=\ip{\lm^2,\lm\mu}$};
+    \draw \Aa node{$H_6=\ip{\lm^2\mu}$};
+    \draw \Ab node{$H_5=\ip{\lm\mu}$};
+    \draw \Ac node{$H_4=\ip{\mu}$};
+    \draw \Ad node{$H_7=\ip{\lm^3\mu}$};
+    \draw \Za node{$H_2=\ip{\lm^2}$};
+    \draw \Ta node{$H_1=1$};
+    \draw[<-,shorten <=15pt,shorten >=15pt] \Da -- \Ba;
+    \draw[<-,shorten <=15pt,shorten >=15pt] \Da -- \Bb;
+    \draw[<-,shorten <=15pt,shorten >=15pt] \Da -- \Ca;
+    \draw[<-,shorten <=15pt,shorten >=15pt] \Ca -- \Za;
+    \draw[<-,shorten <=15pt,shorten >=15pt] \Ba -- \Aa;
+    \draw[<-,shorten <=15pt,shorten >=15pt] \Ba -- \Ac;
+    \draw[<-,shorten <=15pt,shorten >=15pt] \Ba -- \Za;
+    \draw[<-,shorten <=15pt,shorten >=15pt] \Bb -- \Ab;
+    \draw[<-,shorten <=15pt,shorten >=15pt] \Bb -- \Ad;
+    \draw[<-,shorten <=15pt,shorten >=15pt] \Bb -- \Za;
+    \draw[<-,shorten <=19pt,shorten >=15pt] \Aa -- \Ta;
+    \draw[<-,shorten <=15pt,shorten >=15pt] \Ab -- \Ta;
+    \draw[<-,shorten <=15pt,shorten >=15pt] \Ac -- \Ta;
+    \draw[<-,shorten <=19pt,shorten >=15pt] \Ad -- \Ta;
+    \draw[<-,shorten <=15pt,shorten >=15pt] \Za -- \Ta;
+   \end{scope}
+  \end{tikzpicture}
+ \end{center}
+
+\end{document}
+
+ \begin{center}
+  \begin{tikzpicture}[scale=2.7]
+   \begin{scope}[xshift=4cm]
+    \draw \Da node{$\Q$};
+    \draw \Ca node{$\Q(\sqrt{14})$};
+    \draw \Ba node{$\Q(\sqrt{2})$};
+    \draw \Bb node{$\Q(\sqrt{7})$};
+    \draw \Aa node{$\Q(\al-\bt)$};
+    \draw \Ab node{$\Q(\bt)$};
+    \draw \Ac node{$\Q(\al+\bt)$};
+    \draw \Ad node{$\Q(\al)$};
+    \draw \Za node{$\Q(\sqrt{2},\sqrt{7})$};
+    \draw \Ta node{$K$};
+    \draw[->,shorten <=11pt,shorten >=11pt] \Da -- \Ba;
+    \draw[->,shorten <=11pt,shorten >=11pt] \Da -- \Bb;
+    \draw[->,shorten <=11pt,shorten >=11pt] \Da -- \Ca;
+    \draw[->,shorten <=11pt,shorten >=11pt] \Ca -- \Za;
+    \draw[->,shorten <=11pt,shorten >=11pt] \Ba -- \Aa;
+    \draw[->,shorten <=11pt,shorten >=11pt] \Ba -- \Ac;
+    \draw[->,shorten <=11pt,shorten >=11pt] \Ba -- \Za;
+    \draw[->,shorten <=11pt,shorten >=11pt] \Bb -- \Ab;
+    \draw[->,shorten <=11pt,shorten >=11pt] \Bb -- \Ad;
+    \draw[->,shorten <=11pt,shorten >=11pt] \Bb -- \Za;
+    \draw[->,shorten <=11pt,shorten >=11pt] \Aa -- \Ta;
+    \draw[->,shorten <=11pt,shorten >=11pt] \Ab -- \Ta;
+    \draw[->,shorten <=11pt,shorten >=11pt] \Ac -- \Ta;
+    \draw[->,shorten <=11pt,shorten >=11pt] \Ad -- \Ta;
+    \draw[->,shorten <=11pt,shorten >=11pt] \Za -- \Ta;
+   \end{scope}
+  \end{tikzpicture}
+ \end{center}
+
+
+\end{document}
+
+
