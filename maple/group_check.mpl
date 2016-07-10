@@ -3,16 +3,27 @@ check_group_properties := proc()
 
  printf("%a()\n",procname);
 
- for T in G16 do
-  _ASSERT(G_mult(1,T) = T,"unit axiom for G16");
-  _ASSERT(G_mult(T,G_inv(T)) = 1,"inverse axiom for G16");
-  for U in G16 do
-   _ASSERT(member(G_mult(T,U),G16),"closure axiom for G16");
-   for V in G16 do
-    _ASSERT(G_mult(T,G_mult(U,V)) = G_mult(G_mult(T,U),V),"associativity axiom for G16");
-   od:
-  od:
- od:
+ _ASSERT(
+  `and`(seq(G_mult(1,T) = T,T in G16)),
+  "unit axiom for G16"
+ );
+
+ _ASSERT(
+  `and`(seq(G_mult(T,G_inv(T)) = 1,T in G16)),
+  "unit axiom for G16"
+ );
+
+ _ASSERT(
+  `and`(seq(seq(member(G_mult(T,U),G16),U in G16),T in G16)),
+  "closure axiom for G16"
+ );
+
+ _ASSERT(
+  `and`(seq(seq(seq(
+    G_mult(T,G_mult(U,V)) = G_mult(G_mult(T,U),V),
+     V in G16),U in G16),T in G16)),
+  "associativity axiom for G16"
+ );
 
  _ASSERT(G_mult(G_mult(G_mult(L,L),L),L) = 1,"lambda^4=1");
  _ASSERT(G_mult(M,M) = 1,"mu^2=1");
