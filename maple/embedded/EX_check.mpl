@@ -3,12 +3,14 @@ check_R4_action := proc()
 
  printf("%a()\n",procname);
 
- for T in G16 do
-  for U in G16 do
-   _ASSERT(act_R4[T](act_R4[U](x)) = act_R4[G_mult(T,U)](x),"composition for action on R4");
-  od:
- od:
- NULL;
+ _ASSERT(
+  `and`(seq(seq(
+   act_R4[T](act_R4[U](x)) = act_R4[G_mult(T,U)](x),
+    U in G16),T in G16)),
+  "action on R^4 is associative"
+ );
+
+NULL;
 end:
 
 add_check(check_R4_action):
