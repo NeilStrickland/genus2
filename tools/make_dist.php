@@ -1,11 +1,18 @@
 <?php
 
-$tex_dir = dirname(dirname(__DIR__));
-$work_dir = $tex_dir . '/genus2';
-$dist_dir = $tex_dir . '/genus2_dist';
+$map = new stdClass();
 
+$map->genus2_dir     = dirname(dirname(__DIR__));
+$map->main_dir       = $map->genus2_dir . '/main';
+$map->images_dir     = $map->main_dir . '/images';
+$map->latex_dir      = $map->main_dir . '/latex';
+$map->maple_dir      = $map->main_dir . '/maple';
+$map->worksheets_dir = $map->main_dir . '/worksheets';
+$map->doc_dir        = $map->main_dir . '/doc';
+ 
 function rm_rf($dir) {
  if (! $dir) { return(false); }
+ if (! is_dir($dir)) { return(false); }
  
  $files = array_diff(scandir($dir), array('.', '..')); 
 
@@ -16,13 +23,7 @@ function rm_rf($dir) {
  return rmdir($dir); 
 }
 
-if (is_dir($dist_dir)) {
- rm_rf($dist_dir);
-}
-
-mkdir($dist_dir);
-
-$subdirs =
+$map->subdirs =
  array(
        '/latex',
        '/latex/tikz_includes',
@@ -47,12 +48,18 @@ $subdirs =
        '/plots/thumbs'
        );
 
-foreach($subdirs as $d) {
- echo "Creating $d" . PHP_EOL;
- mkdir($dist_dir . $d);
-}
+$map->files = array();
 
-$latex_files =
+$map->files['doc'] =
+ array(
+       '/doc/defs.html',
+       '/doc/defs.html',
+       '/doc/entries.html',
+       '/doc/genus2.html',
+       '/doc/index.html'
+       );
+
+$map->files['latex'] =
  array(
        '/latex/genus2.tex',
        '/latex/genus2.bib',
@@ -71,7 +78,7 @@ $latex_files =
        '/latex/tikz_includes/beta_plot.tex',
        );
 
-$image_files = 
+$map->files['included_images'] = 
  array(
        '/images/XX.jpg',
        '/images/Omega.jpg',
@@ -87,14 +94,14 @@ $image_files =
        '/images/E_to_S_u[3].jpg',
        );
 
-$maple_files = 
+$map->files['maple'] = 
  array(
        '/maple/util.mpl',
        '/maple/class.mpl',
        '/maple/Rn.mpl',
        '/maple/build_data.mpl',
-       '/maple/build_data_toy.mpl',
        '/maple/brent.mpl',
+       '/maple/genus2.mpl',
        '/maple/group.mpl',
        '/maple/groupoid.mpl',
        '/maple/cromulent.mpl',
@@ -102,6 +109,7 @@ $maple_files =
        '/maple/latex.mpl',
        '/maple/plots.mpl',
        '/maple/checks.mpl',
+       '/maple/check_all.mpl',
        '/maple/quadrature/quadrature.mpl',
        '/maple/domain/domain.mpl',
        '/maple/domain/domain_point.mpl',
@@ -122,6 +130,7 @@ $maple_files =
        '/maple/embedded/E_domain.mpl',
        '/maple/embedded/E_quadrature.mpl',
        '/maple/embedded/homology.mpl',
+       '/maple/embedded/plots.mpl',
        '/maple/embedded/roothalf/E_roothalf.mpl',
        '/maple/embedded/roothalf/cayley_surface.mpl',
        '/maple/embedded/roothalf/E_atlas.mpl',
@@ -139,16 +148,17 @@ $maple_files =
        '/maple/embedded/roothalf/galois.mpl',
        '/maple/embedded/roothalf/KR_subfields.mpl',
        '/maple/embedded/roothalf/plots.mpl',
-       '/maple/embedded/roothalf/isometric_grid.mpl',
        '/maple/projective/PX.mpl',
        '/maple/projective/galois.mpl',
        '/maple/projective/ellquot.mpl',
        '/maple/projective/picard_fuchs.mpl',
        '/maple/projective/PK_subfields.mpl',
        '/maple/projective/PX0.mpl',
+       '/maple/projective/plots.mpl',
        '/maple/hyperbolic/Pi.mpl',
        '/maple/hyperbolic/HX.mpl',
        '/maple/hyperbolic/HX0.mpl',
+       '/maple/hyperbolic/HP_table.mpl',
        '/maple/hyperbolic/H_to_P.mpl',
        '/maple/hyperbolic/P_to_H.mpl',
        '/maple/hyperbolic/geodesics.mpl',
@@ -157,71 +167,135 @@ $maple_files =
        '/maple/hyperbolic/automorphic.mpl',
        );
 
-$check_files =
+$map->files['checks'] =
  array(
-       'brent_check.mpl',
-       'cromulent_check.mpl',
-       'group_check.mpl',
-       'groupoid_check.mpl',
-       'homology_check.mpl',
-       'nets_check.mpl',
-       'Rn_check.mpl',
-       'embedded/EX_check.mpl',
-       'embedded/annular_charts_check.mpl',
-       'embedded/barycentric_check.mpl',
-       'embedded/cayley_check.mpl',
-       'embedded/curvature_check.mpl',
-       'embedded/disc_proj_check.mpl',
-       'embedded/extra_curves_check.mpl',
-       'embedded/extra_vertices_check.mpl',
-       'embedded/E_quadrature_check.mpl',
-       'embedded/geometry_check.mpl',
-       'embedded/homology_check.mpl',
-       'embedded/invariants_check.mpl',
-       'embedded/roothalf/E_roothalf_check.mpl',
-       'embedded/roothalf/better_sphere_quotients_check.mpl',
-       'embedded/roothalf/cayley_surface_check.mpl',
-       'embedded/roothalf/crease_check.mpl',
-       'embedded/roothalf/forms_check.mpl',
-       'embedded/roothalf/galois_check.mpl',
-       'embedded/roothalf/rational_check.mpl',
-       'embedded/roothalf/sphere_quotients_check.mpl',
-       'embedded/roothalf/square_diffeo_check.mpl',
-       'embedded/roothalf/torus_quotients_check.mpl',
-       'embedded/roothalf/zeta_check.mpl',
-       'hyperbolic/HX_check.mpl',
-       'hyperbolic/geodesics_check.mpl',
-       'hyperbolic/Pi_check.mpl',
-       'hyperbolic/schwarz_check.mpl',
-       'projective/PX_check.mpl',
-       'projective/ellquot_check.mpl',
-       'projective/galois_check.mpl',
-       'projective/picard_fuchs_check.mpl',
-       'quadrature/quadrature_check.mpl',
+       '/maple/brent_check.mpl',
+       '/maple/cromulent_check.mpl',
+       '/maple/group_check.mpl',
+       '/maple/groupoid_check.mpl',
+       '/maple/homology_check.mpl',
+       '/maple/nets_check.mpl',
+       '/maple/Rn_check.mpl',
+       '/maple/embedded/EX_check.mpl',
+       '/maple/embedded/annular_charts_check.mpl',
+       '/maple/embedded/barycentric_check.mpl',
+       '/maple/embedded/cayley_check.mpl',
+       '/maple/embedded/curvature_check.mpl',
+       '/maple/embedded/disc_proj_check.mpl',
+       '/maple/embedded/extra_curves_check.mpl',
+       '/maple/embedded/extra_vertices_check.mpl',
+       '/maple/embedded/E_quadrature_check.mpl',
+       '/maple/embedded/geometry_check.mpl',
+       '/maple/embedded/homology_check.mpl',
+       '/maple/embedded/invariants_check.mpl',
+       '/maple/embedded/roothalf/E_roothalf_check.mpl',
+       '/maple/embedded/roothalf/better_sphere_quotients_check.mpl',
+       '/maple/embedded/roothalf/cayley_surface_check.mpl',
+       '/maple/embedded/roothalf/crease_check.mpl',
+       '/maple/embedded/roothalf/forms_check.mpl',
+       '/maple/embedded/roothalf/galois_check.mpl',
+       '/maple/embedded/roothalf/rational_check.mpl',
+       '/maple/embedded/roothalf/sphere_quotients_check.mpl',
+       '/maple/embedded/roothalf/square_diffeo_check.mpl',
+       '/maple/embedded/roothalf/torus_quotients_check.mpl',
+       '/maple/embedded/roothalf/zeta_check.mpl',
+       '/maple/hyperbolic/HX_check.mpl',
+       '/maple/hyperbolic/geodesics_check.mpl',
+       '/maple/hyperbolic/Pi_check.mpl',
+       '/maple/hyperbolic/schwarz_check.mpl',
+       '/maple/projective/PX_check.mpl',
+       '/maple/projective/ellquot_check.mpl',
+       '/maple/projective/galois_check.mpl',
+       '/maple/projective/picard_fuchs_check.mpl',
+       '/maple/quadrature/quadrature_check.mpl',
        );
 
-$worksheet_files = 
+$map->files['all_maple'] =
+ array_merge($map->files['maple'],$map->files['checks']);
+ 
+$map->files['worksheets'] = 
  array(
+       '/worksheets/genus2.mw',
+       '/worksheets/genus2_pics.mw',
        '/worksheets/checks.mw',
        '/worksheets/check_all.mw',
        '/worksheets/text_check.mw',
        '/worksheets/build_data.mw',
-       '/worksheets/build_data.mw',
        '/worksheets/build_data_toy.mw',
        );
 
-$files =
- array_merge(
-	     $latex_files,
-	     $image_files,
-	     $maple_files,
-	     $check_files,
-	     $worksheet_files
-	     );
+function make_arxiv() {
+ global $map;
+ 
+ $arxiv_dir = $map->genus2_dir . '/arxiv';
+ rm_rf($arxiv_dir);
+ mkdir($arxiv_dir);
 
-foreach($files as $f) {
- echo "Copying $f" . PHP_EOL;
- copy($work_dir . $f,$dist_dir . $f);
+ $tex = file_get_contents($map->main_dir . '/latex/genus2.tex');
+ $tex = preg_replace_callback(
+  '/\\\\input{tikz_includes\/([^}]*)}/',
+  function($matches) {
+   global $map;
+   return(file_get_contents($map->main_dir . '/latex/tikz_includes/' . $matches[1] . '.tex'));
+  },
+  $tex
+ );
+
+ $tex = preg_replace('/{..\/images\/([^}]*)}/',
+		     '{images/${1}}',
+		     $tex);
+
+ $tex = preg_replace('/\\\\bibliography{genus2}/',
+		     file_get_contents($map->latex_dir . '/genus2.bbl'),
+		     $tex);
+ 
+ file_put_contents($arxiv_dir . '/genus2.tex',$tex);
+
+ mkdir($arxiv_dir . '/images');
+ foreach($map->files['included_images'] as $f) {
+  copy($map->main_dir . $f,$arxiv_dir . $f);
+ }
+
+ $anc_dir = $arxiv_dir . '/anc';
+ 
+ mkdir($anc_dir);
+ mkdir($anc_dir . '/doc');
+ mkdir($anc_dir . '/doc/maple');
+ mkdir($anc_dir . '/images');
+ mkdir($anc_dir . '/maple');
+ mkdir($anc_dir . '/worksheets');
+
+ mkdir($anc_dir . '/maple/domain');
+ mkdir($anc_dir . '/maple/quadrature');
+ mkdir($anc_dir . '/maple/projective');
+ mkdir($anc_dir . '/maple/hyperbolic');
+ mkdir($anc_dir . '/maple/embedded');
+ mkdir($anc_dir . '/maple/embedded/roothalf');
+
+ mkdir($anc_dir . '/doc/maple/domain');
+ mkdir($anc_dir . '/doc/maple/quadrature');
+ mkdir($anc_dir . '/doc/maple/projective');
+ mkdir($anc_dir . '/doc/maple/hyperbolic');
+ mkdir($anc_dir . '/doc/maple/embedded');
+ mkdir($anc_dir . '/doc/maple/embedded/roothalf');
+
+ foreach($map->files['doc'] as $f) {
+  copy($map->main_dir . $f,$anc_dir . $f);
+ }
+ 
+ foreach($map->files['all_maple'] as $f) {
+  copy($map->main_dir . $f,$anc_dir . $f);
+  copy($map->main_dir . '/doc/' . $f,$anc_dir . '/doc/' . $f);
+ }
+
+ foreach($map->files['worksheets'] as $f) {
+  $b = basename($f);
+  copy($map->main_dir . '/worksheets/small/' . $b,
+       $anc_dir . '/worksheets/' . $b);
+  
+ }
 }
+
+make_arxiv();
 
 ?>
