@@ -1,5 +1,8 @@
 infolevel[genus2] := 7:
-toy_version := false;
+
+if not(assigned(toy_version)) then
+ toy_version := false;
+fi;
 
 set_toy_version := proc(t)
  global toy_version,save_dir;
@@ -23,6 +26,27 @@ ui := proc(m,s)
  if not(type(start_time,numeric)) then start_time := 0; fi;
  t := time() - start_time;
  userinfo(m,genus2,sprintf("%s [%A]",s,t));
+end:
+
+make_save_dir := proc()
+ global save_dir;
+ local subdirs,subdir,dir;
+ 
+ subdirs :=
+  ["",
+   "/domain",
+   "/quadrature",
+   "/projective",
+   "/hyperbolic",
+   "/embedded",
+   "/embedded/roothalf"];
+
+ for subdir in subdirs do
+  dir := cat(save_dir,"/",subdir);
+  if not(isdir(dir)) then mkdir(dir); fi;
+ od;
+
+ NULL;
 end:
 
 ######################################################################
@@ -91,6 +115,7 @@ save_data["HP_table"] := proc()
  if not(assigned(HP_table)) then
   error "HP_table is not set";
  fi;
+ make_save_dir();
  save(HP_table,cat(save_dir,"/hyperbolic/HP_table.m"));
 end:
 
@@ -201,11 +226,13 @@ save_data["triangle_quadrature_rule"] := proc()
   if not(assigned(dunavant_19)) then
    error "dunavant_19 is not set";
   fi;
+   make_save_dir();
   save(dunavant_19,cat(save_dir,"/quadrature/dunavant_19.m"));
  else
   if not(assigned(wandzurat_xiao_30)) then
    error "wandzurat_xiao_30 is not set";
   fi;
+   make_save_dir();
   save(wandzurat_xiao_30,cat(save_dir,"/quadrature/wandzurat_xiao_30.m"));
  fi;
 end:
@@ -266,12 +293,14 @@ save_data["grid"] := proc()
   if not(assigned(rational_grid_dunavant_19)) then
    error "rational_grid_dunavant_19 is not set";
   fi;
+   make_save_dir();
   save(rational_grid_dunavant_19,
        cat(save_dir,"/embedded/roothalf/rational_grid_dunavant_19.m"));
  else
   if not(assigned(split_rational_grid_wx_30)) then
    error "split_rational_grid_wx_30 is not set";
   fi;
+   make_save_dir();
   save(split_rational_grid_wx_30,
        cat(save_dir,"/embedded/roothalf/split_rational_grid_wx_30.m"));
  fi;
@@ -365,12 +394,14 @@ save_data["E_quadrature_rule"] := proc()
   if not(assigned(quadrature_frobenius_25a)) then
    error("quadrature_frobenius_25a is not set");
   fi;
+   make_save_dir();
   save(quadrature_frobenius_25a,
        cat(save_dir,"/embedded/roothalf/quadrature_frobenius_25a.m"));
  else
   if not(assigned(quadrature_frobenius_256a)) then
    error("quadrature_frobenius_256a is not set");
   fi;
+   make_save_dir();
   save(quadrature_frobenius_256a,
        cat(save_dir,"/embedded/roothalf/quadrature_frobenius_256a.m"));
  fi;
@@ -399,11 +430,16 @@ end:
 ##################################################
 
 save_data["square_diffeo"] := proc()
- save_square_diffeo_E0_inverse();
+ make_save_dir();
+ save(square_diffeo_E0_inverse,
+      square_diffeo_E0_inverse_order,
+      square_diffeo_E0_inverse_table,
+      square_diffeo_E0_inverse_chebyshev_table,
+      cat(save_dir,"/embedded/roothalf/square_diffeo_E0_inverse.m"));
 end:
 
 load_data["square_diffeo"] := proc()
- load_square_diffeo_E0_inverse();
+ read(cat(save_dir,"/embedded/roothalf/square_diffeo_E0_inverse.m"));
 end:
 
 ######################################################################
@@ -638,6 +674,7 @@ save_data["EH_atlas"] := proc()
  if not(assigned(EH_atlas)) then
   error("EH_atlas is not set");
  fi;
+ make_save_dir();
  save(EH_atlas,  
       cat(save_dir,"/embedded/roothalf/EH_atlas.m"));
 end:
@@ -702,6 +739,7 @@ save_data["H_to_P_map"] := proc()
  if not(assigned(H_to_P_map)) then
   error("H_to_P_map is not set");
  fi;
+ make_save_dir();
  save(H_to_P_map,  
       cat(save_dir,"/hyperbolic/H_to_P_map.m"));
 end:
@@ -737,6 +775,7 @@ save_data["P_to_H_map"] := proc()
  if not(assigned(P_to_H_map)) then
   error("P_to_H_map is not set");
  fi;
+ make_save_dir();
  save(P_to_H_map,
       cat(save_dir,"/hyperbolic/P_to_H_map.m"));
 end:
@@ -769,6 +808,7 @@ save_data["E_to_S_map"] := proc()
  if not(assigned(E_to_S_map)) then
   error("E_to_S_map is not set");
  fi;
+ make_save_dir();
  save(E_to_S_map,
       cat(save_dir,"/embedded/roothalf/E_to_S_map.m"));
 end:
