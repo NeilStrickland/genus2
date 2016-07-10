@@ -20,6 +20,7 @@ _read("nets.mpl");
 _read("latex.mpl");
 _read("plots.mpl");
 _read("checks.mpl");
+_read("build_data.mpl");
 
 _read("quadrature/quadrature.mpl");
 
@@ -61,7 +62,6 @@ _read("embedded/roothalf/group64.mpl");
 _read("embedded/roothalf/galois.mpl");
 _read("embedded/roothalf/KR_subfields.mpl");
 _read("embedded/roothalf/plots.mpl");
-_read("embedded/roothalf/isometric_grid.mpl");
 
 _read("projective/PX.mpl");
 _read("projective/galois.mpl");
