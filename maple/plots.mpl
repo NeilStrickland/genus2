@@ -88,7 +88,14 @@ save_plot := proc(s::string,P_::plot)
  fi;
  
  __pic__ := pics[s];
- save(__pic__,cat(genus2_dir,"/plots/",s,".m"));
+ if not(type(plots_dir,string)) then
+  error("plots_dir is not set");
+ fi;
+ if not(isdir(plots_dir)) then
+  mkdir(plots_dir);
+ fi;
+ 
+ save(__pic__,cat(plots_dir,"/",s,".m"));
  __pic__ := NULL;
 end: 
 
@@ -142,7 +149,15 @@ save_jpg := proc(s::string,w_,h_)
 
  w := `if`(nargs>1,w_,1000);
  h := `if`(nargs>2,h_,1000);
- old_dir := currentdir(cat(genus2_dir,"/images"));
+
+ if not(type(images_dir,string)) then
+  error("images_dir is not set");
+ fi;
+ if not(isdir(images_dir)) then
+  mkdir(images_dir);
+ fi;
+
+ old_dir := currentdir(images_dir);
  plotsetup(jpeg,
   plotoutput=cat(s,".jpg"),
   plotoptions=sprintf("height=%d,width=%d",h,w)
@@ -166,7 +181,17 @@ save_thumbnail := proc(s::string)
   error(sprintf("pics[%s] is not a plot",s));
  fi;
 
- old_dir := currentdir(cat(genus2_dir,"/plots/thumbs"));
+ if not(type(plots_dir,string)) then
+  error("plots_dir is not set");
+ fi;
+ if not(isdir(plots_dir)) then
+  mkdir(plots_dir);
+ fi;
+ if not(isdir(thumbs_dir)) then
+  mkdir(thumbs_dir);
+ fi;
+ 
+ old_dir := currentdir(thumbs_dir);
  plotsetup(jpeg,
   plotoutput=cat(s,".jpg"),
   plotoptions="height=100,width=100"
