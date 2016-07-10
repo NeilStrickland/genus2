@@ -40,6 +40,9 @@ plots/**/*.jpg
 
 worksheets/extra
 worksheets/scratch
+worksheets/safe
+worksheets/small
+worksheets/*.mw
 
 
 
