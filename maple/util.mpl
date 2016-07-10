@@ -48,20 +48,24 @@ end:
 find_directories := proc()
  local olddir;
  global genus2_dir,data_dir,maple_dir,maple_output_dir,
-  worksheets_dir,latex_dir,plots_dir,images_dir,doc_dir,lib_dir;
+  worksheets_dir,latex_dir,plots_dir,thumbs_dir,images_dir,doc_dir,lib_dir;
 
  genus2_dir := NULL;
  
- if FileTools[IsDirectory]("../maple") and
-    FileTools[IsDirectory]("../worksheets") and
-    FileTools[IsDirectory]("../latex") then
-  olddir := currentdir("..");
-  genus2_dir := currentdir();
+ if
+  FileTools[Exists]("../maple") and
+  FileTools[Exists]("../worksheets") and
+  FileTools[IsDirectory]("../maple") and
+  FileTools[IsDirectory]("../worksheets") then
+   olddir := currentdir("..");
+   genus2_dir := currentdir();
   currentdir(olddir);
- elif FileTools[IsDirectory]("maple") and
-      FileTools[IsDirectory]("worksheets") and
-      FileTools[IsDirectory]("latex") then
-  genus2_dir := currentdir();
+ elif
+  FileTools[Exists]("maple") and
+  FileTools[Exists]("worksheets") and
+  FileTools[IsDirectory]("maple") and
+  FileTools[IsDirectory]("worksheets") then
+   genus2_dir := currentdir();
  fi:
 
  if genus2_dir = NULL then
@@ -74,6 +78,7 @@ find_directories := proc()
  worksheets_dir   := cat(genus2_dir,"/worksheets");
  latex_dir        := cat(genus2_dir,"/latex");
  plots_dir        := cat(genus2_dir,"/plots");
+ thumbs_dir       := cat(genus2_dir,"/plots/thumbs");
  images_dir       := cat(genus2_dir,"/images");
  doc_dir          := cat(genus2_dir,"/doc");
  lib_dir          := cat(genus2_dir,"/lib");
