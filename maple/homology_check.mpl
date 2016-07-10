@@ -17,13 +17,12 @@ check_homology := proc()
  nn := [n[1],n[2],n[3],n[4]];
  mm := [m[1],m[2],m[3],m[4]];
 
- for T in G16 do 
-  for U in G16 do
-   V := G_mult(T,U);
-   _ASSERT(act_Z4[T](act_Z4[U](nn)) -~ act_Z4[V](nn) = [0$4],
-           sprintf("%A o %A = %A on homology",T,U,V));
-  od:
- od:
+ _ASSERT(
+  `and`(seq(seq(
+    act_Z4[T](act_Z4[U](nn)) -~ act_Z4[V](nn) = [0$4],
+     U in G16),T in G16)),
+  "Action on homology is associative"
+ );
 
  _ASSERT({
   act_Z4[L](homology_u[1,1]) -~ homology_u[1,2],
