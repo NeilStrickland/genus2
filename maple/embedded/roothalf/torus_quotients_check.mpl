@@ -219,7 +219,7 @@ add_check(check_torus_Tp):
 ######################################################################
 
 check_torus_Tpa := proc()
- local F2_samples,x0,T,s,z0,k,ca,cb,err;
+ local F2_samples,x0,T,s,u,z0,k,ca,cb,err;
 
  printf("%a()\n",procname);
 
