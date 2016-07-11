@@ -19,7 +19,7 @@ check_homology := proc()
 
  _ASSERT(
   `and`(seq(seq(
-    act_Z4[T](act_Z4[U](nn)) -~ act_Z4[V](nn) = [0$4],
+    evalb(act_Z4[T](act_Z4[U](nn)) -~ act_Z4[G_mult(T,U)](nn) = [0$4]),
      U in G16),T in G16)),
   "Action on homology is associative"
  );
