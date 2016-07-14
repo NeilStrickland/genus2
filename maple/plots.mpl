@@ -33,7 +33,8 @@ make_plot := table():
 
 #@ `type/plot`
 `type/plot` := (P) ->
- (type(P,function) and (op(0,P) = PLOT or op(0,P) = PLOT3D));
+ (type(P,function) and
+  (op(0,P) = PLOT or op(0,P) = PLOT3D or op(0,P) = _PLOTARRAY));
 
 ######################################################################
 
@@ -122,8 +123,8 @@ load_plot := proc(s::string)
  pics[s];
 end: 
 
-# This accepts an arbitrary number of arguments, and applies the
-# single-argument form of load_plot() to each of them.
+# This accepts an arbitrary number of arguments, and applies 
+# load_plot() to each of them.
 
 #@ load_plots 
 load_plots := proc()
@@ -266,6 +267,14 @@ cpoint :=
   point(evalf(subs({a_H=a_H0,a_P=a_P0,a_E=a_E0},[Re(z),Im(z)])),args[2..-1]);
  end:
 
+#@ cline
+cline :=
+ proc(z,w)
+  line(evalf(subs({a_H=a_H0,a_P=a_P0,a_E=a_E0},[Re(z),Im(z)])),
+       evalf(subs({a_H=a_H0,a_P=a_P0,a_E=a_E0},[Re(w),Im(w)])),
+       args[3..-1]);
+ end:
+
 #@ ctext 
 ctext := 
  proc(z,t)
@@ -351,4 +360,22 @@ triangle_axes := proc(z_range := -2..2)
   line([0,0,z_min],[0,0,z_max],colour=black),
   scaling=constrained,axes=none
  ):
+end:
+
+######################################################################
+
+#@ make_wireframe_plots
+make_wireframe_plots := proc()
+ global pics;
+
+ pics["torus_wireframe"] := 
+  plot3d(TA_to_R3([t,u]),t=0..2*Pi,u=0..2*Pi,
+           colour=gray,style=wireframe,scaling=constrained,axes=none);
+
+ pics["sphere_wireframe"] := 
+  display(sphere([0,0,0],1,colour=grey,style=wireframe),axes=none):
+
+ save_plot("torus_wireframe");
+ save_plot("sphere_wireframe");
+ NULL;
 end:
