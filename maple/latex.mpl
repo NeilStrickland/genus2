@@ -25,6 +25,17 @@ G_latex[LLLMN] := "\\lm^3\\mu\\nu";
 
 ######################################################################
 
+# Latex for common angles
+
+#@ angle_latex
+angle_latex[0]    := "0";
+angle_latex[Pi]   := "\\pi";
+angle_latex[2*Pi] := "2\\pi";
+angle_latex[Pi/4] := "\\qpi";
+angle_latex[Pi/2] := "\\ppi";
+
+######################################################################
+
 # Both tikz and Maple have the ability to place a text label on a
 # picture and place it intelligently offset from the point being 
 # labelled.  This table helps translate between the tikz syntax and
