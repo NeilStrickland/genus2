@@ -1,9 +1,5 @@
 infolevel[genus2] := 7:
 
-if not(assigned(toy_version)) then
- toy_version := false;
-fi;
-
 set_toy_version := proc(t)
  global toy_version,save_dir;
  if t = true then
@@ -14,6 +10,10 @@ set_toy_version := proc(t)
   save_dir := cat(genus2_dir,"/data");
  fi;
 end:
+
+if not(assigned(toy_version)) then
+ set_toy_version(false);
+fi;
 
 build_data := table();
 save_data := table();
