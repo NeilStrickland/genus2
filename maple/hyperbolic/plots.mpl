@@ -57,9 +57,8 @@ make_HX_plot_tikz := proc()
  local A,s,i,j,k,ii,x,y,col,c_offset,v_offset;
  global hyp_plot_tikz;
 
- A := map(op,[indices(v_HX)]);
+ A := map(op,[indices(v_H)]);
  A := remove(i -> (i = evalf(floor(i)) and not(type(i,integer))),A);
- print(A);
 
  s := cat(
   "\\begin{center}\n",
@@ -72,20 +71,20 @@ make_HX_plot_tikz := proc()
  );
 
  for k in [0,3,4,7,8] do
-  s := cat(s,xi_curve_tikz(c_p[k],c_colour[k]));
+  s := cat(s,xi_curve_tikz(c_H_p[k],c_colour[k]));
   col := sprintf("%a,dotted",c_colour[k]);
   for j from 1 to 3 do
-   s := cat(s,xi_curve_tikz(I^j*c_p[k],col));
+   s := cat(s,xi_curve_tikz(I^j*c_H_p[k],col));
   od:
  od:
 
  for i in A do
   if type(i,integer) then
    s := sprintf("%s  \\fill[black](%.3f,%.3f) circle(0.007);\n",
-                s,Re(v_HX1[i]),Im(v_HX1[i]));
+                s,Re(v_H1[i]),Im(v_H1[i]));
   else
    s := sprintf("%s  \\fill[gray!60](%.3f,%.3f) circle(0.007);\n",
-                s,Re(v_HX1[i]),Im(v_HX1[i]));
+                s,Re(v_H1[i]),Im(v_H1[i]));
   fi;
  od;
 
@@ -96,15 +95,15 @@ make_HX_plot_tikz := proc()
   "  \\draw(-0.05, 0.80) node{$c_6$};\n"
  );
 
- c_offset[0] := [ 0.10,-0.04];
- c_offset[3] := [-0.09,-0.15];
- c_offset[4] := [ 0.10,-0.01];
- c_offset[7] := [ 0.00,-0.03];
- c_offset[8] := [-0.03, 0.00];
+ c_offset[0] := [ 0.32,-0.15];
+ c_offset[3] := [ 0.07, 0.10];
+ c_offset[4] := [ 0.22, 0.03];
+ c_offset[7] := [-0.01,-0.07];
+ c_offset[8] := [-0.06,-0.02];
 
  for k in [0,3,4,7,8] do
-  x := evalf(Re(c_HX1[k](0.5)));
-  y := evalf(Im(c_HX1[k](0.5)));
+  x := evalf(Re(c_H1[k](0.5)));
+  y := evalf(Im(c_H1[k](0.5)));
   x := x + c_offset[k][1];
   y := y + c_offset[k][2];
   s := sprintf("%s  \\draw(%.3f,%.3f) node{$c_{%d}$};\n",
@@ -112,7 +111,7 @@ make_HX_plot_tikz := proc()
  od:
 
  v_offset[ 0  ] := [ 0.06, 0.02];
- v_offset[ 1  ] := [ 0.03,-0.03];
+ v_offset[ 1  ] := [ 0.03, 0.03];
  v_offset[ 1.1] := [-0.05,-0.03];
  v_offset[ 2  ] := [-0.05, 0.01];
  v_offset[ 2.1] := [ 0.06, 0.01];
@@ -130,19 +129,19 @@ make_HX_plot_tikz := proc()
  v_offset[10.1] := [-0.06,-0.03];
  v_offset[11  ] := [-0.03,-0.03];
  v_offset[11.1] := [ 0.06,-0.03];
- v_offset[12  ] := [ 0.05, 0.00];
+ v_offset[12  ] := [-0.07, 0.00];
  v_offset[12.1] := [-0.06, 0.00];
  v_offset[12.2] := [-0.06, 0.00];
  v_offset[12.3] := [ 0.06, 0.00];
- v_offset[13  ] := [-0.05, 0.00];
+ v_offset[13  ] := [ 0.01,-0.04];
  v_offset[13.1] := [-0.06, 0.00];
  v_offset[13.2] := [ 0.06, 0.00];
  v_offset[13.3] := [-0.06, 0.00];
  v_offset[14  ] := [ 0.00, 0.00];
 
  for i in A do
-  x := Re(v_HX1[i]);
-  y := Im(v_HX1[i]);
+  x := Re(v_H1[i]);
+  y := Im(v_H1[i]);
   if not(type(v_offset[i],indexed)) then
    x := x + v_offset[i][1];
    y := y + v_offset[i][2];
@@ -157,13 +156,14 @@ make_HX_plot_tikz := proc()
  );
 
  save_tikz("HX",s);
+ return s;
 end:
 
 ######################################################################
 
-#@ make_p_dependence_plot_tikz
-make_p_dependence_plot_tikz := proc(p)
- local s,k,d,phi,m;
+#@ make_a_H_dependence_plot_tikz
+make_a_H_dependence_plot_tikz := proc(a)
+ local s,k,d,phi,m,p,r,theta;
 
  s := cat(
   " \\begin{tikzpicture}[scale=3]\n",
@@ -173,22 +173,33 @@ make_p_dependence_plot_tikz := proc(p)
  );
 
  for k in [0,7,8] do
-  s := cat(s,xi_curve_tikz(evalf(subs(period=p,c_p[k])),c_colour[k]));
+  s := cat(s,xi_curve_tikz(evalf(subs(a_H=a,c_H_p[k])),c_colour[k]));
  od:
- 
- d := evalf(sqrt(1/p^2-1));
- phi := evalf(arccos(d*p));
- m := round(evalf(phi * 180/Pi));
- s := sprintf("%s  \\draw[magenta](%.3f,0) (%.3f,0) arc(180:%d:%.3f);\n",
-              s,evalf(1/p),evalf(1/p-d),180-m,d);
- s := sprintf("%s  \\draw[magenta](0,%.3f) (0,%.3f) arc(270:%d:%.3f);\n",
-              s,evalf(1/p),evalf(1/p-d),270+m,d);
 
+ p := evalf(subs(a_H = a,c_H_p[3]));
+ r := evalf(subs(a_H = a,c_H_r[3]));
+ theta := round(evalf(arctan(1/r) * 180 / Pi));
+ s := sprintf("%s  \\draw[magenta](%.3f,0) (%.3f,0) arc(180:%d:%.3f);\n",
+	       s,p,p-r,180-theta,r);
+ s := sprintf("%s  \\draw[magenta](0,%.3f) (0,%.3f) arc(270:%d:%.3f);\n",
+	       s,p,p-r,270+theta,r);
+ 
+ if false then
+  d := evalf(sqrt(1/p^2-1));
+  phi := evalf(arccos(d*p));
+  m := round(evalf(phi * 180/Pi));
+  s := sprintf("%s  \\draw[magenta](%.3f,0) (%.3f,0) arc(180:%d:%.3f);\n",
+	       s,evalf(1/p),evalf(1/p-d),180-m,d);
+  s := sprintf("%s  \\draw[magenta](0,%.3f) (0,%.3f) arc(270:%d:%.3f);\n",
+	       s,evalf(1/p),evalf(1/p-d),270+m,d);
+ fi;
+ 
  s := cat(s,
   " \\end{tikzpicture}\n"
  );
 
- save_tikz("p_dependence",s);
+ save_tikz("a_H_dependence",s);
+ return s;
 end:
 
 ######################################################################
@@ -232,12 +243,12 @@ make_F1_plot_tikz := proc()
 
  for a in vertices do
   s := sprintf("%s  \\fill(%.3f,%.3f) circle(0.01);\n",
-               s,Re(v_HX1[a[1]]),Im(v_HX1[a[1]]));
+               s,Re(v_H1[a[1]]),Im(v_H1[a[1]]));
  od:
 
  for a in vertices do
   s := sprintf("%s  \\draw(%.3f,%.3f) node[anchor=%s]{$v_{%a}$};\n",
-               s,Re(v_HX1[a[1]]),Im(v_HX1[a[1]]),a[2],a[1]);
+               s,Re(v_H1[a[1]]),Im(v_H1[a[1]]),a[2],a[1]);
  od:
 
  s := cat(s,
@@ -248,11 +259,7 @@ make_F1_plot_tikz := proc()
  F1_tikz := s;
 
  save_tikz("F1",s);
-# display(
-#  op(map(a -> plot([a[1]+a[3]*cos(t),a[2]+a[3]*sin(t),t=a[4]..a[5]],colour=a[6]),
-#      arcs)),
-#  axes=none
-# );
+ return s;
 end:
 
 ######################################################################
@@ -324,11 +331,11 @@ make_c_H_plots := proc()
 
  for i in [0,3,4,7,8] do
   c_H_plot[i] := xi_circle(c_H_p0[i],colour = c_colour[i]);
-  pics[sprintf("c_H[%d]",i)] := c_H_plot[i];
  od:
 
  for i from 0 to 8 do
-  pics[sprintf("c_H[%d]",i)] := c_H_plot[i];
+  pics[sprintf("c_H[%d]",i)] :=
+   display(c_H_plot[i],axes=none,scaling=constrained);
  od:
 
  pics["curves_H"] := 
@@ -400,6 +407,7 @@ end:
 
 #@ make_H_plots
 make_H_plots := proc()
+ local k,s;
  global pics;
 
  pics["F1_H_boundary"] := display(
@@ -488,69 +496,15 @@ end:
 
 #@ make_H_to_P_graph_tikz
 make_H_to_P_graph_tikz := proc()
- global tikz_pics;
- local s1,s2,t1,t2,p,pts;
+ local s;
 
- pts := [[0,1],
-         seq([a,H_to_P_table[a]["a_P"]],
-             a in sort(map(op,[indices(H_to_P_table)]))),
-         [1,0]
-        ];
+ if not(assigned(HP_table)) then
+  load_data["HP_table"]();
+ fi;
+ s := HP_table["spline_plot_tikz"];
+ save_tikz("H_to_P_graph",s);
 
- s1 := sprintf(" \\draw[%s] plot[smooth] coordinates{ ","red");
- s2 := sprintf(" \\draw[%s] plot[smooth] coordinates{ ","red");
-
- for p in pts do 
-  s1 := cat(s1,sprintf("(%.3f,%.3f) ",op(1,p),op(2,p)));
-  s2 := cat(s2,sprintf("(%.3f,%.3f) ",op(2,p),op(1,p)));
- od;
- s1 := cat(s1,"};\n");
- s2 := cat(s2,"};\n");
-
- t1 := cat(
-   "\\begin{center}\n",
-   " \\begin{tikzpicture}[scale=4]\n",
-   "  \\draw[black,->] (-0.05,0) -- (1.05,0);\n",
-   "  \\draw[black,->] (0,-0.05) -- (0,1.05);\n",
-   "  \\draw[black] (1,-0.05) -- (1,0);\n",
-   "  \\draw[black] (-0.05,1) -- (0,1);\n",
-   "  \\draw ( 0.00,-0.05) node[anchor=north] {$0$};\n",
-   "  \\draw ( 1.00,-0.05) node[anchor=north] {$1$};\n",
-   "  \\draw (-0.05, 0.00) node[anchor=east ] {$0$};\n",
-   "  \\draw (-0.05, 1.00) node[anchor=east ] {$1$};\n",
-   "  \\draw ( 1.05, 0.00) node[anchor=west ] {$b$};\n",
-   "  \\draw ( 0.00, 1.05) node[anchor=south] {$a$};\n",
-   s1,
-   sprintf("  \\fill[black] (%.3f,%.3f) circle(0.015);\n",a_H0,a_P0),
-   " \\end{tikzpicture}\n",
-   "\\end{center}\n"
- ):
-
- t2 := cat(
-   "\\begin{center}\n",
-   " \\begin{tikzpicture}[scale=4]\n",
-   "  \\draw[black,->] (-0.05,0) -- (1.05,0);\n",
-   "  \\draw[black,->] (0,-0.05) -- (0,1.05);\n",
-   "  \\draw[black] (1,-0.05) -- (1,0);\n",
-   "  \\draw[black] (-0.05,1) -- (0,1);\n",
-   "  \\draw ( 0.00,-0.05) node[anchor=north] {$0$};\n",
-   "  \\draw ( 1.00,-0.05) node[anchor=north] {$1$};\n",
-   "  \\draw (-0.05, 0.00) node[anchor=east ] {$0$};\n",
-   "  \\draw (-0.05, 1.00) node[anchor=east ] {$1$};\n",
-   "  \\draw ( 1.05, 0.00) node[anchor=west ] {$a$};\n",
-   "  \\draw ( 0.00, 1.05) node[anchor=south] {$b$};\n",
-   s2,
-   sprintf("  \\fill[black] (%.3f,%.3f) circle(0.015);\n",a_P0,a_H0),
-   " \\end{tikzpicture}\n",
-   "\\end{center}\n"
- ):
-
- tikz_pics["H_to_P_graph"] := t1;
- save_tikz("H_to_P_graph",t1);
- tikz_pics["P_to_H_graph"] := t2;
- save_tikz("P_to_H_graph",t2);
-
- return t1;
+ return s;
 end:
 
 
@@ -604,7 +558,7 @@ make_tile_plot := proc()
  local P,z0,k,T,e0,e1,m1;
  global pics;
 
- P := NULL:
+ P := circle(1):
  z0 := v_H0[3]/2:
  for k in [0,1,3,5] do
   e0 := evalf(subs(a_H=a_H0,c_H_ends[k])):
@@ -622,6 +576,7 @@ make_tile_plot := proc()
   P := P,cpoint(act_Pi_tilde(op(T),z0)):
  od:
 
+ P := display(P,axes=none,scaling=constrained);
  pics["tiles"] := P;
  save_plot("tiles");
  P;
