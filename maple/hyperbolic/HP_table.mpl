@@ -227,5 +227,46 @@
     view = [0..1,0..1]
    );
   end
+ ],
+
+ ["Method","spline_plot_tikz","",
+  proc(this)
+   local s1,t1,p,pts,T;
+   T := eval(this["H_to_P_maps"]);
+
+   pts := [[0,1],
+	   seq([a,T[a]["a_P"]],
+	       a in sort(map(op,[indices(T)]))),
+	   [1,0]
+	  ];
+
+   s1 := sprintf(" \\draw[%s] plot[smooth] coordinates{ ","red");
+
+   for p in pts do 
+    s1 := cat(s1,sprintf("(%.3f,%.3f) ",op(1,p),op(2,p)));
+   od;
+   s1 := cat(s1,"};\n");
+
+   t1 := cat(
+     "\\begin{center}\n",
+     " \\begin{tikzpicture}[scale=4]\n",
+     "  \\draw[black,->] (-0.05,0) -- (1.05,0);\n",
+     "  \\draw[black,->] (0,-0.05) -- (0,1.05);\n",
+     "  \\draw[black] (1,-0.05) -- (1,0);\n",
+     "  \\draw[black] (-0.05,1) -- (0,1);\n",
+     "  \\draw ( 0.00,-0.05) node[anchor=north] {$0$};\n",
+     "  \\draw ( 1.00,-0.05) node[anchor=north] {$1$};\n",
+     "  \\draw (-0.05, 0.00) node[anchor=east ] {$0$};\n",
+     "  \\draw (-0.05, 1.00) node[anchor=east ] {$1$};\n",
+     "  \\draw ( 1.05, 0.00) node[anchor=west ] {$b$};\n",
+     "  \\draw ( 0.00, 1.05) node[anchor=south] {$a$};\n",
+     s1,
+     sprintf("  \\fill[black] (%.3f,%.3f) circle(0.015);\n",a_H0,a_P0),
+     " \\end{tikzpicture}\n",
+     "\\end{center}\n"
+   ):
+
+   return t1;
+  end
  ]
 ):
