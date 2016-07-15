@@ -16,8 +16,15 @@ function rm_rf($dir) {
  
  $files = array_diff(scandir($dir), array('.', '..')); 
 
- foreach ($files as $file) { 
-  (is_dir("$dir/$file")) ? rm_rf("$dir/$file") : unlink("$dir/$file"); 
+ foreach ($files as $file) {
+  if (is_dir("$dir/$file")) {
+   rm_rf("$dir/$file");
+  } else {
+   if (! unlink("$dir/$file")) {
+    trigger_error("Could not delete $dir/$file");
+    exit;
+   }
+  }
  }
 
  return rmdir($dir); 
@@ -292,6 +299,60 @@ function make_arxiv() {
   $b = basename($f);
   copy($map->main_dir . '/worksheets/small/' . $b,
        $anc_dir . '/worksheets/' . $b);
+  
+ }
+}
+
+function make_thin_dist() {
+ global $map;
+ 
+ $thin_dist_dir = $map->genus2_dir . '/thin_dist';
+ rm_rf($thin_dist_dir);
+  
+ mkdir($thin_dist_dir);
+ mkdir($thin_dist_dir . '/doc');
+ mkdir($thin_dist_dir . '/doc/maple');
+ mkdir($thin_dist_dir . '/images');
+ mkdir($thin_dist_dir . '/latex');
+ mkdir($thin_dist_dir . '/latex/tikz_includes');
+ mkdir($thin_dist_dir . '/maple');
+ mkdir($thin_dist_dir . '/worksheets');
+
+ mkdir($thin_dist_dir . '/maple/domain');
+ mkdir($thin_dist_dir . '/maple/quadrature');
+ mkdir($thin_dist_dir . '/maple/projective');
+ mkdir($thin_dist_dir . '/maple/hyperbolic');
+ mkdir($thin_dist_dir . '/maple/embedded');
+ mkdir($thin_dist_dir . '/maple/embedded/roothalf');
+
+ mkdir($thin_dist_dir . '/doc/maple/domain');
+ mkdir($thin_dist_dir . '/doc/maple/quadrature');
+ mkdir($thin_dist_dir . '/doc/maple/projective');
+ mkdir($thin_dist_dir . '/doc/maple/hyperbolic');
+ mkdir($thin_dist_dir . '/doc/maple/embedded');
+ mkdir($thin_dist_dir . '/doc/maple/embedded/roothalf');
+
+ foreach($map->files['doc'] as $f) {
+  copy($map->main_dir . $f,$thin_dist_dir . $f);
+ }
+
+ foreach($map->files['included_images'] as $f) {
+  copy($map->main_dir . $f,$thin_dist_dir . $f);
+ }
+
+ foreach($map->files['latex'] as $f) {
+  copy($map->main_dir . $f,$thin_dist_dir . $f);
+ }
+
+ foreach($map->files['all_maple'] as $f) {
+  copy($map->main_dir . $f,$thin_dist_dir . $f);
+  copy($map->main_dir . '/doc/' . $f,$thin_dist_dir . '/doc/' . $f);
+ }
+
+ foreach($map->files['worksheets'] as $f) {
+  $b = basename($f);
+  copy($map->main_dir . '/worksheets/small/' . $b,
+       $thin_dist_dir . '/worksheets/' . $b);
   
  }
 }
