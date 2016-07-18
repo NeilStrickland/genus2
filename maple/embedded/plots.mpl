@@ -84,15 +84,6 @@ end:
 
 ######################################################################
 
-#@ angle_latex
-angle_latex[0]    := "0";
-angle_latex[Pi]   := "\\pi";
-angle_latex[2*Pi] := "2\\pi";
-angle_latex[Pi/4] := "\\qpi";
-angle_latex[Pi/2] := "\\ppi";
-
-######################################################################
-
 # This function is similar to plane_proj_plot() except that it generates
 # tikz code for inclusion in the latex file rather than a Maple plot.
 
@@ -239,38 +230,49 @@ end:
 ######################################################################
 
 #@ surface_plot 
-surface_plot := proc(f,M_::integer,H_)
- local i,j,T,N,M,H,P,SDI;
+surface_plot := proc(f,{M::integer := 0,
+                        plot_style := patchnogrid,
+                        with_curves := false,
+                        H := G16})
+ local i,j,T,N,P,SDI,CP,opt;
 
  require_square_diffeo_E0_inverse();
 
  N := square_diffeo_E0_inverse_order;
- M := N;
- if nargs > 1 and M_ > 0 and type(N/M_,integer) then
-  M := M_;
+ if  M > 0 and type(N/M,integer) then
+  N := M;
  fi;
  
- H := G16;
- if nargs > 2 then H := H_; fi;
-
  SDI := eval(square_diffeo_E0_inverse_table):
  P := table():
  for T in H do
-  for i from 0 to M do
-   for j from 0 to M do
-    P[T,i,j] := evalf(f(act_R4[T](SDI[i/M,j/M]))):
+  for i from 0 to N do
+   for j from 0 to N do
+    P[T,i,j] := evalf(f(act_R4[T](SDI[i/N,j/N]))):
    od:
   od:
  od:
 
+ if with_curves then
+  CP := seq(spacecurve(f(c_E0[k](t)),t=0..2*Pi,colour=c_colour[k]),k=0..8);
+ else
+  CP := NULL;
+ fi;
+
+ if plot_style = wireframe then
+  opt := style=wireframe,colour=gray;
+ else
+  opt := style=plot_style;
+ fi;
+
  display(
   seq(seq(seq(
-   polygon([P[T,i,j],P[T,i,j+1],P[T,i+1,j+1]],style=patchnogrid),
-    i=0..M-1),j=0..M-1),T in H),
+   polygon([P[T,i,j],P[T,i,j+1],P[T,i+1,j+1]],opt),
+    i=0..N-1),j=0..N-1),T in H),
   seq(seq(seq(
-   polygon([P[T,i,j],P[T,i+1,j],P[T,i+1,j+1]],style=patchnogrid),
-    i=0..M-1),j=0..M-1),T in H),
-  seq(spacecurve(f(c_E0[k](t)),t=0..2*Pi,colour=c_colour[k]),k=0..8),
+   polygon([P[T,i,j],P[T,i+1,j],P[T,i+1,j+1]],opt),
+    i=0..N-1),j=0..N-1),T in H),
+  CP,
   scaling=constrained,axes=none
  );
 end:
@@ -282,15 +284,24 @@ make_c_E_plots := proc()
  local i;
  global pics,c_E_plot;
 
- for i from 0 to 8 do 
+ for i from 0 to 16 do 
   c_E_plot[i] :=
     spacecurve(stereo(c_E1[i](t)),t=0..2*Pi,numpoints=200,colour = c_colour[i],axes = none);
   pics[sprintf("c_E[%d]",i)] := c_E_plot[i];
  od:
+ save_plots(seq(sprintf("c_E[%d]",i),i=0..8));
 
- pics["curves_E"] := display(seq(c_E_plot[i],i=0..8),scaling=constrained,axes=none);
- save_plots(seq(sprintf("c_E[%d]",i),i=0..8),"curves_E");
- pics["curves_E"];
+ pics["curves_E"] :=
+  display(seq(c_E_plot[i],i=0..8),scaling=constrained,axes=none);
+ save_plot("curves_E");
+
+ pics["extra_curves_E"] :=
+  display(seq(c_E_plot[i],i=9..16),scaling=constrained,axes=none);
+ save_plot("extra_curves_E");
+
+ pics["all_curves_E"] := 
+  display(pics["curves_E"],pics["extra_curves_E"]);
+ save_plot("all_curves_E");
 end:
 
 load_c_E_plots := proc()
@@ -302,45 +313,55 @@ end:
 #@ make_E_plots 
 make_E_plots := proc()
  global pics;
- pics["EX"]  := implicitplot3d(g_stereo0([t,u,v])=0,t=-3..3,u=-3..3,v=-3..3,
-                 scaling=constrained,grid=[50,50,50],style=patchnogrid,axes=none):
- pics["EX1"] := implicitplot3d(g_stereo0([t,u,v])=0,t=0..3,u=0..3,v=-3..3,
-                 scaling=constrained,grid=[50,50,50],style=patchnogrid,axes=none):
- pics["EX2"] := implicitplot3d(g_stereo0([t,u,v])=0,t=0..3,u=0..3,v=0..3,
-                 scaling=constrained,grid=[50,50,50],style=patchnogrid,axes=none):
- pics["EX3"] := implicitplot3d(g_stereo0([t,u,v])=0,t=0..3,u=-3..0,v=0..3,
-                 scaling=constrained,grid=[50,50,50],style=patchnogrid,axes=none):
+ pics["EX"]  :=
+  surface_plot(stereo,M = 8);
+ pics["EX_wireframe"]  :=
+  surface_plot(stereo,M = 12,plot_style=wireframe);
 
- pics["EX_wireframe"] :=
-  implicitplot3d(g_stereo0([t,u,v])=0,t=-3..3,u=-3..3,v=-3..3,
-    scaling=constrained,grid=[50,50,50],style=wireframe,color=gray,axes=none):
-
- save_plots("EX","EX1","EX2","EX3","EX_wireframe");
-
- NULL;
-end:
-
-load_E_plots := () -> load_plots("EX","EX1","EX2","EX3","EX_wireframe");
-
-######################################################################
-
-make_plot["EX_with_curves"] := proc()
- global pics;
+ save_plots("EX","EX_wireframe");
 
  pics["EX_with_curves"] := display(
-  pics["EX"],
-  seq(pics[sprintf("c_E[%d]",i)],i=0..8),
+  surface_plot(stereo,M = 8,with_curves = true),
   scaling=constrained,orientation=[65,80],axes = none
  ): 
  save_plot("EX_with_curves"): 
  save_jpg("EX_with_curves"): 
 
- pics["EX_with_curves"];
+ NULL;
 end:
+
+load_E_plots := () ->
+ load_plots("EX","EX_wireframe","EX_with_curves");
+
+######################################################################
+
+#@ make_E_owl_plots 
+make_E_owl_plots := proc()
+ global pics;
+ pics["EX_owl"]  :=
+  surface_plot(owl_proj,M = 8);
+ pics["EX_owl_wireframe"]  :=
+  surface_plot(owl_proj,M = 12,plot_style=wireframe);
+
+ save_plots("EX_owl","EX_owl_wireframe");
+
+ pics["EX_owl_with_curves"] := display(
+  surface_plot(owl_proj,M = 8,with_curves = true),
+  scaling=constrained,axes = none
+ ): 
+ save_plot("EX_owl_with_curves"): 
+ save_jpg("EX_owl_with_curves"): 
+
+ NULL;
+end:
+
+load_E_owl_plots := () ->
+ load_plots("EX_owl","EX_owl_wireframe","EX_owl_with_curves");
 
 ############################################################
 
-make_plot["Omega"] := proc()
+#@ make_Omega_plots
+make_Omega_plots := proc()
  global pics;
 
  pics["Omega"] := display(
@@ -348,8 +369,8 @@ make_plot["Omega"] := proc()
   spacecurve(stereo(omega1[2](t)),t=0.8 .. 5.48,color=red,thickness=3),
   sphere([0,0,1/2],0.05,color=black),
   sphere([0,0,-1/2],0.05,color=black),
-  spacecurve(stereo(evalm(-omega1[1](t))),t=0..2*Pi,color=blue,thickness=3),
-  spacecurve(stereo(evalm(-omega1[2](t))),t=0..2*Pi,color=blue,thickness=3),
+  spacecurve(stereo(-~ omega1[1](t)),t=0..2*Pi,color=blue,thickness=3),
+  spacecurve(stereo(-~ omega1[2](t)),t=0..2*Pi,color=blue,thickness=3),
   line([-3,0,0],[3,0,0],color=black,thickness=3),
   line([0,-3,0],[0,3,0],color=black,thickness=3),
   line([0,0,-3],[0,0,3],color=black,thickness=3),
@@ -362,19 +383,11 @@ make_plot["Omega"] := proc()
  save_plot("Omega"):
  save_jpg("Omega"):
 
- pics["Omega"];
-end:
-
-############################################################
-
-make_plot["XOmega"] := proc()
- global pics;
-
  pics["XOmega"] := display(
   spacecurve(stereo(omega1[1](t)),t=0.8 .. 5.48,color=red,thickness=3),
   spacecurve(stereo(omega1[2](t)),t=0.8 .. 5.48,color=red,thickness=3),
-  spacecurve(stereo(evalm(-omega1[1](t))),t=0..2*Pi,color=blue,thickness=3),
-  spacecurve(stereo(evalm(-omega1[2](t))),t=0..2*Pi,color=blue,thickness=3),
+  spacecurve(stereo(-~ omega1[1](t)),t=0..2*Pi,color=blue,thickness=3),
+  spacecurve(stereo(-~ omega1[2](t)),t=0..2*Pi,color=blue,thickness=3),
   pics["EX_wireframe"],
   view=[-3.5..3.5,-3.5..3.5,-3.5..3.5],
   scaling=constrained,orientation=[65,80],axes=none
@@ -383,16 +396,20 @@ make_plot["XOmega"] := proc()
  save_plot("XOmega"):
  save_jpg("XOmega"):
 
- pics["XOmega"];
+ NULL;
 end:
 
 ############################################################
 
-make_plot["F4"] := proc()
+#@ make_F4_plot
+make_F4_plot := proc()
  global pics;
 
  pics["F4"] :=
-  display(pics["EX1"],seq(c_E_plot[i],i=3..8),orientation=[-120,0,50],axes=none):
+  display(
+   surface_plot(stereo,M = 12,H = [1,LM,LN,MN]),
+   seq(c_E_plot[i],i=3..8),orientation=[-120,0,50],axes=none
+  ):
  save_plot("F4"):
  save_jpg("F4"):
  pics["F4"];
@@ -400,25 +417,40 @@ end:
 
 ######################################################################
 
-make_plot["F16_outline"] := proc()
+#@ make_F16_plots
+
+make_F16_plots := proc()
  global pics;
 
  pics["F16_outline"] := display(
-  spacecurve(stereo(c_E0[0](t)),t=Pi/4..Pi/2,colour = c_colour[0]),
-  spacecurve(stereo(c_E0[1](t)),t=0..Pi/2,colour = c_colour[1]),
-  spacecurve(stereo(c_E0[3](t)),t=0..Pi/2,colour = c_colour[3]),
-  spacecurve(stereo(c_E0[5](t)),t=0..Pi,colour = c_colour[5]),
+  seq(
+   spacecurve(stereo(c_E0[k](t)),
+              t=F16_curve_limits[k],
+              colour = c_colour[k]),
+   k in [0,1,3,5]
+  ),
   scaling = constrained,axes=none
- ):
+ );
 
  save_plot("F16_outline"):
  save_jpg("F16_outline"):
- pics["F16_outline"];
+
+ pics["F16"] := 
+  surface_plot(stereo,M = 24,H = [1]);
+ save_plot("F16");
+
+ pics["F16_wireframe"] := 
+  surface_plot(stereo,M = 24,H = [1],plot_style = wireframe);
+ save_plot("F16_wireframe");
+
+ NULL;
 end:
 
 ############################################################
 
-make_plot["y_proj"] := proc()
+#@ make_y_proj_plots
+
+make_y_proj_plots := proc()
  global pics;
 
  pics["y_proj"] := 
@@ -429,13 +461,6 @@ make_plot["y_proj"] := proc()
 
  save_plot("y_proj");
  save_jpg("y_proj");
- pics["y_proj"];
-end:
-
-############################################################
-
-make_plot["y_proj_F4"] := proc()
- global pics;
 
  pics["y_proj_F4"] :=
   plane_proj_plot(y_proj0,
@@ -445,13 +470,6 @@ make_plot["y_proj_F4"] := proc()
 
  save_plot("y_proj_F4");
  save_jpg("y_proj_F4");
- pics["y_proj_F4"];
-end:
-
-############################################################
-
-make_plot["y_proj_F16"] := proc()
- global pics;
 
  pics["y_proj_F16"] :=
   plane_proj_plot(y_proj0,
@@ -462,38 +480,26 @@ make_plot["y_proj_F16"] := proc()
 
  save_plot("y_proj_F16");
  save_jpg("y_proj_F16");
- pics["y_proj_F16"];
+
+ pics["y_proj_extra"] := display(
+  seq(planecurve(y_proj0(c_E0[k](t)),t=0..2*Pi,colour=c_colour[k]),
+      k in [0,1,3,4,5,6,7,8,9,11,13,14]),
+  scaling=constrained,axes=none
+ );
+ save_plot("y_proj_extra");
+ save_jpg("y_proj_extra");
+
+ NULL;
 end:
 
 ############################################################
 
-make_plot["F16_16x16_grid"] := proc()
- local i,j;
- global W,pics;
+#@ make_z_proj_plots
 
- for i from 0 to 16 do
-  for j from 0 to 16 do
-   W[i,j] := evalf(stereo(map(Re,w_lift1([i/16.,j/16.])))):
-  od:
- od:
-
- W[16,16] := evalf(stereo(v_E1[11]));
-
- pics["F16_16x16_grid"] := display(
-   seq(seq(polygon([W[i,j],W[i+1,j],W[i+1,j+1]],style=patchnogrid),i=0..15),j=0..15),
-   seq(seq(polygon([W[i,j],W[i,j+1],W[i+1,j+1]],style=patchnogrid),i=0..15),j=0..15),
-   scaling=constrained,orientation=[-145,60,80],axes=none
-  ):
-
- save_plot("F16_16x16_grid");
- save_jpg("F16_16x16_grid"):
- pics["F16_16x16_grid"];
-end:
-
-############################################################
-
-make_plot["z_proj"] := proc()
+make_z_proj_plots := proc()
  global pics;
+ local v_z_map,v_z_align0,v_z_align,c_z_map0,c_z_map,c_z_labels,c_z_arrows,c_z_plots,c_z,
+       i,ii,z0,t0,a,u,L,r,w;
 
  pics["z_proj"] := 
   plane_proj_plot(z_proj0,
@@ -503,15 +509,6 @@ make_plot["z_proj"] := proc()
 
  save_plot("z_proj");
  save_jpg("z_proj");
- pics["z_proj"];
-end:
-
-############################################################
-
-make_plot["z_proj_F16"] := proc()
- global pics;
- local v_z_map,v_z_align0,v_z_align,c_z_map0,c_z_map,c_z_labels,c_z_arrows,c_z_plots,c_z,
-       i,ii,z0,t0,a,u,L,r,w;
 
  v_z_align0 := table([
   0 = 'right',
@@ -592,13 +589,6 @@ make_plot["z_proj_F16"] := proc()
 
  save_plot("z_proj_F16");
  save_jpg("z_proj_F16");
- pics["z_proj_F16"];
-end:
-
-############################################################
-
-make_plot["z_proj_F16_bare"] := proc()
- global pics;
 
  pics["z_proj_F16_bare"] := display(
   plot([op(z_proj0(c_E0[0](t))),t=Pi/4..Pi/2],colour = c_colour[0]),
@@ -610,13 +600,22 @@ make_plot["z_proj_F16_bare"] := proc()
 
  save_plot("z_proj_F16_bare"):
  save_jpg("z_proj_F16_bare"):
- pics["z_proj_F16_bare"];
+
+ pics["z_proj_extra"] := display(
+  seq(planecurve(z_proj0(c_E0[k](t)),t=0..2*Pi,colour=c_colour[k]),
+      k in [0,1,3,5,9,13]),
+  scaling=constrained,axes=none
+ );
+ save_plot("z_proj_extra"):
+ save_jpg("z_proj_extra"):
+
+ NULL;
 end:
 
 ############################################################
 
-#@ save_tikz_z_proj_F16 
-save_tikz_z_proj_F16 := proc()
+#@ make_z_proj_F16_tikz 
+make_z_proj_F16_tikz := proc()
  local v_z_map,v_z_align0,v_z_align,c_z_map0,c_z_map,c_z_labels,c_z_arrows,c_z_plots,c_z,
        i,ii,z0,t0,a,u,L,r,w,s,num_points;
 
@@ -697,7 +696,8 @@ end:
 
 ############################################################
 
-make_plot["w_proj"] := proc()
+#@ make_w_proj_plots
+make_w_proj_plots := proc()
  global wp,pics;
 
  wp := (x) -> `if`(x[1]=0 and x[2]=0 and x[4]=0,[1,0],w_proj0(x));
@@ -710,12 +710,22 @@ make_plot["w_proj"] := proc()
 
  save_plot("w_proj");
  save_jpg("w_proj");
- pics["w_proj"];
+
+ pics["w_proj_extra"] := display(
+  seq(planecurve(w_proj0(c_E0[k](t)),t=0..2*Pi,colour=c_colour[k]),
+      k in [0,1,3,5,9,13]),
+  scaling=constrained,axes=none
+ );
+ save_plot("w_proj_extra"):
+ save_jpg("w_proj_extra"):
+
+ NULL;
 end:
 
 ############################################################
 
-make_plot["t_proj"] := proc()
+#@ make_t_proj_plots
+make_t_proj_plots := proc()
  global wp,pics;
 
  wp := (x) -> `if`(x[1]=0 and x[2]=0 and x[4]=0,[1,0],t_proj(x));
@@ -728,7 +738,16 @@ make_plot["t_proj"] := proc()
 
  save_plot("t_proj");
  save_jpg("t_proj");
- pics["t_proj"];
+
+ pics["t_proj_extra"] := display(
+  seq(planecurve(t_proj(c_E0[k](t)),t=0..2*Pi,colour=c_colour[k]),
+      k in [0,1,3,5,9,13]),
+  scaling=constrained,axes=none
+ );
+ save_plot("t_proj_extra"):
+ save_jpg("t_proj_extra"):
+
+ NULL;
 end:
 
 ############################################################
@@ -752,16 +771,9 @@ make_v_square_plots := proc()
     ),
     scaling=constrained,axes=none
    );
- od:
- NULL;
-end:
 
-#@ save_v_square_plots 
-save_v_square_plots := proc()
- local ss;
- ss := seq(sprintf("v_square[%d]",k),k in {3,6,11});
- save_plots(ss);
- save_jpgs(ss);
+   save_plot(s);
+ od:
  NULL;
 end:
 
@@ -775,30 +787,12 @@ end:
 
 ############################################################
 
-make_plot["net_0_glue"] := proc()
- global pics;
-
- pics["net_0_glue"] :=
- display(
-  map(e -> line(net_0["v"][e[1]],net_0["v"][e[2]],colour=edge_colour(e)),
-      net_0["outer_edges"]),
-  map(e -> textplot([op((net_0["v"][e[1]]+~net_0["v"][e[2]])/~2),edge_curve(e)]),
-      net_0["outer_edges"]),
-  axes = none
- );
-
- save_plot("net_0_glue");
- save_jpg("net_0_glue");
- pics["net_0_glue"];
-end:
-
-############################################################
-
-make_plot["disc_delta"] := proc()
+#@ make_disc_delta_plot
+make_disc_delta_plot := proc()
  global pics;
  local dpr;
 
- dpr := unapply(simplify(subs(a_E=a_E0,disc_delta_proj(x))),x);
+ dpr := unapply(simplify(subs(a_E=a_E0,disc_delta_proj(xx))),x);
 
  pics["disc_delta"] :=
   plane_proj_plot(dpr,
@@ -814,11 +808,12 @@ end:
 
 ######################################################################
 
-make_plot["disc_pi"] := proc()
+#@ make_disc_pi_plot
+make_disc_pi_plot := proc()
  global pics;
  local dpr;
 
- dpr := unapply(simplify(subs(a_E=a_E0,disc_pi_proj(x))),x);
+ dpr := unapply(simplify(subs(a_E=a_E0,disc_pi_proj(xx))),x);
 
  pics["disc_pi"] :=
   plane_proj_plot(dpr,
@@ -834,11 +829,12 @@ end:
 
 ######################################################################
 
-make_plot["disc_zeta"] := proc()
+#@ make_disc_zeta_plots
+make_disc_zeta_plots := proc()
  global pics;
  local dpr;
 
- dpr := unapply(simplify(subs(a_E=a_E0,disc_zeta_proj(x))),x);
+ dpr := unapply(simplify(subs(a_E=a_E0,disc_zeta_proj(xx))),x);
 
  pics["disc_zeta"] :=
   plane_proj_plot(dpr,
@@ -847,16 +843,6 @@ make_plot["disc_zeta"] := proc()
 
  save_plot("disc_zeta");
  save_jpg("disc_zeta");
- pics["disc_zeta"];
-end:
-
-############################################################
-
-make_plot["disc_zeta_F16"] := proc()
- global pics;
- local dpr;
-
- dpr := unapply(simplify(subs(a_E=a_E0,disc_zeta_proj(x))),x);
 
  pics["disc_zeta_F16"] :=
   plane_proj_plot(dpr,
@@ -865,36 +851,8 @@ make_plot["disc_zeta_F16"] := proc()
 
  save_plot("disc_zeta_F16");
  save_jpg("disc_zeta_F16");
- pics["disc_zeta_F16"];
-end:
 
-######################################################################
-
-#@ make_S2_proj_plots 
-make_S2_proj_plots := proc()
- local C_plot;
- global C_proj_outline_plot,S2_proj_plot;
-
- C_plot := proc(u,a,b) plot([Re(u),Im(u),t=a..b],args[4..-1]); end:
-
- C_proj_outline_plot := display(
-  C_plot(C_proj1(c[0](t)),Pi/4,Pi/2,colour=c_colour[0]),
-  C_plot(C_proj1(c[1](t)),0,Pi/2,colour=c_colour[1]),
-  C_plot(C_proj1(c[3](t)),0,Pi/2,colour=c_colour[3]),
-  C_plot(C_proj1(c[5](t)),0,Pi,colour=c_colour[5]),
-  scaling=constrained,axes=none
- ):
-
- S2_proj_plot := display(
-  sphere(0.99,colour=grey,style=patchnogrid),
-  seq(seq(polygon([S2_proj1(square_lift_table[i,j]),
-                   S2_proj1(square_lift_table[i+1,j]),
-                   S2_proj1(square_lift_table[i+1,j+1])]),i=0..15),j=0..15),
-  seq(seq(polygon([S2_proj1(square_lift_table[i,j]),
-                   S2_proj1(square_lift_table[i,j+1]),
-                   S2_proj1(square_lift_table[i+1,j+1])]),i=0..15),j=0..15),
-  scaling=constrained
- ):
+ NULL;
 end:
 
 ######################################################################
@@ -904,19 +862,7 @@ make_E_torus_plots := proc()
  global pics;
  local k,lp,lm,lmq,wft;
  
- for k from 0 to 24 do
-  lp  := sprintf("c_Tp[%d] flat",k);
-  lm  := sprintf("c_Tm[%d] flat",k);
-  lmq := sprintf("c_Tmq[%d] flat",k);
-  
-  pics[lp ] := torus_box_plot(c_TCp[k](t),colour=c_colour[k]);
-  pics[lm ] := torus_box_plot(c_TCm[k](t),colour=c_colour[k]);
-  pics[lmq] := torus_box_plot(c_TCmq[k](t),colour=c_colour[k]);
-
-  save_plot(lp);
-  save_plot(lm);
-  save_plot(lmq);
-
+ for k from 0 to 16 do
   lp  := sprintf("c_Tp[%d]",k);
   lm  := sprintf("c_Tm[%d]",k);
   lmq := sprintf("c_Tmq[%d]",k);
@@ -933,15 +879,9 @@ make_E_torus_plots := proc()
   save_plot(lmq);
  od:
 
- pics["c_Tp flat"] := display(seq(pics[sprintf("c_Tp[%d] flat",k)],
-                             k in {0,1,3,4,5,6}));
- pics["c_Tm flat"] := display(seq(pics[sprintf("c_Tm[%d] flat",k)],
-                             k in {0,1,2,3,5,6,9,10}));
- pics["c_Tmq flat"] := display(seq(pics[sprintf("c_Tmq[%d] flat",k)],
-                             k in {0,1,2,3,5,6,9,10,17,18,19}));
-
- wft := plot3d(angles_to_R3(t,u),t=0..1,u=0..1,
-          colour=gray,style=wireframe,scaling=constrained,axes=none);
+ wft :=
+  plot3d(TA_to_R3([t,u]),t=0..2*Pi,u=0..2*Pi,
+           colour=gray,style=wireframe,scaling=constrained,axes=none);
 
  pics["c_Tp" ] := display(wft,seq(pics[sprintf("c_Tp[%d]",k)],
                              k in {0,1,3,4,5,6}));
@@ -950,13 +890,29 @@ make_E_torus_plots := proc()
  pics["c_Tmq"] := display(wft,seq(pics[sprintf("c_Tmq[%d]",k)],
                              k in {0,1,2,3,5,6}));
 
- save_plot("c_Tp flat");
- save_plot("c_Tm flat");
- save_plot("c_Tmq flat");
  save_plot("c_Tp");
  save_plot("c_Tm");
  save_plot("c_Tmq");
- 
+
+ pics["c_Tp_extra"] := display(
+  pics["c_Tp"],
+  seq(pics[sprintf("c_Tp[%d]",k)],k in {9,10,13,15})
+ );
+
+ pics["c_Tm_extra"] := display(
+  pics["c_Tm"],
+  seq(pics[sprintf("c_Tm[%d]",k)],k in {9,10,13,14,15,16})
+ );
+
+ pics["c_Tmq_extra"] := display(
+  pics["c_Tmq"],
+  seq(pics[sprintf("c_Tmq[%d]",k)],k in {9,10,13,14,15,16})
+ );
+
+ save_plot("c_Tp_extra");
+ save_plot("c_Tm_extra");
+ save_plot("c_Tmq_extra");
+
 end:
 
 ######################################################################
@@ -968,40 +924,50 @@ make_E_sphere_plots := proc()
 
  wfs := display(sphere([0,0,0],1,colour=grey,style=wireframe),axes=none):
 
- pics["SQE 1"] := 
+ # EX^*/<LL>
+ pics["SQE_LL"] := 
  display(wfs,
-  seq(spacecurve(E_to_S2(c_E0[k](t)),t=0..2*Pi,colour=c_colour[k],numpoints=200),k=0..8),
+  seq(spacecurve(E_to_S2(c_E0[k](t)),
+       t=0..2*Pi,colour=c_colour[k],numpoints=200),k=0..8),
   axes=none,scaling=constrained
  ):
 
- pics["SQE 2"] := 
+ # EX^*/<L>
+ pics["SQE_L"] := 
  display(wfs,
-  seq(spacecurve(p12_S2(E_to_S2(c_E0[k](t))),t=0..2*Pi,colour=c_colour[k],numpoints=200),k=0..8),
+  seq(spacecurve(p_S2[ 2, 3](E_to_S2(c_E0[k](t))),
+       t=0..2*Pi,colour=c_colour[k],numpoints=200),k=0..8),
   axes=none,scaling=constrained
  ):
 
- pics["SQE 3"] := 
+ # EX^*/<LL,M>
+ pics["SQE_LL_M"] := 
  display(wfs,
-  seq(spacecurve(p13_S2(E_to_S2(c_E0[k](t))),t=0..2*Pi,colour=c_colour[k],numpoints=200),k=0..8),
+  seq(spacecurve(p_S2[ 2, 8](E_to_S2(c_E0[k](t))),
+       t=0..2*Pi,colour=c_colour[k],numpoints=200),k=0..8),
   axes=none,scaling=constrained
  ):
 
- pics["SQE 4"] := 
+ # EX^*/<LL,LM>
+ pics["SQE_LL_LM"] := 
  display(wfs,
-  seq(spacecurve(p14_S2(E_to_S2(c_E0[k](t))),t=0..2*Pi,colour=c_colour[k],numpoints=200),k=0..8),
+  seq(spacecurve(p_S2[ 2, 9](E_to_S2(c_E0[k](t))),
+       t=0..2*Pi,colour=c_colour[k],numpoints=200),k=0..8),
   axes=none,scaling=constrained
  ):
 
- pics["SQE 5"] := 
+ # EX^*/<L,M>
+ pics["SQE_L_M"] := 
  display(wfs,
-  seq(spacecurve(p15_S2(E_to_S2(c_E0[k](t))),t=0..2*Pi,colour=c_colour[k],numpoints=200),k=0..8),
+  seq(spacecurve(p_S2[ 2,10](E_to_S2(c_E0[k](t))),
+       t=0..2*Pi,colour=c_colour[k],numpoints=200),k=0..8),
   axes=none,scaling=constrained
  ):
 
- save_plot("SQE 1");
- save_plot("SQE 2");
- save_plot("SQE 3");
- save_plot("SQE 4");
- save_plot("SQE 5");
+ save_plot("SQE_LL");
+ save_plot("SQE_L");
+ save_plot("SQE_LL_M");
+ save_plot("SQE_LL_LM");
+ save_plot("SQE_L_M");
 
 end:
