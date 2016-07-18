@@ -208,6 +208,8 @@ make_Ep_plots := proc()
  
  save_plot("Ep_patch");
  save_plot("Ep_cell");
+ save_jpg("Ep_patch");
+ save_jpg("Ep_cell");
  NULL;
 end:
 
@@ -309,6 +311,8 @@ make_Em_plots := proc()
 
  save_plot("Em_patch");
  save_plot("Em_cell");
+ save_jpg("Em_patch");
+ save_jpg("Em_cell");
  NULL;
 end:
 
@@ -395,6 +399,9 @@ make_P_torus_plots := proc()
  save_plot("c_TEp");
  save_plot("c_TEm");
  save_plot("c_TEmq");
+ save_jpg("c_TEp");
+ save_jpg("c_TEm");
+ save_jpg("c_TEmq");
 end:
 
 ######################################################################
@@ -450,4 +457,9 @@ make_P_sphere_plots := proc()
  save_plot("SQP_LL_LM");
  save_plot("SQP_L_M");
 
+ save_jpg("SQP_LL");
+ save_jpg("SQP_L");
+ save_jpg("SQP_LL_M");
+ save_jpg("SQP_LL_LM");
+ save_jpg("SQP_L_M");
 end:
