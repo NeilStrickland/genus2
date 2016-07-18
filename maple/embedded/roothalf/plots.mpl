@@ -71,6 +71,7 @@ make_linear_projection_plots := proc()
   PP[i,j] := pics[lbl];
 
   save_plot(lbl);
+  save_jpg( lbl);
 
   lbl := cat(lbl,"_extra");
   pics[lbl] := 
@@ -81,6 +82,7 @@ make_linear_projection_plots := proc()
   QQ[i,j] := pics[lbl];
 
   save_plot(lbl);
+  save_jpg( lbl);
  od:
 
  pics["lin_proj_grid"] := 
@@ -98,6 +100,4 @@ make_linear_projection_plots := proc()
  save_plot("lin_proj_grid_extra");
 end:
 
-#@ owl_proj 
-owl_proj := (x) -> [x[1],x[2],(x[3]-x[4])/sqrt(2)];
 
