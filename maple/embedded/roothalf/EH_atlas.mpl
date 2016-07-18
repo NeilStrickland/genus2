@@ -1820,7 +1820,7 @@
 
  ["Method","fourier_ring_vals","This method generates a list of points in $EX^*\\subset\\mathbb{R}^4$ obtained by applying the map $q\\colon\\Delta\\to EX^*$ to $n$ equally spaced points on the circle of radius $r$ centred at $0$.",
   proc(this,r::RR0,n::posint := 1024)
-   local i,j,k,a,S,x;
+   local i,j,k,a,S,s,x,v,V;
 
    a := table();
    k := this["fourier_k"];
@@ -1833,7 +1833,17 @@
    x[4] := add(S[4,i](r)*cos((4*i+2)*theta),i = 0..2^(k-3)-1);
    x := [x[1],x[2],x[3],x[4]];
 
-   return(evalf([seq(subs(theta=2*Pi*i/n,x),i=0..n)]));
+   V := NULL;
+   for i from 0 to n do
+    if modp(i,10) = 0 then
+     userinfo(8,genus2,sprintf("fourier_ring_vals: i = %d",i));
+    fi;
+    s := evalf(2*Pi*i/n);
+    v := evalf(subs(theta = s,x));
+    V := V,v;
+   od:
+   
+   return([V]);
   end
  ],
 
