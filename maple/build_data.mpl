@@ -125,6 +125,44 @@ end:
 
 ######################################################################
 
+build_data["automorphy_system"] := proc()
+ global automorphy_system;
+ local d,n;
+
+ if toy_version then
+  d := 50;
+  n := 3;
+ else
+  d := 100;
+  n := 4;
+ fi;
+ 
+ automorphy_system := `new/automorphy_system`():
+ automorphy_system["a_H"] := a_H0:
+ automorphy_system["poly_deg"] := d;
+ automorphy_system["band_number"] := n;
+ automorphy_system["set_p0_series",2]:
+ automorphy_system["set_m_series"]:
+
+ NULL;
+end:
+
+##################################################
+
+save_data["automorphy_system"] := proc()
+ if not(assigned(automorphy_system)) then
+  error "automorphy_system is not set";
+ fi;
+ make_save_dir();
+ save(automorphy_system,cat(save_dir,"/hyperbolic/automorphy_system.m"));
+end:
+
+load_data["automorphy_system"] := proc()
+ read(cat(save_dir,"/hyperbolic/automorphy_system.m"));
+end:
+
+######################################################################
+
 build_data["triangle_quadrature_rule"] := proc() 
  local i,n;
  global dunavant_19,wandzurat_xiao_30,tri_quad_rule;
@@ -694,22 +732,31 @@ build_data["H_to_P_map"] := proc()
 
  if toy_version then
   ns := 100;
-  pd := 20;
+  pd := 16;
   mr := 0.7;
-  md := 100;
-  mn := 10;
+  mn := 100;
+  md := 16;
  else
-  ns := 100;
-  pd := 20;
+  ns := 200;
+  pd := 25;
   mr := 0.8;
-  md := 100;
-  mn := 10;
+  mn := 200;
+  md := 25;
  fi;
 
  ui(5,"Creating map H -> P");
 
  set_a_H0(EH_atlas["a_H"]):
 
+ if not(assigned(HP_table)) then
+  load_data["HP_table"]():
+ fi;
+
+ if not(assigned(HP_table)) then
+  error("Failed to load HP_table");
+  return false;
+ fi;
+ 
  HP_table["add_a_H",a_H0]:
  H_to_P_map := eval(HP_table["H_to_P_maps"][a_H0]):
  H_to_P_map["make_samples",ns]:
@@ -722,13 +769,13 @@ build_data["H_to_P_map"] := proc()
  H_to_P_map["set_p1_inv"];
 
  ui(6,"Finding m");
- H_to_P_map["find_m_series" ,mr,md,mn]:
+ H_to_P_map["find_m_series" ,mr,mn,md]:
 
  ui(6,"Finding mp");
- H_to_P_map["find_mp_series",mr,md,mn]:
+ H_to_P_map["find_mp_series",mr,mn,md]:
 
  ui(6,"Finding p");
- H_to_P_map["find_p_series" ,mr,md,mn]:
+ H_to_P_map["find_p_series" ,mr,mn,md]:
 
  NULL;
 end:
@@ -755,6 +802,15 @@ build_data["P_to_H_map"] := proc()
 
  ui(5,"Creating map P -> H");
 
+ if not(assigned(H_to_P_map)) then
+  load_data["H_to_P_map"]():
+ fi;
+
+ if not(assigned(H_to_P_map)) then
+  error("Failed to load H_to_P_map");
+  return false;
+ fi;
+ 
  set_a_P0(H_to_P_map["a_P"]);
  P_to_H_map := `new/P_to_H_map`():
  P_to_H_map["degree"] := 100;
@@ -822,6 +878,7 @@ end:
 build_data["all"] := proc()
  ui(5,"Building all data");
  build_data["HP_table"]();
+ build_data["automorphy_system"]();
  build_data["triangle_quadrature_rule"]();
  build_data["grid"]();
  build_data["E_quadrature_rule"]();
@@ -838,6 +895,7 @@ end:
 save_data["all"] := proc()
  ui(5,"Saving all data");
  save_data["HP_table"]();
+ save_data["automorphy_system"]();
  save_data["triangle_quadrature_rule"]();
  save_data["grid"]();
  save_data["E_quadrature_rule"]();
@@ -851,6 +909,7 @@ end:
 load_data["all"] := proc()
  ui(5,"Loading all data");
  load_data["HP_table"]();
+ load_data["automorphy_system"]();
  load_data["triangle_quadrature_rule"]();
  load_data["grid"]();
  load_data["E_quadrature_rule"]();
@@ -861,3 +920,40 @@ load_data["all"] := proc()
  load_data["E_to_S_map"]();
 end:
 
+######################################################################
+
+make_data_plots := proc()
+ global pics;
+ local i,k,lbl,pp,ll,V,p;
+
+ load_data["EH_atlas"]();
+ userinfo(6,genus2,"Calculating ring values");
+ V := EH_atlas["fourier_ring_vals",0.8,1024];
+
+ pp := [y_proj0,disc_pi_proj,disc_delta_proj,disc_zeta_proj];
+ ll := ["y_ring","pi_ring","delta_ring","zeta_ring"];
+
+ for i from 1 to 4 do
+  p := eval(pp[i]);
+  lbl := ll[i];
+  userinfo(6,genus2,sprintf("Generating pics[%s]",lbl));
+  pics[lbl] :=
+   display(
+     seq(planecurve(p(c_E0[k](t)),t=0..2*Pi,colour=c_colour[k]),k=0..8),
+     curve(map(p,V),colour=black),
+     scaling=constrained,axes=none
+    );
+  save_plot(lbl);
+  save_jpg(lbl);
+ od;
+  
+ load_data["E_to_S_map"]():
+
+ for i from 1 to 3 do
+  lbl := sprintf("E_to_S_u[%d]",i);
+  userinfo(6,genus2,sprintf("Generating pics[%s]",lbl));
+  pics[lbl] := E_to_S_map["u_plot",i];
+  save_plot(lbl);
+  save_jpg(lbl);
+ od:
+end:
