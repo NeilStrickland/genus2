@@ -366,7 +366,9 @@ end():
 #@ annular_chart0
 
 for i from 0 to 2 do 
- annular_chart0[i] := unapply(simplify(subs(a_E=a_E0,annular_chart[i](s))),s);
+ annular_chart0[i] :=
+  unapply(subs(csgn(cos(s[1])^2-2) = -1,
+               simplify(subs(a_E=a_E0,annular_chart[i](s)))),s);
 od:
 
 annular_chart0[3] := unapply(subs({t=s[1],u=s[2]},
@@ -474,4 +476,7 @@ gauss_map0 := unapply(
  -4*x[3]*sqrt(2)*x[2]*x[1]-2*sqrt(2)*x[2]^2*x[4]-sqrt(2)*x[3]^2*x[4]-sqrt(2)*x[4]^3-3*x[3]^3+6*x[3]*x[4]^2+x[4]*sqrt(2)+2*x[3]] /~
  sqrt(6+6*sqrt(2)*x[3]^3*x[4]-8*x[2]^2+8*x[2]^4+4*x[4]^2-4*x[3]^2-x[3]^4+8*x[4]^2*x[2]^2-4*x[3]*sqrt(2)*x[4]-8*x[3]^2*x[4]^2+2*x[4]^4),x);
 
+######################################################################
 
+#@ owl_proj 
+owl_proj := (x) -> [x[1],x[2],(x[3]-x[4])/sqrt(2)];
