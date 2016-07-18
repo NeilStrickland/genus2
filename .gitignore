@@ -58,3 +58,8 @@ worksheets/*.mw
 /latex/tikz_includes/P_p.tex
 /latex/tikz_includes/P_q.tex
 /latex/tikz_includes
+/maple_output/maple_output.tex
+/maple_output/maple_output.aux
+/maple_output/maple_output.log
+/maple_output/maple_output.out
+/maple_output/maple_output.pdf
