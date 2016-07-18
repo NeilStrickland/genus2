@@ -346,6 +346,7 @@ make_c_H_plots := proc()
   );
 
  save_plots(seq(sprintf("c_H[%d]",i),i=0..8),"curves_H");
+ save_jpgs( seq(sprintf("c_H[%d]",i),i=0..8),"curves_H");
  pics["curves_H"];
 end:
 
@@ -457,6 +458,12 @@ make_H_plots := proc()
  save_plot("F8_H_boundary");
  save_plot("F16_H_boundary");
 
+ save_jpg("F1_H_boundary");
+ save_jpg("F1_H_boundary_b");
+ save_jpg("F4_H_boundary");
+ save_jpg("F8_H_boundary");
+ save_jpg("F16_H_boundary");
+
  NULL;
 end:
 
@@ -548,6 +555,7 @@ make_square_diffeo_H_plot := proc()
  od:
  pics["square_diffeo_H"] := display(PP,scaling=constrained,axes=none);
  save_plot("square_diffeo_H");
+ save_jpg( "square_diffeo_H");
  pics["square_diffeo_H"];
 end:
 
@@ -579,6 +587,7 @@ make_tile_plot := proc()
  P := display(P,axes=none,scaling=constrained);
  pics["tiles"] := P;
  save_plot("tiles");
+ save_jpg( "tiles");
  P;
 end:
 
@@ -604,6 +613,7 @@ make_H_to_P_poles_plot := proc()
  ):
 
  save_plot("H_to_P_poles");
+ save_jpg( "H_to_P_poles");
 
  pics["H_to_P_poles"];
 end:
