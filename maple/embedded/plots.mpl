@@ -290,18 +290,22 @@ make_c_E_plots := proc()
   pics[sprintf("c_E[%d]",i)] := c_E_plot[i];
  od:
  save_plots(seq(sprintf("c_E[%d]",i),i=0..8));
+ save_jpgs( seq(sprintf("c_E[%d]",i),i=0..8));
 
  pics["curves_E"] :=
   display(seq(c_E_plot[i],i=0..8),scaling=constrained,axes=none);
  save_plot("curves_E");
+ save_jpg( "curves_E");
 
  pics["extra_curves_E"] :=
   display(seq(c_E_plot[i],i=9..16),scaling=constrained,axes=none);
  save_plot("extra_curves_E");
+ save_jpg( "extra_curves_E");
 
  pics["all_curves_E"] := 
   display(pics["curves_E"],pics["extra_curves_E"]);
  save_plot("all_curves_E");
+ save_jpg( "all_curves_E");
 end:
 
 load_c_E_plots := proc()
@@ -319,13 +323,14 @@ make_E_plots := proc()
   surface_plot(stereo,M = 12,plot_style=wireframe);
 
  save_plots("EX","EX_wireframe");
+ save_jpgs( "EX","EX_wireframe");
 
  pics["EX_with_curves"] := display(
   surface_plot(stereo,M = 8,with_curves = true),
   scaling=constrained,orientation=[65,80],axes = none
  ): 
  save_plot("EX_with_curves"): 
- save_jpg("EX_with_curves"): 
+ save_jpg( "EX_with_curves"): 
 
  NULL;
 end:
@@ -344,6 +349,7 @@ make_E_owl_plots := proc()
   surface_plot(owl_proj,M = 12,plot_style=wireframe);
 
  save_plots("EX_owl","EX_owl_wireframe");
+ save_jpgs( "EX_owl","EX_owl_wireframe");
 
  pics["EX_owl_with_curves"] := display(
   surface_plot(owl_proj,M = 8,with_curves = true),
@@ -438,10 +444,12 @@ make_F16_plots := proc()
  pics["F16"] := 
   surface_plot(stereo,M = 24,H = [1]);
  save_plot("F16");
+ save_jpg( "F16");
 
  pics["F16_wireframe"] := 
   surface_plot(stereo,M = 24,H = [1],plot_style = wireframe);
  save_plot("F16_wireframe");
+ save_jpg( "F16_wireframe");
 
  NULL;
 end:
@@ -773,6 +781,7 @@ make_v_square_plots := proc()
    );
 
    save_plot(s);
+   save_jpg( s);
  od:
  NULL;
 end:
@@ -877,7 +886,11 @@ make_E_torus_plots := proc()
   save_plot(lp);
   save_plot(lm);
   save_plot(lmq);
- od:
+
+  save_jpg(lp);
+  save_jpg(lm);
+  save_jpg(lmq);
+od:
 
  wft :=
   plot3d(TA_to_R3([t,u]),t=0..2*Pi,u=0..2*Pi,
@@ -893,6 +906,10 @@ make_E_torus_plots := proc()
  save_plot("c_Tp");
  save_plot("c_Tm");
  save_plot("c_Tmq");
+
+ save_jpg("c_Tp");
+ save_jpg("c_Tm");
+ save_jpg("c_Tmq");
 
  pics["c_Tp_extra"] := display(
   pics["c_Tp"],
@@ -912,6 +929,10 @@ make_E_torus_plots := proc()
  save_plot("c_Tp_extra");
  save_plot("c_Tm_extra");
  save_plot("c_Tmq_extra");
+
+ save_jpg("c_Tp_extra");
+ save_jpg("c_Tm_extra");
+ save_jpg("c_Tmq_extra");
 
 end:
 
@@ -969,5 +990,11 @@ make_E_sphere_plots := proc()
  save_plot("SQE_LL_M");
  save_plot("SQE_LL_LM");
  save_plot("SQE_L_M");
+
+ save_jpg("SQE_LL");
+ save_jpg("SQE_L");
+ save_jpg("SQE_LL_M");
+ save_jpg("SQE_LL_LM");
+ save_jpg("SQE_L_M");
 
 end:
