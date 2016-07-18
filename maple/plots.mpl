@@ -377,5 +377,7 @@ make_wireframe_plots := proc()
 
  save_plot("torus_wireframe");
  save_plot("sphere_wireframe");
+ save_jpg("torus_wireframe");
+ save_jpg("sphere_wireframe");
  NULL;
 end:
