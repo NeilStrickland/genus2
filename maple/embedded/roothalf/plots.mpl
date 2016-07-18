@@ -53,7 +53,7 @@ linear_projection_vector[8] := [ 0, 0, 1,-1] /~ sqrt(2);
 #@ make_linear_projection_plots 
 make_linear_projection_plots := proc()
  global pics;
- local IJ,ij,i,j,k,p,lbl,PP;
+ local IJ,ij,i,j,k,p,lbl,PP,QQ;
 
  IJ := [[3,6],[1,6],[5,6],[1,2],[3,5],[1,5],[1,7],[3,7]];
 
@@ -64,27 +64,40 @@ make_linear_projection_plots := proc()
                       dp4(linear_projection_vector[j],xx)]),x);
 
   pics[lbl] := 
-   display(seq(plane_curve(p(c_E0[k](t)),t=0..2*Pi,colour=c_colour[k]),k = 0 .. 8));
+   display(
+    seq(planecurve(p(c_E0[k](t)),t=0..2*Pi,colour=c_colour[k]),k = 0 .. 8),
+    scaling=constrained,axes=none
+   );
   PP[i,j] := pics[lbl];
+
+  save_plot(lbl);
+
+  lbl := cat(lbl,"_extra");
+  pics[lbl] := 
+   display(
+    seq(planecurve(p(c_E0[k](t)),t=0..2*Pi,colour=c_colour[k]),k = 0 .. 16),
+    scaling=constrained,axes=none
+   );
+  QQ[i,j] := pics[lbl];
 
   save_plot(lbl);
  od:
 
  pics["lin_proj_grid"] := 
   display(<<PP[3,6]|PP[1,6]|PP[5,6]|PP[1,2]>,
-           <PP[3,5]|PP[1,5]|PP[1,7]|PP[3,7]>>);
+           <PP[3,5]|PP[1,5]|PP[1,7]|PP[3,7]>>,
+          scaling=constrained,axes=none);
 
  save_plot("lin_proj_grid");
+
+ pics["lin_proj_grid_extra"] := 
+  display(<<QQ[3,6]|QQ[1,6]|QQ[5,6]|QQ[1,2]>,
+           <QQ[3,5]|QQ[1,5]|QQ[1,7]|QQ[3,7]>>,
+          scaling=constrained,axes=none);
+
+ save_plot("lin_proj_grid_extra");
 end:
 
 #@ owl_proj 
 owl_proj := (x) -> [x[1],x[2],(x[3]-x[4])/sqrt(2)];
 
-#@ make_owl_plot 
-make_owl_plot := proc()
- global pics;
-
- pics["owl_plot"] := surface_plot(owl_proj,12);
- save_plot("owl_plot");
- save_jpg("owl_plot");
-end:
