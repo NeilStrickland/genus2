@@ -416,7 +416,23 @@ involves a rich theory based on Fuchsian differential equations and
 the Schwarzian derivative; the other is less illuminating, but in some
 respects more efficient and direct.  The graph of $a$ against $b$ is
 as follows.
-\input{tikz_includes/H_to_P_graph}
+\begin{center}
+ \begin{tikzpicture}[scale=4]
+  \draw[black,->] (-0.05,0) -- (1.05,0);
+  \draw[black,->] (0,-0.05) -- (0,1.05);
+  \draw[black] (1,-0.05) -- (1,0);
+  \draw[black] (-0.05,1) -- (0,1);
+  \draw ( 0.00,-0.05) node[anchor=north] {$0$};
+  \draw ( 1.00,-0.05) node[anchor=north] {$1$};
+  \draw (-0.05, 0.00) node[anchor=east ] {$0$};
+  \draw (-0.05, 1.00) node[anchor=east ] {$1$};
+  \draw ( 1.05, 0.00) node[anchor=west ] {$b$};
+  \draw ( 0.00, 1.05) node[anchor=south] {$a$};
+ \draw[red] plot[smooth] coordinates{ (0.000,1.000) (0.060,1.000) (0.080,1.000) (0.100,1.000) (0.120,1.000) (0.140,1.000) (0.160,1.000) (0.180,1.000) (0.200,1.000) (0.220,1.000) (0.240,0.999) (0.260,0.997) (0.280,0.994) (0.300,0.990) (0.320,0.983) (0.340,0.974) (0.360,0.961) (0.380,0.944) (0.400,0.923) (0.420,0.898) (0.440,0.869) (0.460,0.835) (0.480,0.798) (0.500,0.757) (0.520,0.713) (0.540,0.667) (0.560,0.620) (0.580,0.571) (0.600,0.521) (0.620,0.472) (0.640,0.423) (0.660,0.375) (0.680,0.328) (0.700,0.283) (0.720,0.241) (0.740,0.201) (0.760,0.163) (0.780,0.129) (0.800,0.099) (0.820,0.073) (0.840,0.050) (0.860,0.032) (0.880,0.019) (0.900,0.009) (0.920,0.004) (0.940,0.001) (1.000,0.000) };
+  \fill[black] (0.801,0.098) circle(0.015);
+ \end{tikzpicture}
+\end{center}
+
 We have conducted a fairly extensive heuristic
 search for closed-form relationships between the above graph and
 various other functions that we know to be relevant, but without
@@ -7567,7 +7583,22 @@ up with errors $|P(a)(s_j)|^2-1$ that are less than $10^{-23}$.
 
 Calculations using the above method give the following graph of $a$ as
 a function of $b$ (with the marked point representing $EX^*$):
-\input{tikz_includes/H_to_P_graph}
+\begin{center}
+ \begin{tikzpicture}[scale=4]
+  \draw[black,->] (-0.05,0) -- (1.05,0);
+  \draw[black,->] (0,-0.05) -- (0,1.05);
+  \draw[black] (1,-0.05) -- (1,0);
+  \draw[black] (-0.05,1) -- (0,1);
+  \draw ( 0.00,-0.05) node[anchor=north] {$0$};
+  \draw ( 1.00,-0.05) node[anchor=north] {$1$};
+  \draw (-0.05, 0.00) node[anchor=east ] {$0$};
+  \draw (-0.05, 1.00) node[anchor=east ] {$1$};
+  \draw ( 1.05, 0.00) node[anchor=west ] {$b$};
+  \draw ( 0.00, 1.05) node[anchor=south] {$a$};
+ \draw[red] plot[smooth] coordinates{ (0.000,1.000) (0.060,1.000) (0.080,1.000) (0.100,1.000) (0.120,1.000) (0.140,1.000) (0.160,1.000) (0.180,1.000) (0.200,1.000) (0.220,1.000) (0.240,0.999) (0.260,0.997) (0.280,0.994) (0.300,0.990) (0.320,0.983) (0.340,0.974) (0.360,0.961) (0.380,0.944) (0.400,0.923) (0.420,0.898) (0.440,0.869) (0.460,0.835) (0.480,0.798) (0.500,0.757) (0.520,0.713) (0.540,0.667) (0.560,0.620) (0.580,0.571) (0.600,0.521) (0.620,0.472) (0.640,0.423) (0.660,0.375) (0.680,0.328) (0.700,0.283) (0.720,0.241) (0.740,0.201) (0.760,0.163) (0.780,0.129) (0.800,0.099) (0.820,0.073) (0.840,0.050) (0.860,0.032) (0.880,0.019) (0.900,0.009) (0.920,0.004) (0.940,0.001) (1.000,0.000) };
+  \fill[black] (0.801,0.098) circle(0.015);
+ \end{tikzpicture}
+\end{center}
 The middle section of this graph can be obtained by the methods of
 this section, or those of Section~\ref{sec-b-from-a}.  However, the
 methods of Section~\ref{sec-b-from-a} behave poorly when $(a,b)$
