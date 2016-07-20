@@ -21,13 +21,18 @@ function rm_rf($dir) {
    rm_rf("$dir/$file");
   } else {
    if (! unlink("$dir/$file")) {
-    trigger_error("Could not delete $dir/$file");
+    trigger_error("Could not delete $dir/$file",E_USER_ERROR);
     exit;
    }
   }
  }
 
- return rmdir($dir); 
+ if (! rmdir($dir)) {
+  trigger_error("Could not delete $dir",E_USER_ERROR);
+  exit;
+ }
+
+ return true;
 }
 
 $map->subdirs =
