@@ -43,6 +43,8 @@ $map->subdirs =
        '/maple/embedded/roothalf',
        '/worksheets',
        '/doc',
+       '/doc/classes',
+       '/doc/maple',
        '/data',
        '/data/domain',
        '/data/quadrature',
@@ -59,11 +61,10 @@ $map->files = array();
 
 $map->files['doc'] =
  array(
+       '/doc/index.html',
        '/doc/defs.html',
-       '/doc/defs.html',
-       '/doc/entries.html',
-       '/doc/genus2.html',
-       '/doc/index.html'
+       '/doc/classes.html',
+       '/doc/images.html'
        );
 
 $map->files['latex'] =
@@ -92,20 +93,38 @@ $map->files['included_images'] =
 
 $map->files['maple'] = 
  array(
-       '/maple/util.mpl',
-       '/maple/class.mpl',
        '/maple/Rn.mpl',
-       '/maple/build_data.mpl',
        '/maple/brent.mpl',
+       '/maple/build_data.mpl',
+       '/maple/check_all.mpl',
+       '/maple/checks.mpl',
+       '/maple/class.mpl',
+       '/maple/cromulent.mpl',
        '/maple/genus2.mpl',
        '/maple/group.mpl',
        '/maple/groupoid.mpl',
-       '/maple/cromulent.mpl',
-       '/maple/nets.mpl',
        '/maple/latex.mpl',
+       '/maple/nets.mpl',
        '/maple/plots.mpl',
-       '/maple/checks.mpl',
-       '/maple/check_all.mpl',
+       '/maple/talk_plots.mpl',
+       '/maple/util.mpl',
+       '/maple/projective/PX.mpl',
+       '/maple/projective/galois.mpl',
+       '/maple/projective/ellquot.mpl',
+       '/maple/projective/picard_fuchs.mpl',
+       '/maple/projective/PK_subfields.mpl',
+       '/maple/projective/PX0.mpl',
+       '/maple/projective/plots.mpl',
+       '/maple/hyperbolic/Pi.mpl',
+       '/maple/hyperbolic/HX.mpl',
+       '/maple/hyperbolic/HX0.mpl',
+       '/maple/hyperbolic/HP_table.mpl',
+       '/maple/hyperbolic/H_to_P.mpl',
+       '/maple/hyperbolic/P_to_H.mpl',
+       '/maple/hyperbolic/geodesics.mpl',
+       '/maple/hyperbolic/schwarz.mpl',
+       '/maple/hyperbolic/plots.mpl',
+       '/maple/hyperbolic/automorphic.mpl',
        '/maple/quadrature/quadrature.mpl',
        '/maple/domain/domain.mpl',
        '/maple/domain/domain_point.mpl',
@@ -144,23 +163,6 @@ $map->files['maple'] =
        '/maple/embedded/roothalf/galois.mpl',
        '/maple/embedded/roothalf/KR_subfields.mpl',
        '/maple/embedded/roothalf/plots.mpl',
-       '/maple/projective/PX.mpl',
-       '/maple/projective/galois.mpl',
-       '/maple/projective/ellquot.mpl',
-       '/maple/projective/picard_fuchs.mpl',
-       '/maple/projective/PK_subfields.mpl',
-       '/maple/projective/PX0.mpl',
-       '/maple/projective/plots.mpl',
-       '/maple/hyperbolic/Pi.mpl',
-       '/maple/hyperbolic/HX.mpl',
-       '/maple/hyperbolic/HX0.mpl',
-       '/maple/hyperbolic/HP_table.mpl',
-       '/maple/hyperbolic/H_to_P.mpl',
-       '/maple/hyperbolic/P_to_H.mpl',
-       '/maple/hyperbolic/geodesics.mpl',
-       '/maple/hyperbolic/schwarz.mpl',
-       '/maple/hyperbolic/plots.mpl',
-       '/maple/hyperbolic/automorphic.mpl',
        );
 
 $map->files['checks'] =
@@ -213,11 +215,42 @@ $map->files['worksheets'] =
  array(
        '/worksheets/genus2.mw',
        '/worksheets/genus2_pics.mw',
+       '/worksheets/genus2_talk_pics.mw',
        '/worksheets/checks.mw',
        '/worksheets/check_all.mw',
        '/worksheets/text_check.mw',
        '/worksheets/build_data.mw',
        '/worksheets/build_data_toy.mw',
+       );
+
+$map->classes =
+ array(
+       'net',
+       'triangle_quadrature_rule',
+       'domain',
+       'domain_point',
+       'domain_edge',
+       'domain_face',
+       'grid',
+       'E_point',
+       'E_sample_point',
+       'E_edge',
+       'E_face',
+       'E_grid',
+       'E_quadrature_rule',
+       'E_chart',
+       'E_atlas',
+       'EH_chart',
+       'EH_atlas_edge',
+       'EH_atlas',
+       'E_to_S_map',
+       'KR_subfield',
+       'PK_subfield',
+       'HP_table',
+       'H_to_P_map',
+       'P_to_H_chart',
+       'P_to_H_map',
+       'automorphy_system',
        );
 
 function make_arxiv() {
@@ -228,14 +261,18 @@ function make_arxiv() {
  mkdir($arxiv_dir);
 
  $tex = file_get_contents($map->main_dir . '/latex/genus2.tex');
- $tex = preg_replace_callback(
-  '/\\\\input{tikz_includes\/([^}]*)}/',
-  function($matches) {
-   global $map;
-   return(file_get_contents($map->main_dir . '/latex/tikz_includes/' . $matches[1] . '.tex'));
-  },
-  $tex
- );
+
+ // All included tikz files have now been inlined, so the code below is
+ // not needed, but we retain it in case we want to switch back.
+ 
+ // $tex = preg_replace_callback(
+ //  '/\\\\input{tikz_includes\/([^}]*)}/',
+ //  function($matches) {
+ //   global $map;
+ //   return(file_get_contents($map->main_dir . '/latex/tikz_includes/' . $matches[1] . '.tex'));
+ //  },
+ //  $tex
+ // );
 
  $tex = preg_replace('/{..\/images\/([^}]*)}/',
 		     '{images/${1}}',
@@ -274,6 +311,7 @@ function make_arxiv() {
  mkdir($anc_dir . '/doc/maple/hyperbolic');
  mkdir($anc_dir . '/doc/maple/embedded');
  mkdir($anc_dir . '/doc/maple/embedded/roothalf');
+ mkdir($anc_dir . '/doc/classes');
 
  foreach($map->files['doc'] as $f) {
   copy($map->main_dir . $f,$anc_dir . $f);
@@ -284,6 +322,12 @@ function make_arxiv() {
   copy($map->main_dir . '/doc/' . $f,$anc_dir . '/doc/' . $f);
  }
 
+ foreach($map->classes as $c) {
+  copy($map->main_dir . '/doc/classes/' . $c . '.html',
+       $anc_dir . '/doc/classes/' . $c . '.html'
+       );
+ }
+ 
  foreach($map->files['worksheets'] as $f) {
   $b = basename($f);
   copy($map->main_dir . '/worksheets/small/' . $b,
@@ -320,9 +364,16 @@ function make_thin_dist() {
  mkdir($thin_dist_dir . '/doc/maple/hyperbolic');
  mkdir($thin_dist_dir . '/doc/maple/embedded');
  mkdir($thin_dist_dir . '/doc/maple/embedded/roothalf');
+ mkdir($thin_dist_dir . '/doc/classes');
 
  foreach($map->files['doc'] as $f) {
   copy($map->main_dir . $f,$thin_dist_dir . $f);
+ }
+
+ foreach($map->classes as $c) {
+  copy($map->main_dir . '/doc/classes/' . $c . '.html',
+       $thin_dist_dir . '/doc/classes/' . $c . '.html'
+       );
  }
 
  foreach($map->files['included_images'] as $f) {
@@ -347,5 +398,6 @@ function make_thin_dist() {
 }
 
 make_arxiv();
+make_thin_dist();
 
 ?>
