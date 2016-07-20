@@ -496,16 +496,25 @@ end:
 ######################################################################
 
 #@ strip_worksheet
+
+# This removes all output from a worksheet (typically making it much
+# smaller) and saves the result in the 'small' subdirectory of the
+# 'worksheets' directory
+
 strip_worksheet := proc(file)
- local doc;
+ local dir,doc;
 
  doc := Worksheet[ReadFile](cat(worksheets_dir,"/",file,".mw"));
  doc := XMLTools[ApplyElement](doc,"Output",() -> NULL):
- Worksheet[WriteFile](cat(worksheets_dir,"/small/",file,".mw"),doc);
+ dir := cat(worksheets_dir,"/small");
+ if not(FileTools[Exists](dir)) then
+  mkdir(dir);
+ fi;
+ Worksheet[WriteFile](cat(dir,"/",file,".mw"),doc);
  NULL;
 end:
 
-#@ strip_worksheet
+#@ strip_worksheets
 strip_worksheets := proc()
  map(strip_worksheet,[
   "build_data",
