@@ -495,6 +495,30 @@ end:
 
 ######################################################################
 
+#@ strip_worksheet
+strip_worksheet := proc(file)
+ local doc;
+
+ doc := Worksheet[ReadFile](cat(worksheets_dir,"/",file,".mw"));
+ doc := XMLTools[ApplyElement](doc,"Output",() -> NULL):
+ Worksheet[WriteFile](cat(worksheets_dir,"/small/",file,".mw"),doc);
+ NULL;
+end:
+
+#@ strip_worksheet
+strip_worksheets := proc()
+ map(strip_worksheet,[
+  "build_data",
+  "build_data_toy",
+  "check_all",
+  "checks",
+  "genus2",
+  "genus2_pics",
+  "genus2_talk_pics",
+  "text_check"
+ ]);
+ NULL;
+end:
 
 
 
