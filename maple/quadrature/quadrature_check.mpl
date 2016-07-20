@@ -3,7 +3,7 @@ check_quadrature := proc()
 
  printf("%a()\n",procname);
 
- f := cat(data_dir,"/quadrature/wandzurat_xiao_30.mpl");
+ f := cat(data_dir,"/quadrature/wandzurat_xiao_30.m");
  if not(FileTools[Exists](f)) then
   printf("Skipping check of wandzurat_xiao_30 because data file %s does not exist.\n",f);
   printf("(It can be generated using build_data[\"triangle_quadrature_rule\"]())\n");
@@ -22,7 +22,7 @@ check_quadrature := proc()
   );
  fi;
 
- f := cat(data_dir,"/quadrature/dunavant_19.mpl");
+ f := cat(data_dir,"/quadrature/dunavant_19.m");
  if not(FileTools[Exists](f)) then
   printf("Skipping check of dunavant_19 because data file %s does not exist.\n",f);
  else 
