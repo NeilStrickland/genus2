@@ -70,27 +70,15 @@ $map->files['latex'] =
  array(
        '/latex/genus2.tex',
        '/latex/genus2.bib',
-       '/latex/tikz_includes/H_to_P_graph.tex',
-       '/latex/tikz_includes/y_proj_a.tex',
-       '/latex/tikz_includes/y_proj_b.tex',
-       '/latex/tikz_includes/y_proj_c.tex',
-       '/latex/tikz_includes/y_proj.tex',
-       '/latex/tikz_includes/y_proj_F4.tex',
-       '/latex/tikz_includes/z_proj.tex',
-       '/latex/tikz_includes/z_proj_F16.tex',
-       '/latex/tikz_includes/w_proj_F16.tex',
-       '/latex/tikz_includes/disc_pi.tex',
-       '/latex/tikz_includes/disc_delta.tex',
-       '/latex/tikz_includes/disc_zeta.tex',
-       '/latex/tikz_includes/beta_plot.tex',
+       '/latex/genus2_talk.tex'
        );
 
 $map->files['included_images'] = 
  array(
-       '/images/XX.jpg',
+       '/images/EX.jpg',
        '/images/Omega.jpg',
        '/images/XOmega.jpg',
-       '/images/curves.jpg',
+       '/images/curves_E.jpg',
        '/images/F4.jpg',
        '/images/pi_ring.jpg',
        '/images/delta_ring.jpg',
@@ -99,6 +87,7 @@ $map->files['included_images'] =
        '/images/E_to_S_u[1].jpg',
        '/images/E_to_S_u[2].jpg',
        '/images/E_to_S_u[3].jpg',
+       '/images/cromulent.png'
        );
 
 $map->files['maple'] = 
