@@ -1,0 +1,75 @@
+
+<html>
+ <head><title>E_to_S_map</title><script type="text/x-mathjax-config">
+MathJax.Hub.Config({ tex2jax: {inlineMath: [['$','$']]}});</script>
+<script src="https://cdn.mathjax.org/mathjax/latest/MathJax.js?config=TeX-AMS_CHTML"></script>
+</head>
+ <body  style="width:700px">
+  <h1>Class E_to_S_map</h1><br/>
+Code: <a href="../maple/embedded/roothalf/E_to_S.mpl#CLASS_E_to_S_map">embedded/roothalf/E_to_S.mpl</a><br/>
+<p>
+An instance of this class represents a pair of approximations to the canonical conformal maps $p,q\colon EX^*\to S^2$.
+</p>
+<b>Field: </b><font color="red">u</font>::table<br/>
+<p>
+This is a table indexed by $\{1,2,3\}$.  Each entry is a rational function from the $z$-plane to $\mathbb{R}$, which gives an invariant real valued function on $EX^*$.  The $k$'th component of our map $p\colon EX^*\to S^2$ will be the product of $u_k$ with a standard function, recorded in the global variable <font color="green">s2p_core[k]</font>.
+</p>
+<b>Field: </b><font color="red">samples_z_u</font>::table<br/>
+<p>
+This is a table indexed by $\{1,2,3\}$.  The $k$'th entry is a list of pairs $(a,b)$, where we have learned by some other means that $u_k(a)$ should be equal to $b$.  We will try to adjust the coefficients of $u_k$ to make this true.
+</p>
+<b>Field: </b><font color="red">p</font><br/>
+<p>
+Our approximation to $p$ will be stored in this field.
+</p>
+<b>Constructor:</b> `new/E_to_S_map`()
+<p>
+
+</p>
+<b>Method:</b> <font color="maroon">find_p</font>(<font color='olive'>EH_atlas</font>,<font color='olive'>d1</font>::posint := 2)
+<p>
+This sets the fields <font color="green">u</font>, <font color="green">samples_z_u</font> and <font color="green">p</font> based on information stored in the atlas object which is suppied as a parameter to the method.
+</p>
+<br/>
+<b>Method:</b> <font color="maroon">set_p</font>()<br/>
+<b>Method:</b> <font color="maroon">radius_error</font>()
+<p>
+This returns $\|p(x)|^2-1$ a function of $z$
+</p>
+<br/>
+<b>Method:</b> <font color="maroon">conformal_error</font>(<font color='olive'>x0</font>::RR0_4)
+<p>
+Given a point $x0\in EX^*$, this measures the failure of $p$ near $x0$ to be conformal.
+</p>
+<br/>
+<b>Method:</b> <font color="maroon">p_vertex_check</font>()
+<p>
+Check that $p$ has the right behaviour on $v_0$, $v_3$ and $v_6$.  The return value is a list of nine scalars which should all be zero.
+</p>
+<br/>
+<b>Method:</b> <font color="maroon">p_chart_check</font>(<font color='olive'>A</font>,<font color='olive'>d_</font>::integer)
+<p>
+Check that $p$ gives a conformal map to $S^2$.  The argument <font color="green">A</font> can either be an instance of the class <font color="green">E_chart</font>, or a point in $EX^*$.  In the latter case, we generate a new chart at the specified point, using the second argument <font color="green">d_</font> to specify the degree.  The return value is a list of three polynomials in $t_1$ and $t_2$, which will be zero if $p$ is exactly conformal. 
+</p>
+<br/>
+<b>Method:</b> <font color="maroon">u_plot</font>(<font color='olive'>k</font>::integer)
+<p>
+Generates a plot of the function $u_k$
+</p>
+<br/>
+<b>Method:</b> <font color="maroon">u_plots</font>()
+<p>
+Generates plots of the functions $u_1$, $u_2$ and $u_3$.
+</p>
+<br/>
+<b>Method:</b> <font color="maroon">p_plot</font>()
+<p>
+Generates a plot showing the image in $S^2$ of a grid in $F_{16}\subset EX^*$.
+</p>
+<br/>
+<b>Method:</b> <font color="maroon">radius_error_plot</font>()<br/>
+<b>Method:</b> <font color="maroon">conformal_error_plot</font>()<br/>
+
+ </body>
+</html>
+

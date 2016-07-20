@@ -1,0 +1,161 @@
+
+<html>
+ <head><title>E_point</title><script type="text/x-mathjax-config">
+MathJax.Hub.Config({ tex2jax: {inlineMath: [['$','$']]}});</script>
+<script src="https://cdn.mathjax.org/mathjax/latest/MathJax.js?config=TeX-AMS_CHTML"></script>
+</head>
+ <body  style="width:700px">
+  <h1>Class E_point</h1><br/>
+Code: <a href="../maple/embedded/E_domain.mpl#CLASS_E_point">embedded/E_domain.mpl</a><br/>
+<p>
+An instance of this class  represents a point on the embedded surface EX(a)
+</p>
+<b>Extends: </b>domain_point<br/>
+<b>StaticField: </b><font color="red">tolerance</font>::float = .1000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000e-97<br/>
+<b>StaticField: </b><font color="red">max_iterations</font>::integer = 100<br/>
+<b>StaticField: </b><font color="red">a</font>::scalar<br/>
+<p>
+This is the value of $a$, where we are considering $EX(a)$.
+</p>
+<b>StaticField: </b><font color="red">alpha0</font>::scalar<br/>
+<p>
+This is computed from a by the <font color="green">set_a()</font> method
+</p>
+<b>StaticField: </b><font color="red">alpha1</font>::scalar<br/>
+<p>
+This is computed from a by the <font color="green">set_a()</font> method
+</p>
+<b>StaticField: </b><font color="red">alpha2</font>::scalar<br/>
+<p>
+This is computed from a by the <font color="green">set_a()</font> method
+</p>
+<b>StaticField: </b><font color="red">alpha3</font>::scalar<br/>
+<p>
+This is computed from a by the <font color="green">set_a()</font> method
+</p>
+<b>StaticField: </b><font color="red">alpha4</font>::scalar<br/>
+<p>
+This is computed from a by the <font color="green">set_a()</font> method
+</p>
+<b>StaticField: </b><font color="red">alpha5</font>::scalar<br/>
+<p>
+This is computed from a by the <font color="green">set_a()</font> method
+</p>
+<b>StaticField: </b><font color="red">alpha6</font>::scalar<br/>
+<p>
+This is computed from a by the <font color="green">set_a()</font> method
+</p>
+<b>StaticField: </b><font color="red">alpha7</font>::scalar<br/>
+<p>
+This is computed from a by the <font color="green">set_a()</font> method
+</p>
+<b>StaticField: </b><font color="red">alpha8</font>::scalar<br/>
+<p>
+This is computed from a by the <font color="green">set_a()</font> method
+</p>
+<b>StaticField: </b><font color="red">alpha9</font>::scalar<br/>
+<p>
+This is computed from a by the <font color="green">set_a()</font> method
+</p>
+<b>StaticField: </b><font color="red">alpha10</font>::scalar<br/>
+<p>
+This is computed from a by the <font color="green">set_a()</font> method
+</p>
+<b>StaticField: </b><font color="red">alpha11</font>::scalar<br/>
+<p>
+This is computed from a by the <font color="green">set_a()</font> method
+</p>
+<b>StaticField: </b><font color="red">alpha12</font>::scalar<br/>
+<p>
+This is computed from a by the <font color="green">set_a()</font> method
+</p>
+<b>StaticField: </b><font color="red">alpha13</font>::scalar<br/>
+<p>
+This is computed from a by the <font color="green">set_a()</font> method
+</p>
+<b>StaticField: </b><font color="red">alpha14</font>::scalar<br/>
+<p>
+This is computed from a by the <font color="green">set_a()</font> method
+</p>
+<b>Method:</b> <font color="maroon">set_a</font>(<font color='olive'>a_</font>)::void<br/>
+<b>Field: </b><font color="red">x</font>::[scalar, scalar, scalar, scalar]<br/>
+<p>
+Coordinates of the point
+</p>
+<b>Field: </b><font color="red">u</font>::[scalar, scalar, scalar, scalar]<br/>
+<p>
+A unit vector orthogonal to $x$, $n$ and $v$
+</p>
+<b>Field: </b><font color="red">v</font>::[scalar, scalar, scalar, scalar]<br/>
+<p>
+A unit vector orthogonal to $x$, $n$ and $u$
+</p>
+<b>Field: </b><font color="red">n</font>::[scalar, scalar, scalar, scalar]<br/>
+<p>
+Normalised gradient of $g$
+</p>
+<b>Field: </b><font color="red">z</font>::[scalar, scalar]<br/>
+<p>
+Basic G-invariant functions of $x$
+</p>
+<b>Field: </b><font color="red">ndg</font>::scalar<br/>
+<p>
+Norm of the gradient of $g$
+</p>
+<b>Field: </b><font color="red">sndg</font>::scalar<br/>
+<p>
+Square norm of the gradient of $g$
+</p>
+<b>Field: </b><font color="red">indg</font>::scalar<br/>
+<p>
+Inverse norm of the gradient of $g$
+</p>
+<b>Field: </b><font color="red">curvature</font>::scalar<br/>
+<p>
+Gaussian curvature of the surface
+</p>
+<b>Method:</b> <font color="maroon">fix</font>()::void<br/>
+<b>Method:</b> <font color="maroon">fix_x</font>()::void
+<p>
+This method adjusts the coordinates of a point to ensure that it lies on the surface $EX(a)$ and in the fundamental domain.  Moreover, if the constraint field is set to a value indicating that the point should lie on one of the curves $C_0$, $C_1$, $C_3$ or $C_5$, then the coordinates are adjusted if necessary to ensure that that holds.
+</p>
+<br/>
+<b>Method:</b> <font color="maroon">fix_n</font>()::void
+<p>
+This method sets <font color="green">this[&quot;n&quot;]</font> to the normalisation of the gradient of $g$ at the point <font color="green">this[&quot;x&quot;]</font>.  It uses the <font color="green">simp()</font> function, which simplifies symbolically unless we have any floating point subexpressions, in which case it evaluates numerically.
+</p>
+<br/>
+<b>Method:</b> <font color="maroon">fix_uv</font>()::void
+<p>
+This method sets <font color="green">this[&quot;u&quot;]</font> and <font color="green">this[&quot;v&quot;]</font> in such a way that <font color="green">[this[&quot;x&quot;],this[&quot;n&quot;],this[&quot;u&quot;],this[&quot;v&quot;]]</font> is an oriented orthonormal basis for $\mathbb{R}^4$.
+</p>
+<br/>
+<b>Method:</b> <font color="maroon">set_C0</font>(<font color='olive'>t</font>::scalar)::void
+<p>
+This method sets the current point to lie on the curve $C_0$.  As the parameter $t$ runs from $0$ to $1$, the point covers the section of $C_0$ contained in the fundamental domain $F_{16}$ starting with $v_6$ at $t=0$, and moving to $v_3$ at $t=1$.
+</p>
+<br/>
+<b>Method:</b> <font color="maroon">set_C1</font>(<font color='olive'>t</font>::scalar)::void
+<p>
+This method sets the current point to lie on the curve $C_1$.  As the parameter $t$ runs from $0$ to $1$, the point covers the section of $C_1$ contained in the fundamental domain $F_{16}$ starting with $v_0$ at $t=0$, and moving to $v_6$ at $t=1$.
+</p>
+<br/>
+<b>Method:</b> <font color="maroon">set_C3</font>(<font color='olive'>t</font>::scalar)::void
+<p>
+This method sets the current point to lie on the curve $C_3$.  As the parameter $t$ runs from $0$ to $1$, the point covers the section of $C_3$ contained in the fundamental domain $F_{16}$ starting with $v_{11}$ at $t=0$, and moving to $v_3$ at $t=1$.
+</p>
+<br/>
+<b>Method:</b> <font color="maroon">set_C5</font>(<font color='olive'>t</font>::scalar)::void
+<p>
+This method sets the current point to lie on the curve $C_5$.  As the parameter $t$ runs from $0$ to $1$, the point covers the section of $C_5$ contained in the fundamental domain $F_{16}$ starting with $v_0$ at $t=0$, and moving to $v_{11}$ at $t=1$.
+</p>
+<br/>
+<b>Method:</b> <font color="maroon">set_random</font>()::void
+<p>
+This sets the current point to a randomly generated point in $F_{16}$
+</p>
+<br/>
+
+ </body>
+</html>
+

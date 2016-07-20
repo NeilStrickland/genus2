@@ -1,0 +1,257 @@
+
+<html>
+ <head><title>H_to_P_map</title><script type="text/x-mathjax-config">
+MathJax.Hub.Config({ tex2jax: {inlineMath: [['$','$']]}});</script>
+<script src="https://cdn.mathjax.org/mathjax/latest/MathJax.js?config=TeX-AMS_CHTML"></script>
+</head>
+ <body  style="width:700px">
+  <h1>Class H_to_P_map</h1><br/>
+Code: <a href="../maple/hyperbolic/H_to_P.mpl#CLASS_H_to_P_map">hyperbolic/H_to_P.mpl</a><br/>
+<p>
+An instance of this class encapsulates data about a cromulent isomorphism $HX(a_H) \to PX(a_P)$ for some specific numerical values of $a_H$ and $a_P$
+</p>
+<b>Field: </b><font color="red">a_H</font>::numeric<br/>
+<p>
+This should be set by the <font color="green">set_a_H</font> method.
+</p>
+<b>Field: </b><font color="red">a_P</font>::numeric<br/>
+<p>
+This will be calculated by the <font color="green">find_p1</font> method, and should not be set directly.
+</p>
+<b>Field: </b><font color="red">v_HS</font>::table<br/>
+<p>
+As in Definition defn-schwarz-phi
+</p>
+<b>Field: </b><font color="red">v_PS</font>::table<br/>
+<p>
+As in Definition defn-schwarz-phi
+</p>
+<b>Field: </b><font color="red">c_HS</font>::table<br/>
+<p>
+As in Definition defn-schwarz-phi
+</p>
+<b>Field: </b><font color="red">c_PS</font>::table<br/>
+<p>
+As in Definition defn-schwarz-phi
+</p>
+<b>Field: </b><font color="red">psi</font><br/>
+<p>
+As in Definition defn-schwarz-phi.  This is set up so that if <font color="green">X</font> is an instance of the present class, the required syntax is <font color="green">X[&quot;psi&quot;](z)</font>.
+</p>
+<b>Field: </b><font color="red">psi_inv</font><br/>
+<p>
+As in Definition defn-schwarz-phi, with the same kind of syntax as for <font color="green">psi</font>
+</p>
+<b>Field: </b><font color="red">phi</font><br/>
+<p>
+As in Definition defn-schwarz-phi, with the same kind of syntax as for <font color="green">psi</font>
+</p>
+<b>Field: </b><font color="red">phi_inv</font><br/>
+<p>
+As in Definition defn-schwarz-phi, with the same kind of syntax as for <font color="green">psi</font>
+</p>
+<b>Field: </b><font color="red">samples</font>::list(CC0)<br/>
+<p>
+This is a list of points lying in $\psi^{-1}((C_3\cup C_5)\cap F_{16})$.  These should be sent by $p_1$ to the unit circle, and the <font color="green">find_p1</font> method will try to choose the coefficients of $p_1$ to make this true.  This should be set by the <font color="green">make_samples</font> method.
+</p>
+<b>Field: </b><font color="red">num_samples</font>::posint = 200<br/>
+<p>
+Number of sample points.  This should be significantly larger than the <font color="green">poly_deg</font> field.  It should be set by the <font color="green">make_samples</font> method.
+</p>
+<b>Field: </b><font color="red">errs</font>::list<br/>
+<p>
+The list of differences $|p_1(z)|^2-1$, as $z$ runs through the sample points. 
+</p>
+<b>Field: </b><font color="red">err</font>::RR0<br/>
+<p>
+The maximum absolute value of the above errors.
+</p>
+<b>Field: </b><font color="red">poly_deg</font>::posint = 20<br/>
+<p>
+Number of degrees of freedom when choosing $p_1$.  It should be set by the <font color="green">set_poly_deg</font> method.
+</p>
+<b>Field: </b><font color="red">a</font>::list(RR0)<br/>
+<p>
+This is a list of coefficients (of length equal to <font color="green">poly_deg</font>) which determines the approximating function $p_1$.  In more detail, we have $p_1=p_{10}+a_1p_{11}(z)+a_2p_{12}(z)+a_3p_{13}(z)+(sum_{i>3}a_iz^{2*i-8})p_{14}(z)$ for certain fixed functions $p_{1k}(z)$.
+</p>
+<b>Field: </b><font color="red">p1</font><br/>
+<p>
+A rational function of $z$ which approximates the map $p_1\:\Delta\to\C$.
+</p>
+<b>Field: </b><font color="red">p1_series</font><br/>
+<p>
+A Taylor series for $p_1$.
+</p>
+<b>Field: </b><font color="red">p10</font><br/>
+<p>
+An auxiliary polynomial.
+</p>
+<b>Field: </b><font color="red">p11</font><br/>
+<p>
+An auxiliary polynomial.
+</p>
+<b>Field: </b><font color="red">p12</font><br/>
+<p>
+An auxiliary polynomial.
+</p>
+<b>Field: </b><font color="red">p13</font><br/>
+<p>
+An auxiliary rational function.
+</p>
+<b>Field: </b><font color="red">p14</font><br/>
+<p>
+An auxiliary polynomial.
+</p>
+<b>Field: </b><font color="red">p1_inv</font><br/>
+<p>
+A polynomial approximation to the compositional inverse of $p_1$.
+</p>
+<b>Field: </b><font color="red">S_p1_inv</font><br/>
+<p>
+A polynomial approximation to the schwarzian derivative of $p_1^{-1}$.
+</p>
+<b>Field: </b><font color="red">d</font><br/>
+<p>
+A constant such that the schwarzian derivative of $p_1^{-1}$ is <font color="green">S0_p1_inv + d * S1_p1_inv</font>
+</p>
+<b>Field: </b><font color="red">schwarzian_errs</font>::list<br/>
+<p>
+A list of differences between the coefficients of $S(p_1^{-1})$ and <font color="green">S0_p1_inv + d * S1_p1_inv</font>
+</p>
+<b>Field: </b><font color="red">m_series</font><br/>
+<p>
+A Taylor series for the function $m(z)$ such that $\omega_0=m(z) dz$.
+</p>
+<b>Field: </b><font color="red">p_series</font><br/>
+<p>
+A Taylor series for $p(z)$.
+</p>
+<b>Field: </b><font color="red">mp_series</font><br/>
+<p>
+A Taylor series for $m(z)p(z)$.
+</p>
+<b>Method:</b> <font color="maroon">set_a_H</font>(<font color='olive'>a</font>::RR1)::RR1
+<p>
+Set the <font color="green">a_H</font> field and perform associated bookkeeping.
+</p>
+<br/>
+<b>Method:</b> <font color="maroon">set_a_P</font>(<font color='olive'>a</font>::RR1)::RR1
+<p>
+Set the <font color="green">a_P</font> field and perform associated bookkeeping.  Normally one should only use the <font color="green">set_a_H</font> method directly; then other code will calculate an appropriate value for <font color="green">a_P</font> and call the <font color="green">set_a_P</font> method.
+</p>
+<br/>
+<b>Method:</b> <font color="maroon">set_poly_deg</font>(<font color='olive'>d</font>::posint)::void
+<p>
+Set the <font color="green">poly_deg</font> field and perform associated bookkeeping.
+</p>
+<br/>
+<b>Method:</b> <font color="maroon">fix_a</font>()::void
+<p>
+Truncate or extend the <font color="green">a</font> field to ensure that it has the right length.
+</p>
+<br/>
+<b>Method:</b> <font color="maroon">set_p_aux</font>()::void
+<p>
+Set the auxiliary functions <font color="green">p11</font> to <font color="green">p15</font>.  These are all odd polynomials with real coefficients and vanishing derivatives at $\psi^{-1}(v_0)$ and $\psi^{-1}(v_{11})$.  The polynomials <font color="green">p11</font> and <font color="green">p12</font> vanish at $\psi^{-1}(v_0)$ and $\psi^{-1}(v_3)$, and take the values $1$ and $i$ respectively at $\psi^{-1}(v_{11})$.  The polynomial <font color="green">p13</font> sends $\psi^{-1}(v_i)$ to $\phi(v_i)$ for $i\in\{0,3,6,11\}$, whereas <font color="green">p14</font> sends all these points to zero.  The polynomials <font color="green">p11</font>, <font color="green">p12</font> and <font color="green">p13</font> have degree $13$, whereas <font color="green">p14</font> has degree $15$, with linear term $z$.  These properties charecterise the polynomials uniquely.
+</p>
+<br/>
+<b>Method:</b> <font color="maroon">p</font>(<font color='olive'>z</font>::CC0)::CC0
+<p>
+This calculates the function $p=\phi^{-1}\circ p_1\circ\psi$
+</p>
+<br/>
+<b>Method:</b> <font color="maroon">p_piecewise</font>(<font color='olive'>z</font>::CC0)::CC0
+<p>
+This also calculates $p(z)$, but it uses the equivariance properties of $p_1$ so we only need to calculate $p_1(w)$ when $w$ is small
+</p>
+<br/>
+<b>Method:</b> <font color="maroon">m</font>(<font color='olive'>z0</font>::CC0)::CC0
+<p>
+This calculates the function $m(z)$ such that $p^*(\omega_0)=m(z) dz$
+</p>
+<br/>
+<b>Method:</b> <font color="maroon">m_piecewise</font>(<font color='olive'>z0</font>::CC0)::CC0
+<p>
+This also calculates $m(z)$, but it uses the equivariance properties of $p_1$ so we only need to calculate $p_1(w)$ when $w$ is small
+</p>
+<br/>
+<b>Method:</b> <font color="maroon">find_m_series</font>(<font color='olive'>radius</font>::RR0,<font color='olive'>num_samples</font>::posint,<font color='olive'>poly_deg</font>::posint)
+<p>
+This finds a power series approximation to $m(z)$
+</p>
+<br/>
+<b>Method:</b> <font color="maroon">find_mp_series</font>(<font color='olive'>radius</font>::RR0,<font color='olive'>num_samples</font>::posint,<font color='olive'>poly_deg</font>::posint)
+<p>
+This finds a power series approximation to $m(z)p(z)$
+</p>
+<br/>
+<b>Method:</b> <font color="maroon">find_p_series</font>(<font color='olive'>radius</font>::RR0,<font color='olive'>num_samples</font>::posint,<font color='olive'>poly_deg</font>::posint)
+<p>
+This finds a power series approximation to $p(z)$
+</p>
+<br/>
+<b>Method:</b> <font color="maroon">make_samples</font>(<font color='olive'>num_samples_</font>)::void
+<p>
+Calculate a list of sample points.  We have used equally spaced points, but Chebyshev spacing might be better.
+</p>
+<br/>
+<b>Method:</b> <font color="maroon">find_p1</font>(<font color='olive'>num_steps</font>::posint := 2)::void
+<p>
+This method searches for a polynomial <font color="green">p1</font> of the required form, which sends the sample points as close as possible to the unit circle.
+</p>
+<br/>
+<b>Method:</b> <font color="maroon">set_p1_inv</font>()::void
+<p>
+This sets the fields <font color="green">p1_inv</font>, <font color="green">S_p1_inv</font> and <font color="green">d</font> based on the <font color="green">p1</font> field.
+</p>
+<br/>
+<b>Method:</b> <font color="maroon">p1_plot</font>()::plot
+<p>
+Generates a plot of p1(F16), which should just be the first quadrant of the unit disc
+</p>
+<br/>
+<b>Method:</b> <font color="maroon">v11_plot</font>(<font color='olive'>eps</font> := 2)::plot
+<p>
+Generates a plot of the behaviour of $p_1$ near $v_{11}$
+</p>
+<br/>
+<b>Method:</b> <font color="maroon">err_plot</font>()::plot
+<p>
+This generates a plot showing the errors stored in the <font color="green">errs</font> field.
+</p>
+<br/>
+<b>Method:</b> <font color="maroon">a_plot</font>()::plot
+<p>
+This generates a plot showing the logs of the absolute values of the coefficients in the <font color="green">a</font> field, which determine the approximating function $p_1$
+</p>
+<br/>
+<b>Method:</b> <font color="maroon">p1_coeff_plot</font>()::plot
+<p>
+This generates a plot showing the logs of the absolute values of the coefficients in the Taylor expansion of $p_1(z)$
+</p>
+<br/>
+<b>Method:</b> <font color="maroon">p1_inv_coeff_plot</font>()
+<p>
+This generates a plot showing the logs of the absolute values of the coefficients in the Taylor expansion of $p_1^{-1}(z)$
+</p>
+<br/>
+<b>Method:</b> <font color="maroon">schwarzian_err_plot</font>()
+<p>
+This generates a plot showing the logs of the absolute values of the errors stored in the <font color="green">schwarzian_errs</font> field.
+</p>
+<br/>
+<b>Method:</b> <font color="maroon">m_plot</font>(<font color='olive'>radius</font>,<font color='olive'>num_points</font>)
+<p>
+This generates a plot showing the curve $m(r e^{it})$, where $r$ is the <font color="green">radius</font> argument.
+</p>
+<br/>
+<b>Method:</b> <font color="maroon">m_plot_tikz</font>(<font color='olive'>radius</font>,<font color='olive'>num_points</font>,<font color='olive'>scale</font>)
+<p>
+This generates a tikzpicture environment showing the curve $m(r e^{it})$, where $r$ is the <font color="green">radius</font> argument.
+</p>
+<br/>
+<b>Method:</b> <font color="maroon">check</font>()<br/>
+
+ </body>
+</html>
+

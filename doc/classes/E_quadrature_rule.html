@@ -1,0 +1,164 @@
+
+<html>
+ <head><title>E_quadrature_rule</title><script type="text/x-mathjax-config">
+MathJax.Hub.Config({ tex2jax: {inlineMath: [['$','$']]}});</script>
+<script src="https://cdn.mathjax.org/mathjax/latest/MathJax.js?config=TeX-AMS_CHTML"></script>
+</head>
+ <body  style="width:700px">
+  <h1>Class E_quadrature_rule</h1><br/>
+Code: <a href="../maple/embedded/E_quadrature.mpl#CLASS_E_quadrature_rule">embedded/E_quadrature.mpl</a><br/>
+<p>
+An instance of this class represents a quadrature rule for approximate integration of functions on $EX^*$.  Essentially, such a rule consists of a list of points $p_i$ in the fundamental domain $F_{16}$, together with weights $w_i\geq 0$.  The integral over $F_{16}$ of a function $f$ is approximately $\sum_i w_i f(p_i)$.  Thus, the integral over $EX^*$ is $\sum_i\sum_{g\in G}w_if(g.p_i)$.
+
+ This class also has fields and methods designed to allow us to measure and improve the accuracy of the quadrature rule.  Specifically, suppose we have calculated the integrals of some monomials $z_1^iz_2^j$ by some other method.  We can then list these monomials in the <font color="green">test_monomials</font> field, and their integrals in the <font color="green">test_integrals</font> field.  Various methods will then try to ensure that our quadrature rule gives the correct answer on those monomials.
+</p>
+<b>Field: </b><font color="red">num_points</font>::integer = 0<br/>
+<p>
+Number of evaluation points
+</p>
+<b>Field: </b><font color="red">points</font>::table<br/>
+<p>
+The list of evaluation points.  This is represented as a table indexed by natural numbers (starting at 0), and each point is represented as an object of the class <font color="green">E_point</font> defined in the file <font color="green">E_domain.mpl</font>
+</p>
+<b>Field: </b><font color="red">weights</font>::table<br/>
+<p>
+The list of weights, represented as a table indexed by natural numbers.
+</p>
+<b>Field: </b><font color="red">num_test_monomials</font>::integer = 0<br/>
+<b>Field: </b><font color="red">test_monomials</font>::table<br/>
+<p>
+The list of test monomials, represented as a table indexed by natural numbers.
+</p>
+<b>Field: </b><font color="red">test_integrals</font>::table<br/>
+<p>
+The list of integrals over $F_{16}$ of test monomials, represented as a table indexed by natural numbers.  This can be used if we have calculated the relevant integrals by some other means.  If not, this field should be null.
+</p>
+<b>Field: </b><font color="red">test_monomial_values</font>::table<br/>
+<p>
+This is a table <font color="green">T</font> such that <font color="green">T[i,j]</font> is the value of the $i$'th test monomial $m_i$ at the $j$'th evaluation point $p_j$.  It should be set using the <font color="green">set_monomial_values</font> method.
+</p>
+<b>Field: </b><font color="red">test_monomial_diff_values</font>::table<br/>
+<p>
+This is a table <font color="green">T</font> such that <font color="green">T[i,j,0]</font> and <font color="green">T[i,j,1]</font> measure the derivatives of $m_i$ at the point $p_j$.  In more detail, $p_j$ is stored as an instance of the class <font color="green">E_point</font>, so it comes packaged with two tangent vectors $u_j$ and $v_j$; the entries <font color="green">T[i,j,0]</font> and <font color="green">T[i,j,1]</font> are the derivatives in these directions.  If $p_j$ is in the interior of $F_{16}$ then $u_j$ and $v_j$ will form an oriented orthonormal frame.  If $p_j$ is on an edge of $F_{16}$ then $u_j$ will be a unit vector pointing along the edge, and $v_j$ will be zero.  If $p_j$ is at a corner then both $u_j$ and $v_j$ will be zero.
+</p>
+<b>Field: </b><font color="red">errors</font>::table<br/>
+<b>Field: </b><font color="red">total_square_error</font> = 0<br/>
+<b>Field: </b><font color="red">eval_det</font>::RR1<br/>
+<p>
+Assuming that the number of test monomials is at least as large as the number $n$ of evaluation points, the <font color="green">set_eval_det</font> method will set the <font color="green">eval_det</font> field to be the determinant of the $n\times n$ matrix of values of the first $n$ test monomials at the evaluation points.  Some theory developed in a slightly different context suggests that it is desirable to adjust the evaluation points to make this determinant as large as possible.
+</p>
+<b>Field: </b><font color="red">eval_det_diff</font>::table<br/>
+<p>
+Assuming that the number of test monomials is at least as large as the number $n$ of evaluation points, the <font color="green">set_eval_det_diff</font> method will set the <font color="green">eval_det_diff</font> field to be a table <font color="green">T</font> containing information about how <font color="green">eval_det</font> changes as the evaluation points are moved.  In more detail, <font color="green">T[j,0]</font> is the derivative of <font color="green">eval_det</font> if $p_j$ is moved in the direction $u_j$, and <font color="green">T[j,1]</font> is the derivative of <font color="green">eval_det</font> if $p_j$ is moved in the direction $v_j$.
+</p>
+<b>Constructor:</b> `new/E_quadrature_rule`()
+<p>
+
+</p>
+<b>Method:</b> <font color="maroon">clone</font>()::E_quadrature_rule
+<p>
+Returns a cloned copy of this quadrature rule
+</p>
+<br/>
+<b>Method:</b> <font color="maroon">degrees_of_freedom</font>()::integer
+<p>
+Some of the evaluation points lie in the interior of $F_{16}$ and so have two degrees of freedom to move.  Some points may lie on an  edge or at a corner, so that they have one or zero degrees of freedom.  This methd returns the total number of degrees of freedom for all evaluation points.
+</p>
+<br/>
+<b>Method:</b> <font color="maroon">choose_random_points</font>(<font color='olive'>n</font>)::void
+<p>
+This method randomly chooses $n$ evaluation points in the interior of $F_{16}$, and gives them all the same weight.
+</p>
+<br/>
+<b>Method:</b> <font color="maroon">adjust</font>(<font color='olive'>t</font>,<font color='olive'>offset_</font>)::void<br/>
+<b>Method:</b> <font color="maroon">adjust_randomly</font>(<font color='olive'>scale_</font>)::void<br/>
+<b>Method:</b> <font color="maroon">add_new_point</font>(<font color='olive'>x0</font>::[scalar, scalar, scalar, scalar])
+<p>
+Add a new evaluation point with the specified coordinates
+</p>
+<br/>
+<b>Method:</b> <font color="maroon">set_max_deg</font>(<font color='olive'>max_deg</font>,<font color='olive'>grid</font>::E_grid)::void
+<p>
+Set the list of test monomials to be the list of all monomials of total degree less than or equal to the argument <font color="green">max_deg</font>.  Also, calculate the corresponding test integrals using the <font color="green">E_grid</font> object supplied as the <font color="green">grid</font> argument.  (This may be slow.)
+</p>
+<br/>
+<b>Method:</b> <font color="maroon">int_z</font>(<font color='olive'>f</font>)::scalar
+<p>
+Integrate <font color="green">f</font>, which should be an expression involving $z_1$ and $z_2$.
+</p>
+<br/>
+<b>Method:</b> <font color="maroon">set_monomial_values</font>()::void
+<p>
+Calculate the values and derivatives of all the test monomials at the evaluation points.
+</p>
+<br/>
+<b>Method:</b> <font color="maroon">solve_weights</font>()::void
+<p>
+Set the <font color="green">weights</font> field to minimize the mean square integration error for all the test monomials, subject to the constraint that all weights should be nonnegative.
+</p>
+<br/>
+<b>Method:</b> <font color="maroon">weight_list</font>()
+<p>
+Convert the <font color="green">weights</font> table to a list.
+</p>
+<br/>
+<b>Method:</b> <font color="maroon">sorted_weight_list</font>()
+<p>
+Convert the <font color="green">weights</font> table to a list, and sort it.
+</p>
+<br/>
+<b>Method:</b> <font color="maroon">set_eval_det</font>()::scalar
+<p>
+Set the <font color="green">eval_det</font> field.
+</p>
+<br/>
+<b>Method:</b> <font color="maroon">set_eval_det_diff</font>()
+<p>
+Set the <font color="green">eval_det_diff</font> field.  This method is quite slow.
+</p>
+<br/>
+<b>Method:</b> <font color="maroon">increase_eval_det_once</font>(<font color='olive'>step</font>)
+<p>
+Adjust the evaluation points to increase <font color="green">eval_det</font>.  This assumes that <font color="green">eval_det</font> has already been calculated, but not <font color="green">eval_det_diff</font>.  It calculates <font color="green">eval_det_diff</font> for the unadjusted points, but does not recalculate it after performing the adjustment.
+</p>
+<br/>
+<b>Method:</b> <font color="maroon">increase_eval_det</font>(<font color='olive'>step_</font>,<font color='olive'>num_steps_</font>)<br/>
+<b>Method:</b> <font color="maroon">set_errors</font>()
+<p>
+Calculate all the errors obtained when integrating all the test monomials using this quadrature rule.  This assumes that correct values for all the integrals have already been stored in the <font color="green">test_integrals</font> field. 
+</p>
+<br/>
+<b>Method:</b> <font color="maroon">reduce_errors_once</font>(<font color='olive'>max_step_</font>)
+<p>
+This adjusts the evaluation points and weights to attempt to reduce the integration errors.  We have not made much use of this; instead, we have used <font color="green">increase_eval_det</font> repeatedly, followed by <font color="green">solve_weights</font>.
+</p>
+<br/>
+<b>Method:</b> <font color="maroon">reduce_errors</font>(<font color='olive'>max_step_</font>,<font color='olive'>num_steps_</font>)<br/>
+<b>Method:</b> <font color="maroon">curvature_error</font>()
+<p>
+If the integration rule is accurate, then the result of this method should be zero, by the Gauss-Bonet Theorem.
+</p>
+<br/>
+<b>Method:</b> <font color="maroon">log_curvature_error</font>()<br/>
+<b>Method:</b> <font color="maroon">stokes_error</font>(<font color='olive'>ff</font>)
+<p>
+Here <font color="green">ff</font> should be a list $(f_1,f_2)$ of two expressions in $z_1$ and $z_2$.  The method returns the approximated integral of $d(f_1\alpha_1+f_2\alpha_2)$, where the forms $\alpha_i$ are defined in <font color="green">embedded/roothalf/forms.mpl</font>.  If the integration rule is accurate, then the result should be zero, by Stokes's Theorem.  The formulae used are only valid when $a=1/\sqrt{2}$, so the method gives an error in other cases.
+</p>
+<br/>
+<b>Method:</b> <font color="maroon">max_stokes_error</font>()<br/>
+<b>Method:</b> <font color="maroon">log_max_stokes_error</font>()<br/>
+<b>Method:</b> <font color="maroon">plot_z</font>()
+<p>
+This generates a plot showing the location of the evaluation points in the $z$-plane.
+</p>
+<br/>
+<b>Method:</b> <font color="maroon">error_plot</font>()
+<p>
+Generate a plot showing $\log_{10}$ of the relative errors $|Q(m)-\int m|/\|m\|_2$, as $m$ runs through the test monomials.
+</p>
+<br/>
+<b>Method:</b> <font color="maroon">describe</font>()<br/>
+
+ </body>
+</html>
+

@@ -1,0 +1,113 @@
+
+<html>
+ <head><title>P_to_H_map</title><script type="text/x-mathjax-config">
+MathJax.Hub.Config({ tex2jax: {inlineMath: [['$','$']]}});</script>
+<script src="https://cdn.mathjax.org/mathjax/latest/MathJax.js?config=TeX-AMS_CHTML"></script>
+</head>
+ <body  style="width:700px">
+  <h1>Class P_to_H_map</h1><br/>
+Code: <a href="../maple/hyperbolic/P_to_H.mpl#CLASS_P_to_H_map">hyperbolic/P_to_H.mpl</a><br/>
+<p>
+An instance of this class encapsulates data about a cromulent isomorphism $PX(a_P)\to HX(a_H)$ for some specific numerical values of $a_H$ and $a_P$
+</p>
+<b>Field: </b><font color="red">a_H</font>::RR1<br/>
+<p>
+
+</p>
+<b>Field: </b><font color="red">a_P</font>::RR1<br/>
+<p>
+
+</p>
+<b>Field: </b><font color="red">degree</font>::posint = 20<br/>
+<p>
+The degree of polynomials used for approximate power series.
+</p>
+<b>Field: </b><font color="red">d</font>::RR1<br/>
+<p>
+This is the number $d$ that enters into the formula for the schwarzian derivative of $p^{-1}$
+</p>
+<b>Field: </b><font color="red">test_point</font>::CC<br/>
+<b>Field: </b><font color="red">ap_H</font>::RR1<br/>
+<b>Field: </b><font color="red">am_H</font>::RR1<br/>
+<b>Field: </b><font color="red">v_HS</font>::table<br/>
+<p>
+Table containing the points $\psi^{-1}(v_{Hi})$
+</p>
+<b>Field: </b><font color="red">v_PS</font>::table<br/>
+<p>
+Table containing the points $\phi(v_{Pi})$
+</p>
+<b>Field: </b><font color="red">c_HS</font>::table<br/>
+<p>
+Table containing the curves $\psi^{-1}(c_{Hi}(t))$
+</p>
+<b>Field: </b><font color="red">c_PS</font>::table<br/>
+<p>
+Table containing the curves $\phi(c_{Pi}(t))$
+</p>
+<b>Field: </b><font color="red">psi</font>::procedure<br/>
+<b>Field: </b><font color="red">psi_inv</font>::procedure<br/>
+<b>Field: </b><font color="red">phi</font>::procedure<br/>
+<b>Field: </b><font color="red">phi_inv</font>::procedure<br/>
+<b>Field: </b><font color="red">c</font>::RR1<br/>
+<p>
+The coefficient of $z$ in $p_1^{-1}(z)$
+</p>
+<b>Field: </b><font color="red">num_charts</font>::integer = 0<br/>
+<b>Field: </b><font color="red">charts</font>::table<br/>
+<b>Field: </b><font color="red">zero_chart</font>::P_to_H_chart<br/>
+<b>Field: </b><font color="red">unit_chart</font>::P_to_H_chart<br/>
+<b>Field: </b><font color="red">test_chart</font>::P_to_H_chart<br/>
+<b>Field: </b><font color="red">err</font>::RR1<br/>
+<b>Field: </b><font color="red">errs</font>::table<br/>
+<b>Field: </b><font color="red">p1_inv</font>::procedure<br/>
+<b>Field: </b><font color="red">p1</font>::procedure<br/>
+<b>Method:</b> <font color="maroon">set_a_H</font>(<font color='olive'>a</font>::RR0)::RR1
+<p>
+Set the <font color="green">a_H</font> field and perform associated bookkeeping.  Normally one should only use the <font color="green">set_a_P</font> method directly; then other code will calculate an appropriate value for <font color="green">a_H</font> and call the <font color="green">set_a_H</font> method.
+</p>
+<br/>
+<b>Method:</b> <font color="maroon">set_a_P</font>(<font color='olive'>a</font>::RR0,<font color='olive'>d_</font>)::void
+<p>
+Set the <font color="green">a_H</font> field and perform associated bookkeeping.
+</p>
+<br/>
+<b>Method:</b> <font color="maroon">add_chart</font>(<font color='olive'>z0</font>::CC)::P_to_H_chart
+<p>
+Create and add a new chart centred at <font color="green">z0</font>
+</p>
+<br/>
+<b>Method:</b> <font color="maroon">add_charts</font>(<font color='olive'>n</font>::posint := 2)::void
+<p>
+Create and add $2n+1$ new charts.  Of these, one is centred at the origin, $n$ are centred at equally spaced points between $0$ and $i$, and $n$ are centred at equally spaed points between $0$ and <font color="green">test_point</font>.
+</p>
+<br/>
+<b>Method:</b> <font color="maroon">set_d</font>(<font color='olive'>d</font>::RR1)::RR1
+<p>
+This sets the <font color="green">d</font> field, then sets the <font color="green">M</font> fields of all charts based on that, then calculates <font color="green">c</font> and <font color="green">a_H</font> and <font color="green">p1_inv</font> as described in the text.  It returns an error term, which should be zero if we have the correct value of <font color="green">d</font>.
+</p>
+<br/>
+<b>Method:</b> <font color="maroon">find_p1_inv</font>(<font color='olive'>tol</font> := 2,<font color='olive'>gap</font> := 2)::void
+<p>
+This calls the <font color="green">set_d</font> method repeatedly with different values of <font color="green">d</font>, searching for the value that makes the <font color="green">set_d</font> error term equal to zero.  It also sets the fields <font color="green">c</font>, <font color="green">a_H</font> and <font color="green">p1_inv</font>.
+</p>
+<br/>
+<b>Method:</b> <font color="maroon">set_p1</font>()::void
+<p>
+This sets the <font color="green">p1</font> field based on the <font color="green">p1_inv</font> field.
+</p>
+<br/>
+<b>Method:</b> <font color="maroon">p1_coeff_plot</font>()::plot
+<p>
+This generates a plot of the logs of the absolute values of the coefficients of the power series for $p_1(z)$
+</p>
+<br/>
+<b>Method:</b> <font color="maroon">p1_inv_coeff_plot</font>()
+<p>
+This generates a plot of the logs of the absolute values of the coefficients of the power series for $p^{-1}_1(z)$
+</p>
+<br/>
+
+ </body>
+</html>
+

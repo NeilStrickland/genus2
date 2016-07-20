@@ -1,0 +1,65 @@
+
+<html>
+ <head><title>automorphy_system</title><script type="text/x-mathjax-config">
+MathJax.Hub.Config({ tex2jax: {inlineMath: [['$','$']]}});</script>
+<script src="https://cdn.mathjax.org/mathjax/latest/MathJax.js?config=TeX-AMS_CHTML"></script>
+</head>
+ <body  style="width:700px">
+  <h1>Class automorphy_system</h1><br/>
+Code: <a href="../maple/hyperbolic/automorphic.mpl#CLASS_automorphy_system">hyperbolic/automorphic.mpl</a><br/>
+<p>
+An instance of this class encapsulates information about automorphic functions for $HX(a_H)$
+</p>
+<b>Field: </b><font color="red">a_H</font>::RR1<br/>
+<p>
+This is the relevant value of a_H.  WARNING: various things will work incorrectly if this field is different from the global variable a_H0.  This is poor design, but significant effort would be required to fix it.
+</p>
+<b>Field: </b><font color="red">poly_deg</font>::posint = 100<br/>
+<p>
+degree of approximating polynomials
+</p>
+<b>Field: </b><font color="red">band_number</font>::posint = 3<br/>
+<p>
+controls the number of group elements to sum over
+</p>
+<b>Field: </b><font color="red">p_series</font>::table<br/>
+<p>
+A power series approximation to the function $p_{jk}(z)=\sum_{\gamma}\gamma(z)^j\gamma'(z)^k$.
+</p>
+<b>Field: </b><font color="red">a_star</font><br/>
+<p>
+This is the constant $a^*$, as defined in Section sec-hol-forms
+</p>
+<b>Field: </b><font color="red">m_series</font><br/>
+<p>
+This is the function $m(z)$, as defined in Section sec-hol-forms
+</p>
+<b>Method:</b> <font color="maroon">num_group_elements</font>()
+<p>
+This returns the number of group elements that we sum over.  It increases rapidly with the band number.
+</p>
+<br/>
+<b>Method:</b> <font color="maroon">p</font>(<font color='olive'>j</font>,<font color='olive'>k</font>,<font color='olive'>z</font>::CC1)
+<p>
+This calculates individual values of the function $p_{jk}(z)$.
+</p>
+<br/>
+<b>Method:</b> <font color="maroon">set_p_series</font>(<font color='olive'>j</font>,<font color='olive'>k</font>)
+<p>
+This calculates a power series approximation to $p_{jk}(z)$
+</p>
+<br/>
+<b>Method:</b> <font color="maroon">set_p0_series</font>(<font color='olive'>k</font>)
+<p>
+This calculates a power series approximation to $p_{0k}(z)$, with some optimizations for this particular case
+</p>
+<br/>
+<b>Method:</b> <font color="maroon">set_m_series</font>()
+<p>
+This calculates $a^*$ and $m(z)$
+</p>
+<br/>
+
+ </body>
+</html>
+

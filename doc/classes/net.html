@@ -1,0 +1,97 @@
+
+<html>
+ <head><title>net</title><script type="text/x-mathjax-config">
+MathJax.Hub.Config({ tex2jax: {inlineMath: [['$','$']]}});</script>
+<script src="https://cdn.mathjax.org/mathjax/latest/MathJax.js?config=TeX-AMS_CHTML"></script>
+</head>
+ <body  style="width:700px">
+  <h1>Class net</h1><br/>
+Code: <a href="../maple/nets.mpl#CLASS_net">nets.mpl</a><br/>
+<p>
+An instance of this class represents a net which can be glued to produce a cromulent surface.  
+</p>
+<b>Constructor:</b> `new/net`()
+<p>
+
+</p>
+<b>Field: </b><font color="red">name</font>::string<br/>
+<p>
+A name for the net
+</p>
+<b>Field: </b><font color="red">v</font>::table<br/>
+<p>
+This is a table of points in $\mathbb{R}^2$.  The indices are integers in $\{0,1,\dotsc,13\}$, or integers in that range plus a multiple of $0.1$.  The idea is that vertices indexed 10, 10.1, 10.2 and so on will all be identified together and will become the vertex $v_{10}$ in the glued surface
+</p>
+<b>Field: </b><font color="red">edges</font>::list([numeric, numeric])<br/>
+<p>
+This is a list of pairs.  A pair <font color="green">[i,j]</font> appears in the list if <font color="green">i</font> and <font color="green">j</font> are indices in the <font color="green">v</font> table, and there is an edge from vertex <font color="green">i</font> to vertex <font color="green">j</font> in the net.
+</p>
+<b>Field: </b><font color="red">outer_edges</font>::list([numeric, numeric])<br/>
+<p>
+This is a list containing some of the entries in the <font color="green">edges</font> list, namely those that lie on the boundary of the net.  It can be set by the <font color="green">set_outer_edges</font> method.
+</p>
+<b>Field: </b><font color="red">squares</font>::table<br/>
+<p>
+This is a table indexed by the 16 elements of the group $G$.  Each entry is a list of four indices from the <font color="green">v</font> table.  If $g\in G$ and $F$ is the fundamental domain, then the net will have a quadrilateral region corresponding to $g.F$, and the corners of that region are indexed by the elements of the $g$'th element in the <font color="green">squares</font> table.  These indices should be listed so that they correspond to $g.v_6$, $g.v_0$, $g.v_{11}$ and $g.v_3$ in that order.
+</p>
+<b>Field: </b><font color="red">square_centres</font>::table<br/>
+<p>
+This is a table indexed by the 16 elements of the group $G$, withentries in $\mathbb{R}^2$.  The $g$'th entry is the barycentre of the quadrilateral region in the net corresponding to $g.F$.
+</p>
+<b>Field: </b><font color="red">tikz_scale</font>::numeric = 1<br/>
+<p>
+This is the scale parameter that should be used when generating a tikzpicture environment illustrating this net.
+</p>
+<b>Field: </b><font color="red">v_anchor</font>::table<br/>
+<p>
+This is a table with the same indices as the <font color="green">v</font> table.  The entries are strings like "north", "south east" and so on.  These entries indicate where the relevant vertex labels should be placed relative to the vertices themselves.
+</p>
+<b>Method:</b> <font color="maroon">set_edges_from_squares</font>()
+<p>
+If the <font color="green">squares</font> table has been filled, then this method can be used to fill the <font color="green">edges</font> list.
+</p>
+<br/>
+<b>Method:</b> <font color="maroon">set_square_centres</font>()
+<p>
+This fills the <font color="green">square_centres</font> table using information from the <font color="green">v</font> and <font color="green">squares</font> tables.
+</p>
+<br/>
+<b>Method:</b> <font color="maroon">set_outer_edges</font>()
+<p>
+This works out which edges lie on the boundary of the net.
+</p>
+<br/>
+<b>Method:</b> <font color="maroon">plot</font>()
+<p>
+This generates a Maple plot illustrating the net.
+</p>
+<br/>
+<b>Method:</b> <font color="maroon">save_plot</font>()
+<p>
+This calls the <font color="green">plot</font> method and saves the result, both as en entry in the global variable <font color="green">pics</font> and as a file in the <font color="green">plots</font> directory
+</p>
+<br/>
+<b>Method:</b> <font color="maroon">outer_edge_plot</font>()
+<p>
+This generates a Maple plot showing the outer edges of the net.
+</p>
+<br/>
+<b>Method:</b> <font color="maroon">tikz</font>(<font color='olive'>scale_</font>)
+<p>
+This generates a tikzpicture environment illustrating the net.
+</p>
+<br/>
+<b>Method:</b> <font color="maroon">save_tikz</font>()
+<p>
+This calls the <font color="green">tikz</font> method and saves the result
+</p>
+<br/>
+<b>Method:</b> <font color="maroon">check</font>()
+<p>
+This checks the combinatorial structure of the net.  It uses the global variable <font color="green">edges</font>, which is set in <font color="green">cromulent.mpl</font>
+</p>
+<br/>
+
+ </body>
+</html>
+

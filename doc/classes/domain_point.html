@@ -1,0 +1,115 @@
+
+<html>
+ <head><title>domain_point</title><script type="text/x-mathjax-config">
+MathJax.Hub.Config({ tex2jax: {inlineMath: [['$','$']]}});</script>
+<script src="https://cdn.mathjax.org/mathjax/latest/MathJax.js?config=TeX-AMS_CHTML"></script>
+</head>
+ <body  style="width:700px">
+  <h1>Class domain_point</h1><br/>
+Code: <a href="../maple/domain/domain_point.mpl#CLASS_domain_point">domain/domain_point.mpl</a><br/>
+<p>
+This is an abstract class which serves as the parent for various subclasses representing points in various different domains.
+</p>
+<b>Field: </b><font color="red">grid_index</font>::integer = 0<br/>
+<p>
+In many cases points will form part of a grid, and all the points in the grid will be numbered from $0$ to $n-1$ for some $n$.  The index number will be stored in this field.
+</p>
+<b>Field: </b><font color="red">var_index</font>::integer = 0<br/>
+<p>
+In various situations we will want to adjust slightly the position of points in a grid.  Points in the interior of the domain have two degrees of freedom to move, but points on an edge have only one degree of freedom, and the corners have no freedom.  The adjustment will be governed by variables <font color="green">t[0],..,t[m-1]</font> say.  If this point is in the interior, then the first order adjustment will be <font color="green">t[j] * u + t[j+1] * v</font>, where <font color="green">u</font> and <font color="green">v</font> are the vectors described below, and <font color="green">j</font> is the value of <font color="green">var_index</font>.  If this point is on an edge, then the first order adjustment will be <font color="green">t[j] * u</font>, where again <font color="green">j</font> is the value of <font color="green">var_index</font>.  The <font color="green">var_index</font> field is not used for corner points.
+</p>
+<b>Field: </b><font color="red">constraint</font>::integer = 0<br/>
+<p>
+The <font color="green">constraint</font> field contains an integer encoding information about whether this point is in the interior of the domain, or on an edge, or at a corner.  We always refer to specific values by symbolic names such as CONSTRAINT_FREE, CONSTRAINT_C3 or CONSTRAINT_V6 rather than bare integers.  For more details of the encoding, see the file domain.mpl.
+</p>
+<b>Field: </b><font color="red">x</font>::list<br/>
+<p>
+Coordinates of the point
+</p>
+<b>Field: </b><font color="red">u</font>::list<br/>
+<p>
+A unit vector tangent to the surface at the point.  If the point is constrained to lie on an edge, then <font color="green">u</font> should point along that edge.
+</p>
+<b>Field: </b><font color="red">v</font>::list<br/>
+<p>
+The vector obtained by rotating <font color="green">u</font> anticlockwise by a quarter turn.
+</p>
+<b>Method:</b> <font color="maroon">set</font>(<font color='olive'>c</font>::integer,<font color='olive'>x</font>::list(scalar))::void
+<p>
+Set the constraint and coordinates, then calculate all other fields.  The calculation procedure may change the coordinates slightly if necessary to ensure that the point lies exactly on the surface and the specified constraints are satisfied.
+</p>
+<br/>
+<b>Method:</b> <font color="maroon">fix</font>()::void
+<p>
+This is an abstract method, which should be overridden by subclasses.  The overriding method should change the coordinates slightly if necessary to ensure that the point lies exactly on the surface and the specified constraints are satisfied, then it should calculate <font color="green">u</font> and <font color="green">v</font> and possibly other information specific to the relevant domain.
+</p>
+<br/>
+<b>Method:</b> <font color="maroon">adjust</font>(<font color='olive'>s</font>::scalar,<font color='olive'>t</font>::scalar)::void
+<p>
+For a point in the interior, this method adds $su + tv$ to $x$ and then calls the <font color="green">fix</font> method.  Here $s$ and $t$ are parameters for this method, and $u$ and $v$ are the unit vectors stored in the <font color="green">u</font> and <font color="green">v</font> fields.  For an edge point we add $su$ instead of $su + tv$; for a corner point we do nothing.
+</p>
+<br/>
+<b>Method:</b> <font color="maroon">set_C0</font>(<font color='olive'>t</font>::scalar)::void
+<p>
+This is an abstract method, which should be overridden by subclasses.  The parameter $t$ should be between $0$ and $1$.  The overriding method should set all fields to represent a point on the left edge of the domain, with $t=0$ corresponding to the point $v_6$ at the bottom left, and $t=1$ corresponding to the point $v_3$ at the top left.
+</p>
+<br/>
+<b>Method:</b> <font color="maroon">set_C1</font>(<font color='olive'>t</font>::scalar)::void
+<p>
+This is an abstract method, which should be overridden by subclasses.  The parameter $t$ should be between $0$ and $1$.  The overriding method should set all fields to represent a point on the bottom edge of the domain, with $t=0$ corresponding to the point $v_6$ at the bottom left, and $t=1$ corresponding to the point $v_0$ at the bottom right.
+</p>
+<br/>
+<b>Method:</b> <font color="maroon">set_C3</font>(<font color='olive'>t</font>::scalar)::void
+<p>
+This is an abstract method, which should be overridden by subclasses.  The parameter $t$ should be between $0$ and $1$.  The overriding method should set all fields to represent a point on the top edge of the domain, with $t=0$ corresponding to the point $v_3$ at the top left, and $t=1$ corresponding to the point $v_{11}$ at the top right.
+</p>
+<br/>
+<b>Method:</b> <font color="maroon">set_C5</font>(<font color='olive'>t</font>::scalar)::void
+<p>
+This is an abstract method, which should be overridden by subclasses.  The parameter t should be between $0$ and $1$.  The overriding method should set all fields to represent a point on the right edge of the domain, with $t=0$ corresponding to the point $v_0$ at the bottom right, and $t=1$ corresponding to the point $v_{11}$ at the top right.
+</p>
+<br/>
+<b>Method:</b> <font color="maroon">set_C</font>(<font color='olive'>k</font>::integer,<font color='olive'>t</font>::scalar)::void
+<p>
+This invokes one of the methods <font color="green">set_C0</font>, <font color="green">set_C1</font>, <font color="green">set_C3</font> or <font color="green">set_C5</font>, as specified by the parameter <font color="green">k</font>.
+</p>
+<br/>
+<b>Method:</b> <font color="maroon">set_v0</font>(<font color='olive'>float_</font>::boolean)::void
+<p>
+Set this point to be $v_0$, at the bottom right corner of the domain
+</p>
+<br/>
+<b>Method:</b> <font color="maroon">set_v3</font>(<font color='olive'>float_</font>::boolean)::void
+<p>
+Set this point to be $v_3$, at the top left corner of the domain
+</p>
+<br/>
+<b>Method:</b> <font color="maroon">set_v6</font>(<font color='olive'>float_</font>::boolean)::void
+<p>
+Set this point to be $v_6$, at the bottom left corner of the domain
+</p>
+<br/>
+<b>Method:</b> <font color="maroon">set_v11</font>(<font color='olive'>float_</font>::boolean)::void
+<p>
+Set this point to be $v_{11}$, at the top right corner of the domain
+</p>
+<br/>
+<b>Method:</b> <font color="maroon">set_v</font>(<font color='olive'>k</font>::integer)::void
+<p>
+Set this point to be $v_k$
+</p>
+<br/>
+<b>Method:</b> <font color="maroon">float</font>()::void
+<p>
+Convert the coordinates etc (which might be exact rational or algebraic numbers) to floating point.
+</p>
+<br/>
+<b>Method:</b> <font color="maroon">clone</font>()::domain_point
+<p>
+Return an independent copy of this point, which can be changed without affecting the original.
+</p>
+<br/>
+
+ </body>
+</html>
+

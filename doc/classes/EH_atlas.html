@@ -1,0 +1,441 @@
+
+<html>
+ <head><title>EH_atlas</title><script type="text/x-mathjax-config">
+MathJax.Hub.Config({ tex2jax: {inlineMath: [['$','$']]}});</script>
+<script src="https://cdn.mathjax.org/mathjax/latest/MathJax.js?config=TeX-AMS_CHTML"></script>
+</head>
+ <body  style="width:700px">
+  <h1>Class EH_atlas</h1><br/>
+Code: <a href="../maple/embedded/roothalf/EH_atlas.mpl#CLASS_EH_atlas">embedded/roothalf/EH_atlas.mpl</a><br/>
+<p>
+An instance of this class represents an approximation to the isomorphism $HX(a)\to EX^*$, together with associated data.  
+</p>
+<b>Extends: </b>E_atlas<br/>
+<b>Constructor:</b> `new/EH_atlas`()
+<p>
+
+</p>
+<b>Field: </b><font color="red">a_H</font>::RR0<br/>
+<p>
+This is an approximation to the number a such that $EX^*$ is isomorphic to $HX(a)$
+</p>
+<b>Field: </b><font color="red">log_rescale_z</font><br/>
+<p>
+This is an approximation to the function $f$ such that $\exp(2f)$ times the metric tensor inherited from $\mathbb{R}^4$ has curvature equal to $-1$.  It is represented here as a function from the $z$-plane to $\mathbb{R}$.  It should be set using the <font color="green">set_rescale</font> method, or one of the <font color="green">find_rescale_*</font> methods.
+</p>
+<b>Field: </b><font color="red">log_rescale_x</font><br/>
+<p>
+This is an approximation to the function $f$ such that $\exp(2f)$ times the metric tensor inherited from $\mathbb{R}^4$ has curvature equal to $-1$.  It is represented here as a function from $\mathbb{R}^4$ to $\mathbb{R}$.  It should be set using the <font color="green">set_rescale</font> method, or one of the <font color="green">find_rescale_*</font> methods.
+</p>
+<b>Field: </b><font color="red">rescale_z</font><br/>
+<p>
+This is the composite of $\exp$ with the map in the <font color="green">log_rescale_z</font> field.  It should be set using the <font color="green">set_rescale</font> method.
+</p>
+<b>Field: </b><font color="red">rescale_x</font><br/>
+<p>
+This is the composite of $\exp$ with the map in the <font color="green">log_rescale_x</font> field.  It should be set using the <font color="green">set_rescale</font> method, or one of the <font color="green">find_rescale_*</font> methods.
+</p>
+<b>Field: </b><font color="red">rescale_type</font>::string<br/>
+<p>
+This should be "pade" or "poly", to specify whether the <font color="green">log_rescale_z</font> function is polynomial or rational
+</p>
+<b>Field: </b><font color="red">rescale_degree</font>::posint<br/>
+<p>
+When the <font color="green">log_rescale_z</font> function is polynomial in $z_1$ and $z_2$, this field specifies the total degree.  When the <font color="green">log_rescale_z</font> function is rational in $z_1$ and $z_2$, this field specifies the total degree of the numerator and denominator.  This field should be set by the <font color="green">set_rescale_type</font> method.
+</p>
+<b>Field: </b><font color="red">rescale_dof</font>::posint<br/>
+<p>
+This field holds the number of degrees of freedom that we can vary when specifying the <font color="green">log_rescale_z</font> function.  It is calculated by the <font color="green">set_rescale_type</font> method from the <font color="green">rescale_type</font> and <font color="green">rescale_degree</font> fields.
+</p>
+<b>Field: </b><font color="red">curvature_z</font><br/>
+<p>
+This is the curvature of the rescaled metric, represented as a function from the $z$-plane to $\mathbb{R}$.  It is set by the <font color="green">set_rescale</font> method, and also by the <font color="green">find_rescale_*</font> methods.
+</p>
+<b>Field: </b><font color="red">quadrature_rule</font>::E_quadrature_rule<br/>
+<p>
+This is a quadrature rule, which we use to measure the total deviation of the rescaled curvature from the desired value of $-1$.  It is not important for the quadrature to be accurate.  This field must be set before any of the <font color="green">find_rescale_*</font> methods can be used.
+</p>
+<b>Field: </b><font color="red">rescaling_error</font>::numeric<br/>
+<p>
+This is the integral of $(K+1)^2$, where $K$ is the curvature of the rescaled metric.  It is set by the <font color="green">set_rescale</font> method, and also by the <font color="green">find_rescale_*</font> methods.
+</p>
+<b>Field: </b><font color="red">curve_lengths</font>::table<br/>
+<p>
+This is a table indexed by $\{0,1,3,5\}$, which holds the lengths (with respect to the rescaled metric) of the sides of the fundamental domain $F_{16}$.  These lengths are set by the <font color="green">find_a_H</font> method.
+</p>
+<b>Field: </b><font color="red">curve_a_H_estimates</font>::table<br/>
+<p>
+This is a table indexed by $\{0,1,3,5\}$.  The $i$'th entry is an estimate of $a_H$ obtained from the length of edge $i$ in $F_{16}$.  These estimates are set by the <font color="green">find_a_H</font> method.
+</p>
+<b>Field: </b><font color="red">a_H_discrepancy</font><br/>
+<p>
+This is the maximum of the differences between the estimates of $a_H$ obtained from the different edges of $F_{16}$.  This is set by the <font color="green">find_a_H</font> method.
+</p>
+<b>Field: </b><font color="red">u_degree</font>::posint<br/>
+<p>
+The fields discussed below are Fourier sin series.  The <font color="green">u_degree</font> field holds the number of terms in each of these series.  This number is set by supplying it as an argument to the <font color="green">find_u</font> method.
+</p>
+<b>Field: </b><font color="red">u</font>::table<br/>
+<p>
+This is a table indexed by $\{0,1,3,5\}$.  The $i$'th entry is an approximation to the function $u$ such that $q(c_{Hi}(t))=c_{Ei}(u(t))$.  It has the form $u(t) = t + \sum_j a_j\sin(jmt)$, where $m=4$ for $i=0$, and $m=2$ for $i\in\{1,3\}$, and $m=1$ for $i=5$.  This table is set by the <font color="green">find_u</font> method.
+</p>
+<b>Field: </b><font color="red">u_inv</font>::table<br/>
+<p>
+This is a table, whose entries are approximately the inverses of the functions stored in the <font color="green">u</font> field.  This table is set by the <font color="green">find_u</font> method.
+</p>
+<b>Field: </b><font color="red">c_E_rescaled_speed</font>::table<br/>
+<p>
+This is a table indexed by $\{0,1,3,5\}$.  The $i$'th entry is a Fourier approximation to the speed of $c_{Ei}(t)$ with respect to the rescaled metric.  This table is set by the <font color="green">find_u</font> method.
+</p>
+<b>Field: </b><font color="red">c_E_rescaled_length</font>::table<br/>
+<p>
+This is a table indexed by $\{0,1,3,5\}$.  The $i$'th entry is the indefinite integral of the corresponding entry in the <font color="green">c_E_rescaled_speed</font> field; this is a constant multiple of the $i$'th entry in the <font color="green">u_inv</font> field.  This table is set by the <font color="green">find_u</font> method.
+</p>
+<b>Field: </b><font color="red">c_E_average_rescaled_speed</font>::table<br/>
+<p>
+This is a table indexed by $\{0,1,3,5\}$.  The $i$'th entry is the time average of the corresponding entry in the <font color="green">c_E_rescaled_speed</font> field.  This table is set by the <font color="green">find_u</font> method.
+</p>
+<b>Field: </b><font color="red">H_samples</font>::list<br/>
+<p>
+A list of closely spaced points in $HF_{16}$, set by the <font color="green">make_H_samples</font> method.
+</p>
+<b>Field: </b><font color="red">D_samples</font>::list<br/>
+<p>
+A list of closely spaced points in a disc centred at the origin that contains $HF_{16}$ (but usually has radius less than 1).  This is set by the <font color="green">make_D_samples</font> method.
+</p>
+<b>Field: </b><font color="red">H_samples_q</font>::list<br/>
+<p>
+Images in $EX^*$ of the points in <font color="green">H_samples</font>.  These are set by the <font color="green">make_H_samples_q</font> method, which will only work once we have constructed and adjusted charts to put ourselves in a position to calculate the map <font color="green">q</font>.
+</p>
+<b>Field: </b><font color="red">D_samples_q</font>::list<br/>
+<p>
+Images in $EX^*$ of the points in <font color="green">D_samples</font>.  These are set by the <font color="green">make_D_samples_q</font> method, which will only work once we have constructed and adjusted charts to put ourselves in a position to calculate the map <font color="green">q</font>.
+</p>
+<b>Field: </b><font color="red">chart_dist</font>::table<br/>
+<p>
+Distances between H-sample points and centres of charts.  This can be set by the <font color="green">set_chart_dist</font> method after charts have been created and the <font color="green">H_samples</font> field has been set.  
+</p>
+<b>Field: </b><font color="red">square_q_inv</font> = NULL<br/>
+<p>
+A polynomial function $\mathbb{R}^2\to\mathbb{C}$ which approximates the inverse of the map $HF_{16}\xrightarrow{q}EX^*\xrightarrow{\delta}[0,1]^2$ (where $\delta$ is <font color="green">square_diffeo</font>).  This can be set by the <font color="green">set_square_q_inv</font> method.
+</p>
+<b>Field: </b><font color="red">num_edges</font>::integer<br/>
+<p>
+Some methods rely on having a triangulation of $F_{16}$ with the centres of the charts as vertices.  After adding the charts, we specify the edges of the triangulation using the <font color="green">add_edge</font> method.  The number of edges is stored in the <font color="green">num_edges</font> field.
+</p>
+<b>Field: </b><font color="red">edges</font>::table<br/>
+<p>
+This is a table indexed by natural numbers.  Each entry is an instance of the class <font color="green">EH_atlas_edge</font>, representing an edge between chart centres.
+</p>
+<b>Field: </b><font color="red">fourier_r_max</font>::RR0<br/>
+<p>
+The <font color="green">set_q_approx_fourier</font> method will look for a Fourier approximation for $q$ on a disc of this radius centred at the origin.  This radius is set by supplying it as the first argument to <font color="green">set_q_approx_fourier</font>.
+</p>
+<b>Field: </b><font color="red">fourier_m</font>::posint<br/>
+<p>
+The number of circles on which we calculate the Fourier series.  This number is set by supplying it as the second argument to <font color="green">set_q_approx_fourier</font>.
+</p>
+<b>Field: </b><font color="red">fourier_r</font>::list<br/>
+<p>
+The list of radii of the circles on which we calculate the Fourier series.  This is set by <font color="green">set_q_approx_fourier</font>.
+</p>
+<b>Field: </b><font color="red">fourier_k</font>::posint<br/>
+<p>
+The number of sample points on each circle will be $2^k$.  This number is set by supplying it as the third argument to <font color="green">set_q_approx_fourier</font>.
+</p>
+<b>Field: </b><font color="red">fourier_v</font>::table<br/>
+<p>
+A table indexed by pairs $(r,t)$, where $r$ is in <font color="green">fourier_r</font> and $t$ is an integer multiple of $2^{-k}$.  The entries are $q(r e^{2\pi i t})\in\mathbb{R}^4$.  This is set by <font color="green">set_q_approx_fourier</font>.
+</p>
+<b>Field: </b><font color="red">fourier_a</font>::table<br/>
+<p>
+A table indexed by triples $(k,j,r)$, where $1\leq klleq 4$ and $j\geq 0$ and $r$ is in <font color="green">fourier_r</font>.  The entries are Fourier coefficients for $q_k$ on the circle of radius $r$.  This is set by <font color="green">set_q_approx_fourier</font>.
+</p>
+<b>Field: </b><font color="red">fourier_qr</font>::table<br/>
+<p>
+A table indexed by pairs $(k,r)$, giving a Fourier approximation to $q_k$ on a circle of radius $r$.  This is set by <font color="green">set_q_approx_fourier</font>.
+</p>
+<b>Field: </b><font color="red">fourier_a_spline</font>::table<br/>
+<p>
+A table indexed by pairs $(k,j)$, giving a spline approximation to the Fourier coefficient $a_{k,j}(r)$.  This is set by the method <font color="green">set_fourier_a_spline</font>, which is called by <font color="green">set_q_approx_fourier</font>.
+</p>
+<b>Field: </b><font color="red">q_approx</font><br/>
+<p>
+A rational function $\mathbb{R}^2\to\mathbb{R}^4$ which approximates $q$ on a disc containing $HF_4$
+</p>
+<b>Field: </b><font color="red">H_to_P_map</font><br/>
+<p>
+An object encoding information about a cromulent isomorphism $HX(a_H)\to PX(a_P)$
+</p>
+<b>Field: </b><font color="red">P_to_H_map</font><br/>
+<p>
+An object encoding information about a cromulent isomorphism $PX(a_P)\to HX(a_H)$
+</p>
+<b>Field: </b><font color="red">E_to_S_map</font><br/>
+<p>
+An object encoding information about a conformal map $EX^*\to S^2$
+</p>
+<b>Method:</b> <font color="maroon">set_rescale_type</font>(<font color='olive'>t</font>::string,<font color='olive'>d</font>::posint)
+<p>
+This sets the type and degree of the rescaling function
+</p>
+<br/>
+<b>Method:</b> <font color="maroon">set_rescale</font>(<font color='olive'>f0</font>)
+<p>
+This sets the log of rescaling function itself, together with some other fields that can be calculated from it.  The argument should be an expression in $z_1$ and $z_2$.
+</p>
+<br/>
+<b>Method:</b> <font color="maroon">rescaled_curvature</font>(<font color='olive'>f</font>)
+<p>
+This calculates the curvature of $\exp(2f)$ times the metric inherited from $\mathbb{R}^4$.  It expects $f$ to be an expression in <font color="green">z[1]</font> and <font color="green">z[2]</font> (not a function).  It does not set the <font color="green">log_rescale_z</font> field, because it is intended to be used in an exploratory way when searching for a better rescaling function.
+</p>
+<br/>
+<b>Method:</b> <font color="maroon">find_rescaling_error</font>(<font color='olive'>f</font>)
+<p>
+This calculates the integral of $(K+1)^2$, where $K$ is the curvature of $\exp(2f)$ times the metric inherited from $\mathbb{R}^4$.  It expects $f$ to be an expression in <font color="green">z[1]</font> and <font color="green">z[2]</font> (not a function).  It does not set the <font color="green">rescaling_error</font> field, because it is intended to be used in an exploratory way when searching for a better rescaling function.
+</p>
+<br/>
+<b>Method:</b> <font color="maroon">find_rescale_poly</font>(<font color='olive'>d</font>::posint)
+<p>
+This method attempts to find a polynomial approximation to the function $f$ such that $\exp(2f)$ times the standard metric on $EX^*$ has curvature $-1$.  The argument <font color="green">d</font> specifies the degree of polynomial (in $z_1$ and $z_2$) to use.
+</p>
+<br/>
+<b>Method:</b> <font color="maroon">find_rescale_poly_alt</font>(<font color='olive'>d</font>::posint)
+<p>
+This method attempts to find a polynomial approximation to the function $f$ such that $\exp(2f)$ times the standard metric on $EX^*$ has curvature $-1$.  The argument <font color="green">d</font> specifies the degree of polynomial (in $z_1$ and $z_2$) to use.  This version is harder to understand than <font color="green">find_rescale_poly()</font>, but is much quicker.
+</p>
+<br/>
+<b>Method:</b> <font color="maroon">find_rescale_pade</font>(<font color='olive'>d</font>::posint)
+<p>
+This method attempts to find a rational approximation to the function $f$ such that $\exp(2f)$ times the standard metric on $EX^*$ has curvature $-1$.  The argument <font color="green">d</font> specifies the degree of the numerator and denominator (in $z_1$ and $z_2$).
+</p>
+<br/>
+<b>Method:</b> <font color="maroon">find_rescale_pade_alt</font>(<font color='olive'>d</font>::posint)
+<p>
+This method attempts to find a rational approximation to the function $f$ such that $\exp(2f)$ times the standard metric on $EX^*$ has curvature $-1$.  The argument <font color="green">d</font> specifies the degree of the numerator and denominator (in $z_1$ and $z_2$).  This version is harder to understand than <font color="green">find_rescale_pade</font>, but is much quicker.
+</p>
+<br/>
+<b>Method:</b> <font color="maroon">vector_to_poly</font>(<font color='olive'>v</font>::{list, Vector})
+<p>
+This converts a vector (or list) of coefficients to a polynomial in $z_1$ and $z_2$.
+</p>
+<br/>
+<b>Method:</b> <font color="maroon">poly_to_vector</font>(<font color='olive'>f</font>)
+<p>
+This is inverse to the <font color="green">vector_to_poly</font> method.
+</p>
+<br/>
+<b>Method:</b> <font color="maroon">vector_to_pade</font>(<font color='olive'>v</font>::{list, Vector})
+<p>
+This converts a vector (or list) of coefficients to a rational function in $z_1$ and $z_2$.  The coefficients for the numerator are given first, followed by the coefficients for the denominator.  The constant term in the denominator is always taken to be 1, and this coefficient is omitted from the vector.
+</p>
+<br/>
+<b>Method:</b> <font color="maroon">pade_to_vector</font>(<font color='olive'>f</font>)
+<p>
+This is inverse to the <font color="green">vector_to_pade</font> method.
+</p>
+<br/>
+<b>Method:</b> <font color="maroon">find_a_H</font>()
+<p>
+This method comutes the lengths (with respect to the rescaled metric) of the sides of the fundamental domain $F_{16}$.  It then calculates estimates of $a_H$ from these lengths, and averages them.
+</p>
+<br/>
+<b>Method:</b> <font color="maroon">find_u</font>(<font color='olive'>d</font>)
+<p>
+This calculates appropriate values for the <font color="green">c_E_rescaled_length</font> field and various related fields.  These involve various Fourier sin series; the parameter <font color="green">d</font> controls the number of terms in those series.
+</p>
+<br/>
+<b>Method:</b> <font color="maroon">find_v_series</font>(<font color='olive'>k</font>,<font color='olive'>t0</font>,<font color='olive'>d0</font>)
+<p>
+Let $u$ be the function such that $q(c_{Hk}(t))=c_{Ek}(u(t))$.  This method finds an approximate power series for the function $v(z) = u(u^{-1}(t_0) + 2\arctanh(z)/s_k) - t_0$, where $s_k$ is the speed of $c_{Hk}$.  This can be calculated without knowing $u^{-1}(t_0)$, and does not rely on the Fourier series for $u$ calculated by the <font color="green">find_u</font> method.
+</p>
+<br/>
+<b>Method:</b> <font color="maroon">add_chart</font>()
+<p>
+This adds a chart object to the atlas, but the chart object contains no data at this stage.
+</p>
+<br/>
+<b>Method:</b> <font color="maroon">add_vertex_chart</font>(<font color='olive'>k</font>::integer,<font color='olive'>d</font>::posint)
+<p>
+This adds a chart centred at $v_k$, with polynomial degree $d$, and calculates the coefficients and associated data.
+</p>
+<br/>
+<b>Method:</b> <font color="maroon">add_curve_chart</font>(<font color='olive'>k</font>::integer,<font color='olive'>t0</font>::RR0,<font color='olive'>d</font>::posint)
+<p>
+This adds a chart centred at $c_k(t0)$, with polynomial degree $d$, and calculates the coefficients and associated data.
+</p>
+<br/>
+<b>Method:</b> <font color="maroon">add_square_chart</font>(<font color='olive'>s0</font>::RR0_2,<font color='olive'>d</font>::posint)
+<p>
+This adds a chart centred at $\delta^{-1}(s0)$, with polynomial degree $d$, and calculates the coefficients and associated data.  Here $\delta$ is the map <font color="green">square_diffeo</font>.
+</p>
+<br/>
+<b>Method:</b> <font color="maroon">add_centre_chart</font>(<font color='olive'>x0</font>::RR0_4,<font color='olive'>d</font>::posint)
+<p>
+This adds a chart centred at $x0$, with polynomial degree $d$, and calculates the coefficients and associated data.
+</p>
+<br/>
+<b>Method:</b> <font color="maroon">max_chart_error</font>()<br/>
+<b>Method:</b> <font color="maroon">q_c</font>(<font color='olive'>z</font>)
+<p>
+This evaluates $q(z)$ using the chart whose centre is as close as possible to $z$
+</p>
+<br/>
+<b>Method:</b> <font color="maroon">q_c_aux</font>(<font color='olive'>z</font>)<br/>
+<b>Method:</b> <font color="maroon">q</font>(<font color='olive'>st</font>)
+<p>
+This is the same as <font color="green">q_c</font>, except that the argument is in $\mathbb{R}^2$ instead of $\mathbb{C}$
+</p>
+<br/>
+<b>Method:</b> <font color="maroon">patching_error</font>(<font color='olive'>z0</font>,<font color='olive'>r0</font>)
+<p>
+This method looks for charts centred at a hyperbolic distance of at most <font color="green">r0</font> from <font color="green">z0</font>. For each such chart, it calculates an approximation to <font color="green">q(z0)</font>.  It returns a pair giving the number of different approximations, and the maximum discrepancy between them. 
+</p>
+<br/>
+<b>Method:</b> <font color="maroon">max_patching_error</font>(<font color='olive'>r</font>)<br/>
+<b>Method:</b> <font color="maroon">make_H_samples</font>(<font color='olive'>N</font>::posint)
+<p>
+Set the <font color="green">H_samples</font> field to be the set of points of the form $(j + kI)/N$ that lie in $HF_{16}$
+</p>
+<br/>
+<b>Method:</b> <font color="maroon">make_D_samples</font>(<font color='olive'>N</font>::posint,<font color='olive'>r</font>::RR0)
+<p>
+Set the <font color="green">D_samples</font> field to be the set of points of the form $(j + kI)/N$ that lie in the first quadrant of the disc of radius $r$ centred at the origin.  Here $r$ should be big enough that the disc contains $HF_{16}$, but not much bigger than that.
+</p>
+<br/>
+<b>Method:</b> <font color="maroon">make_H_samples_q</font>()
+<p>
+Calculate the images of the H-sample points under the map $q\colon\Delta\to EX^*$
+</p>
+<br/>
+<b>Method:</b> <font color="maroon">make_D_samples_q</font>()
+<p>
+Calculate the images of the D-sample points under the map $q\colon\Delta\to EX^*$
+</p>
+<br/>
+<b>Method:</b> <font color="maroon">set_chart_dist</font>()
+<p>
+Calculate distances between H-sample points and centres of charts
+</p>
+<br/>
+<b>Method:</b> <font color="maroon">set_q_approx_pade</font>(<font color='olive'>dd</font>)
+<p>
+Find an approximation to $q(x+iy)$ by rational functions in $x$ and $y$.  The approximation will be equivariant with respect to $\langle\lambda,\nu\rangle$, and will minimize the error for points $x+iy$ in <font color="green">D_samples</font>.
+</p>
+<br/>
+<b>Method:</b> <font color="maroon">set_q_approx_poly</font>(<font color='olive'>dd</font>)
+<p>
+Find an approximation to $q(x+iy)$ by polynomials in $x$ and $y$.  The approximation will be equivariant with respect to $\langle\lambda,\nu\rangle$, and will minimize the error for points $x+iy$ in <font color="green">D_samples</font>.
+</p>
+<br/>
+<b>Method:</b> <font color="maroon">set_q_approx_fourier</font>(<font color='olive'>r_max</font>,<font color='olive'>m</font>,<font color='olive'>k</font>)
+<p>
+This sets the fields <font color="green">fourier_r_max</font>, <font color="green">fourier_m</font>, <font color="green">fourier_k</font>, <font color="green">fourier_r</font>, <font color="green">fourier_v</font>, <font color="green">fourier_a</font>, <font color="green">fourier_qr</font> and <font color="green">fourier_a_spline</font>.  See the documentation of those fields for more details.
+</p>
+<br/>
+<b>Method:</b> <font color="maroon">set_fourier_a_spline</font>()<br/>
+<b>Method:</b> <font color="maroon">q_fourier</font>(<font color='olive'>s</font>::RR0_2)<br/>
+<b>Method:</b> <font color="maroon">q_fourier_c</font>(<font color='olive'>z</font>::CC0)<br/>
+<b>Method:</b> <font color="maroon">set_square_q_inv_a</font>(<font color='olive'>d</font>::posint)<br/>
+<b>Method:</b> <font color="maroon">square_q_inv_search</font>(<font color='olive'>s0</font>::RR0_2)<br/>
+<b>Method:</b> <font color="maroon">set_square_q_inv_b</font>(<font color='olive'>n</font>::posint,<font color='olive'>d</font>::posint)<br/>
+<b>Method:</b> <font color="maroon">add_edge</font>(<font color='olive'>i</font>,<font color='olive'>j</font>)<br/>
+<b>Method:</b> <font color="maroon">set_edge_lengths</font>()
+<p>
+Set the <font color="green">H_length</font> field of each edge, by assuming that the charts are exactly isometric.
+</p>
+<br/>
+<b>Method:</b> <font color="maroon">set_beta_approx</font>()
+<p>
+This method sets the <font color="green">beta</font> field for each chart that is not centred on an edge of $F_{16}$.  If $q$ is the standard map $\Delta\to EX^*$, then $q(\beta)$ should be the centre of the chart.  If we have already set the <font color="green">square_q_inv</font> field (to an approximation of <font color="green">(square_diffeo_E o q)^(-1)</font>) then we use that.  Otherwise, we use <font color="green">square_diffeo_H^(-1) o square_diffeo_E</font>.  If the $\lambda$ field has already been set, then we also put $\alpha = -\beta/\lambda$.
+</p>
+<br/>
+<b>Method:</b> <font color="maroon">optimize_lambda</font>()
+<p>
+This method assumes that we have a value of $\beta$ for each chart, and then chooses the best possible values of $\lambda$ consistent with the values of $\beta$.  It then sets $\alpha = -\beta/\lambda$.  It does not alter the values of $\alpha$, $\beta$ or $\lambda$ for charts centred on the edges of $F_{16}$, because in those cases we have other methods that are considered to be more reliable.
+</p>
+<br/>
+<b>Method:</b> <font color="maroon">optimize_beta</font>()
+<p>
+This method adjusts the $\beta$ fields for all charts that are not centred on an edge of $F_{16}$.  It attempts to ensure that whenever any two charts are joined by an edge, the hyperbolic distance in $\Delta$ between the coresponding $\beta$ values is the same as the distance in $EX^*$ between the corresponding centres, measured using the rescaled metric.  It then calls the <font color="green">optimize_lambda</font> method to set $\lambda$ and $\alpha$.
+</p>
+<br/>
+<b>Method:</b> <font color="maroon">curvature_error_plot</font>()
+<p>
+Generate a plot showing the difference between $-1$ and the curvature of the rescaled metric.
+</p>
+<br/>
+<b>Method:</b> <font color="maroon">log_rescale_plot</font>()
+<p>
+Generate a plot of the <font color="green">log_rescale_z</font> field.
+</p>
+<br/>
+<b>Method:</b> <font color="maroon">beta_plot</font>()
+<p>
+Generate a plot showing the $\beta$ values of all the charts, and the edges between them.
+</p>
+<br/>
+<b>Method:</b> <font color="maroon">beta_plot_tikz</font>()
+<p>
+Generate a plot showing the $\beta$ values of all the charts, and the edges between them.
+</p>
+<br/>
+<b>Method:</b> <font color="maroon">H_sample_plot</font>()
+<p>
+Generate a plot showing the H-sample points.
+</p>
+<br/>
+<b>Method:</b> <font color="maroon">D_sample_plot</font>()
+<p>
+Generate a plot showing the D-sample points.
+</p>
+<br/>
+<b>Method:</b> <font color="maroon">H_sample_q_plot</font>()
+<p>
+Generate a plot showing the images in $EX^*$ of the H-sample points.
+</p>
+<br/>
+<b>Method:</b> <font color="maroon">D_sample_q_plot</font>()
+<p>
+Generate a plot showing the images in $EX^*$ of the D-sample points.
+</p>
+<br/>
+<b>Method:</b> <font color="maroon">square_q_inv_plot</font>()
+<p>
+This method shows a distorted grid obtained by applying the <font color="green">square_q_inv</font> map to a regular grid covering the unit square.  Thus, the distorted grid will cover the domain $HF_{16}$ in the unit disc.
+</p>
+<br/>
+<b>Method:</b> <font color="maroon">edge_length_scatter_plot</font>()
+<p>
+We usually want to arrange our charts and edges so that most edges have approximately the same length.  Also, if everything was working perfectly, then the edge lengths in the <font color="green">H_length</font> and <font color="green">EH_length</font> fields would be the same. Thus, the plot generated by this method should show a cluster of points that are very close to the diagonal, and mostly close to each other.
+</p>
+<br/>
+<b>Method:</b> <font color="maroon">edge_length_anomaly_plot</font>()
+<p>
+If everything was working perfectly, then the edge lengths in the <font color="green">H_length</font> and <font color="green">EH_length</font> fields would be the same.  This method generates a plot showing a normalised measure of the difference between them.
+</p>
+<br/>
+<b>Method:</b> <font color="maroon">nearest_charts_plot</font>()
+<p>
+This generates a plot which helps one to understand how well the fundamental domain $HF_{16}$ is covered by the charts in this atlas.  For each point in <font color="green">H_samples</font> we find the distance to the closest chart centre, then we sort these distances in order, and the result is the red curve.  The green curve shows distances to the second closest chart centre, and so on, up to the cyan curve, which shows distances to the fifth closest chart centre.
+</p>
+<br/>
+<b>Method:</b> <font color="maroon">fourier_v_plot</font>(<font color='olive'>m</font>)
+<p>
+This generates a surface plot of the <font color="green">m</font>'th component of the map $q\colon\Delta\to EX^*\subset\mathbb{R}^4$
+</p>
+<br/>
+<b>Method:</b> <font color="maroon">fourier_ring_vals</font>(<font color='olive'>r</font>::RR0,<font color='olive'>n</font>::posint := 2)
+<p>
+This method generates a list of points in $EX^*\subset\mathbb{R}^4$ obtained by applying the map $q\colon\Delta\to EX^*$ to $n$ equally spaced points on the circle of radius $r$ centred at $0$.
+</p>
+<br/>
+<b>Method:</b> <font color="maroon">fourier_curve</font>(<font color='olive'>r</font>::RR0,<font color='olive'>n</font>::posint := 2,<font color='olive'>p</font> := 2)
+<p>
+This generates a plot of the curve $tmapsto p(q(r,e^{it}))$, where $r$ is supplied as the first argument, and $p$ is a map from $EX^*$ to $\mathbb{R}^2$ or $\mathbb{R}^3$ which is supplied as the third argument.  The second argument is the number of sample points, which needs to be large in order to get a smooth plot. If the third argument is omitted then we use the stereographic projection map to $\mathbb{R}^3$
+</p>
+<br/>
+
+ </body>
+</html>
+

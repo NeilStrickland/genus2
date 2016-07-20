@@ -1,0 +1,187 @@
+<html>
+<head>
+<title>Classes</title>
+<style type="text/css">
+table { empty-cells:show; }
+
+table.edged { 
+ border-collapse: collapse;
+}
+
+table.edged td {
+ padding: 3px 0.5em;
+ margin-left: 3px;
+ border: 1px solid #CCCCCC; 
+ vertical-align: top;
+}
+</style>
+<script type="text/x-mathjax-config">
+MathJax.Hub.Config({ tex2jax: {inlineMath: [['$','$']]}});
+</script>
+<script src="https://cdn.mathjax.org/mathjax/latest/MathJax.js?config=TeX-AMS_CHTML"></script>
+</head>
+<body>
+<h1>Index of classes</h1>
+<br/>
+<table class="edged">
+<tr>
+<td width="200"><a href="classes/net.html">net</a></td>
+<td width="600"><p>
+An instance of this class represents a net which can be glued to produce a cromulent surface.  
+</p>
+</td></tr>
+<tr>
+<td width="200"><a href="classes/triangle_quadrature_rule.html">triangle_quadrature_rule</a></td>
+<td width="600"><p>
+An instance of this class represents a rule for approximate integration of functions on the two-simplex.  Such a rule consists of a list of sample points and a list of weights; the approximate integral is obtained by evaluating at the sample points, multiplying by the corresponding weights, and taking the sum.  Following work of Dunavant, we consider only rules that are invariant under the evident action of the symmetric group $S_3$ on the simplex.  We choose one sample point from each $S_3$-orbit, and call these the base points for the rule.
+</p>
+</td></tr>
+<tr>
+<td width="200"><a href="classes/domain.html">domain</a></td>
+<td width="600"><p>
+An instance represents the fundamental domain in a cromulent surface
+</p>
+</td></tr>
+<tr>
+<td width="200"><a href="classes/domain_point.html">domain_point</a></td>
+<td width="600"><p>
+This is an abstract class which serves as the parent for various subclasses representing points in various different domains.
+</p>
+</td></tr>
+<tr>
+<td width="200"><a href="classes/domain_edge.html">domain_edge</a></td>
+<td width="600"><p>
+An instance of this class represents an edge in a domain.
+</p>
+</td></tr>
+<tr>
+<td width="200"><a href="classes/domain_face.html">domain_face</a></td>
+<td width="600"><p>
+An instance represents a triangular face in a domain.
+</p>
+</td></tr>
+<tr>
+<td width="200"><a href="classes/grid.html">grid</a></td>
+<td width="600"><p>
+An instance of this class represents a triangulation of a domain.
+</p>
+</td></tr>
+<tr>
+<td width="200"><a href="classes/E_point.html">E_point</a></td>
+<td width="600"><p>
+An instance of this class  represents a point on the embedded surface EX(a)
+</p>
+</td></tr>
+<tr>
+<td width="200"><a href="classes/E_sample_point.html">E_sample_point</a></td>
+<td width="600"><p>
+An instance of this class represents a point in a triangular face of a domain of type <font color="green">E</font>.  In addition to the usual data for a point in such a domain, it has some additional fields that only make sense relative to the containing face.
+</p>
+</td></tr>
+<tr>
+<td width="200"><a href="classes/E_edge.html">E_edge</a></td>
+<td width="600"><p>
+
+</p>
+</td></tr>
+<tr>
+<td width="200"><a href="classes/E_face.html">E_face</a></td>
+<td width="600"><p>
+
+</p>
+</td></tr>
+<tr>
+<td width="200"><a href="classes/E_grid.html">E_grid</a></td>
+<td width="600"><p>
+
+</p>
+</td></tr>
+<tr>
+<td width="200"><a href="classes/E_quadrature_rule.html">E_quadrature_rule</a></td>
+<td width="600"><p>
+An instance of this class represents a quadrature rule for approximate integration of functions on $EX^*$.  Essentially, such a rule consists of a list of points $p_i$ in the fundamental domain $F_{16}$, together with weights $w_i\geq 0$.  The integral over $F_{16}$ of a function $f$ is approximately $\sum_i w_i f(p_i)$.  Thus, the integral over $EX^*$ is $\sum_i\sum_{g\in G}w_if(g.p_i)$.
+
+ This class also has fields and methods designed to allow us to measure and improve the accuracy of the quadrature rule.  Specifically, suppose we have calculated the integrals of some monomials $z_1^iz_2^j$ by some other method.  We can then list these monomials in the <font color="green">test_monomials</font> field, and their integrals in the <font color="green">test_integrals</font> field.  Various methods will then try to ensure that our quadrature rule gives the correct answer on those monomials.
+</p>
+</td></tr>
+<tr>
+<td width="200"><a href="classes/E_chart.html">E_chart</a></td>
+<td width="600"><p>
+An instance of this class represents an approximate conformal map $p\colon\mathbb{R}^2\to EX^*$.  We refer to the point $p(0)$ as the centre of the chart.
+</p>
+</td></tr>
+<tr>
+<td width="200"><a href="classes/E_atlas.html">E_atlas</a></td>
+<td width="600"><p>
+An instance of this class represents an atlas of approximate conformal charts for $EX^*$
+</p>
+</td></tr>
+<tr>
+<td width="200"><a href="classes/EH_chart.html">EH_chart</a></td>
+<td width="600"><p>
+An instance of this class represents an approximate isometric map $p\colon\Delta\to EX^*$, together with data relating $p$ to the canonical map $q\colon\Delta\to EX^*$.  Here $\Delta$ is given the standard hyperbolic metric, and $EX^*$ is given the rescaled metric that has curvature $-1$.  We refer to the point $p(0)$ as the centre of the chart.  Note that this class extends the class E_chart, so documentation for that class should be read in conjunction with documentation for this one.
+</p>
+</td></tr>
+<tr>
+<td width="200"><a href="classes/EH_atlas_edge.html">EH_atlas_edge</a></td>
+<td width="600"><p>
+An instance of this class represents a pair of charts whose centres are close together.  We can triangulate $F_{16}$ using the chart centres as 0-simplices, and these pairs as 1-simplices.
+</p>
+</td></tr>
+<tr>
+<td width="200"><a href="classes/EH_atlas.html">EH_atlas</a></td>
+<td width="600"><p>
+An instance of this class represents an approximation to the isomorphism $HX(a)\to EX^*$, together with associated data.  
+</p>
+</td></tr>
+<tr>
+<td width="200"><a href="classes/E_to_S_map.html">E_to_S_map</a></td>
+<td width="600"><p>
+An instance of this class represents a pair of approximations to the canonical conformal maps $p,q\colon EX^*\to S^2$.
+</p>
+</td></tr>
+<tr>
+<td width="200"><a href="classes/KR_subfield.html">KR_subfield</a></td>
+<td width="600"><p>
+An instance of this class represents a subfield of the field $KR$ of functions on $EX^*$ generated by the functions $x_i$ and $r_i$
+</p>
+</td></tr>
+<tr>
+<td width="200"><a href="classes/PK_subfield.html">PK_subfield</a></td>
+<td width="600"><p>
+An instance of this class represents a subfield of the field $PK$ of functions on $PX(a)$ generated by the functions $w$ and $z$
+</p>
+</td></tr>
+<tr>
+<td width="200"><a href="classes/HP_table.html">HP_table</a></td>
+<td width="600"><p>
+An instance of this class encapsulates data about a family of cromulent isomorphisms $HX(a_H) \to PX(a_P)$ for various values of $a_H$ and $a_P$
+</p>
+</td></tr>
+<tr>
+<td width="200"><a href="classes/H_to_P_map.html">H_to_P_map</a></td>
+<td width="600"><p>
+An instance of this class encapsulates data about a cromulent isomorphism $HX(a_H) \to PX(a_P)$ for some specific numerical values of $a_H$ and $a_P$
+</p>
+</td></tr>
+<tr>
+<td width="200"><a href="classes/P_to_H_chart.html">P_to_H_chart</a></td>
+<td width="600"><p>
+An instance of this class represents a pair of approximate polynomial solutions (f0,f1) near z=z0 to a certain linear second order differential equation depending on a parameter <font color="green">d</font>.  If <font color="green">d</font> is chosen correctly, then f0 and f1 will be closely related to the canonical hyperbolic covering of the surface PX(a_P).
+</p>
+</td></tr>
+<tr>
+<td width="200"><a href="classes/P_to_H_map.html">P_to_H_map</a></td>
+<td width="600"><p>
+An instance of this class encapsulates data about a cromulent isomorphism $PX(a_P)\to HX(a_H)$ for some specific numerical values of $a_H$ and $a_P$
+</p>
+</td></tr>
+<tr>
+<td width="200"><a href="classes/automorphy_system.html">automorphy_system</a></td>
+<td width="600"><p>
+An instance of this class encapsulates information about automorphic functions for $HX(a_H)$
+</p>
+</td></tr>
+</table>
+</body>
+</html>

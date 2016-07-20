@@ -1,0 +1,76 @@
+
+<html>
+ <head><title>E_grid</title><script type="text/x-mathjax-config">
+MathJax.Hub.Config({ tex2jax: {inlineMath: [['$','$']]}});</script>
+<script src="https://cdn.mathjax.org/mathjax/latest/MathJax.js?config=TeX-AMS_CHTML"></script>
+</head>
+ <body  style="width:700px">
+  <h1>Class E_grid</h1><br/>
+Code: <a href="../maple/embedded/E_domain.mpl#CLASS_E_grid">embedded/E_domain.mpl</a><br/>
+<p>
+
+</p>
+<b>Extends: </b>grid<br/>
+<b>Field: </b><font color="red">triangle_quadrature_rule</font><br/>
+<b>Field: </b><font color="red">int_table</font>::table<br/>
+<p>
+This is a table indexed by triples $(i,j,k)$; the values are the integrals over $F_{16}$ of $z_1^iz_2^j|n|^k$
+</p>
+<b>Constructor:</b> `new/E_grid`()
+<p>
+
+</p>
+<b>Method:</b> <font color="maroon">create_samples</font>()::void
+<p>
+This invokes the <font color="green">create_samples</font> method for each face.
+</p>
+<br/>
+<b>Method:</b> <font color="maroon">int_x</font>(<font color='olive'>f</font>,<font color='olive'>k_</font>)
+<p>
+The argument $f$ is assumed to be a polynomial in $x_1,\dotsc,x_4$.  The method returns an approximation to the integral over $EX(a)$ of $f$, or of $f |n|^k$ if $k$ is given as an additional argument.  Here $n$ is the gradient of $g$.
+</p>
+<br/>
+<b>Method:</b> <font color="maroon">int_z</font>(<font color='olive'>f</font>,<font color='olive'>k_</font>)
+<p>
+The argument $f$ is assumed to be an expression in $z_1$ and $z_2$.  The method returns an approximation to the integral over F16 of $f$, or of $f |n|^k$ if $k$ is given as an additional argument.  Note that this is 1/16 times the integral over $EX(a)$.
+</p>
+<br/>
+<b>Method:</b> <font color="maroon">set_int_table</font>(<font color='olive'>i</font>,<font color='olive'>j</font>,<font color='olive'>k_</font>)
+<p>
+This sets one value in <font color="green">int_table</font>
+</p>
+<br/>
+<b>Method:</b> <font color="maroon">int_z_by_table</font>(<font color='olive'>f</font>,<font color='olive'>k_</font>)
+<p>
+This assumes that $f$ is a polynomial in $z_1$ and $z_2$.  It calculates the integral of $f$ over $F_{16}$ by looking up the integrals of the individual monomials in <font color="green">int_table</font>.  If any of the required integrals are missing from <font color="green">int_table</font>, then they will be calculated and saved there.
+</p>
+<br/>
+<b>Method:</b> <font color="maroon">set_max_deg</font>(<font color='olive'>d</font>::posint)::void
+<p>
+Calculate and save integrals for all monomials in $z_1$ and $z_2$ of degree at most $d$
+</p>
+<br/>
+<b>Method:</b> <font color="maroon">total_area</font>()
+<p>
+This returns the total area of $F_{16}$
+</p>
+<br/>
+<b>Method:</b> <font color="maroon">total_curvature</font>()
+<p>
+This returns the integral of the curvature over $F_{16}$
+</p>
+<br/>
+<b>Method:</b> <font color="maroon">curvature_error</font>()
+<p>
+If the integration rule is accurate, then the result of this method should be zero, by the Gauss-Bonet Theorem.
+</p>
+<br/>
+<b>Method:</b> <font color="maroon">stokes_error</font>(<font color='olive'>ff</font>)
+<p>
+Here <font color="green">ff</font> should be a list $(f_1,f_2)$ of two expressions in $z_1$ and $z_2$.  The method returns the approximated integral of the exterior derivative of $f_1\alpha_1+f_2\alpha_2$, where the forms $\alpha_i$ are defined in <font color="green">embedded/roothalf/forms.mpl</font>.  If the integration rule is accurate, then the result should be zero, by Stokes's Theorem.
+</p>
+<br/>
+
+ </body>
+</html>
+

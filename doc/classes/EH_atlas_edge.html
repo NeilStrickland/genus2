@@ -1,0 +1,53 @@
+
+<html>
+ <head><title>EH_atlas_edge</title><script type="text/x-mathjax-config">
+MathJax.Hub.Config({ tex2jax: {inlineMath: [['$','$']]}});</script>
+<script src="https://cdn.mathjax.org/mathjax/latest/MathJax.js?config=TeX-AMS_CHTML"></script>
+</head>
+ <body  style="width:700px">
+  <h1>Class EH_atlas_edge</h1><br/>
+Code: <a href="../maple/embedded/roothalf/EH_atlas.mpl#CLASS_EH_atlas_edge">embedded/roothalf/EH_atlas.mpl</a><br/>
+<p>
+An instance of this class represents a pair of charts whose centres are close together.  We can triangulate $F_{16}$ using the chart centres as 0-simplices, and these pairs as 1-simplices.
+</p>
+<b>Field: </b><font color="red">grid_index</font>::integer<br/>
+<p>
+As part of the data of an atlas, we have a list of edges, numbered from 0 to $n-1$ say.  If this is the $i$'th edge in the list, then this <font color="green">grid_index</font> field should be set equal to $i$.
+</p>
+<b>Field: </b><font color="red">start_index</font>::integer<br/>
+<p>
+If this edge links chart number $i$ to chart number $j$ (with $i<j$) then <font color="green">start_index</font> should be $i$ and <font color="green">end_index</font> should be $j$.
+</p>
+<b>Field: </b><font color="red">end_index</font>::integer<br/>
+<p>
+If this edge links chart number $i$ to chart number $j$ (with $i<j$) then <font color="green">start_index</font> should be $i$ and <font color="green">end_index</font> should be $j$.
+</p>
+<b>Field: </b><font color="red">start_z</font>::CC0<br/>
+<p>
+Suppose that this edge links chart number $i$ to chart number $j$, and chart $j$ is given by  $p:C\to EX^*$.  There will then be a small number $z$ such that $p(z)$ is the centre of chart $i$, and this $z$ should be stored in the <font color="green">start_z</font> field.
+</p>
+<b>Field: </b><font color="red">end_z</font>::CC0<br/>
+<p>
+Suppose that this edge links chart number $i$ to chart number $j$, and chart $i$ is given by  $p:C\to EX^*$.  There will then be a small number $z$ such that $p(z)$ is the centre of chart $j$, and this $z$ should be stored in the <font color="green">end_z</font> field.
+</p>
+<b>Field: </b><font color="red">curve_index</font>::integer = 0<br/>
+<p>
+If this edge lies along one of the four curves that bound F16, then this field should be set to the index of the relevant curve (0,1,3 or 5).
+</p>
+<b>Field: </b><font color="red">H_length</font>::RR0<br/>
+<p>
+This is the hyperbolic distance between the <font color="green">beta</font> fields of the two charts.  If everything is accurate, it should be the same as the <font color="green">EH_length</font> field.
+</p>
+<b>Field: </b><font color="red">EH_length</font>::RR0<br/>
+<p>
+This is an estimate of the distance between the centres of the two charts, with respect to the rescaled metric on $EX^*$.   If everything is accurate, it should be the same as the <font color="green">H_length</font> field.
+</p>
+<b>Method:</b> <font color="maroon">colour</font>()
+<p>
+If this edge lies along one of the four curves that bound $F_{16}$, then this method will return the appropriate colour.  Edges that do not lie on a boundary curve will be coloured grey.
+</p>
+<br/>
+
+ </body>
+</html>
+

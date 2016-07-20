@@ -1,0 +1,180 @@
+
+<html>
+ <head><title>E_chart</title><script type="text/x-mathjax-config">
+MathJax.Hub.Config({ tex2jax: {inlineMath: [['$','$']]}});</script>
+<script src="https://cdn.mathjax.org/mathjax/latest/MathJax.js?config=TeX-AMS_CHTML"></script>
+</head>
+ <body  style="width:700px">
+  <h1>Class E_chart</h1><br/>
+Code: <a href="../maple/embedded/roothalf/E_atlas.mpl#CLASS_E_chart">embedded/roothalf/E_atlas.mpl</a><br/>
+<p>
+An instance of this class represents an approximate conformal map $p\colon\mathbb{R}^2\to EX^*$.  We refer to the point $p(0)$ as the centre of the chart.
+</p>
+<b>Field: </b><font color="red">centre</font>::RR0_4<br/>
+<p>
+A point in $EX^*$ which is the centre of the chart
+</p>
+<b>Field: </b><font color="red">square_centre</font>::RR0_2<br/>
+<p>
+The image under <font color="green">square_diffeo_E0()</font> of the centre.  This is stored separately to allow for the case where we take square_centre to be an exact rational point, and then compute centre numerically from <font color="green">square_centre</font>
+</p>
+<b>Field: </b><font color="red">n</font>::RR0_4<br/>
+<p>
+The unit normal vector to $EX^*$ in $S^3$ at the centre
+</p>
+<b>Field: </b><font color="red">u</font>::RR0_4<br/>
+<p>
+A unit tangent vector to $EX^*$ at the centre
+</p>
+<b>Field: </b><font color="red">v</font>::RR0_4<br/>
+<p>
+Another unit tangent vector to $EX^*$ at the centre
+</p>
+<b>Field: </b><font color="red">p</font><br/>
+<p>
+This is a polynomial function $\mathbb{R}^2\to\mathbb{R}^4$ which sends $0$ to the centre point, and is approximately a conformal map to $EX^*$.
+</p>
+<b>Field: </b><font color="red">p0</font><br/>
+<p>
+The same as $p$, but with coefficients evaluated numerically.
+</p>
+<b>Field: </b><font color="red">p_inv_approx</font><br/>
+<p>
+A linear map $\mathbb{R}^4\to\mathbb{R}^2$ which is approximately inverse to $p$ near the centre
+</p>
+<b>Field: </b><font color="red">degree</font>::posint<br/>
+<p>
+The degree of the polynomials in $p$.
+</p>
+<b>Field: </b><font color="red">coeffs_exact</font>::boolean = false<br/>
+<p>
+true if the polynomial coefficients in $p$ are exact.
+</p>
+<b>Field: </b><font color="red">vertex_index</font>::integer = 0<br/>
+<p>
+If the centre lies at $v_k$, this field should be set to $k$.
+</p>
+<b>Field: </b><font color="red">curve_index</font>::integer = 0<br/>
+<p>
+If the centre lies on the curve $C_k$, this field should be set to $k$.
+</p>
+<b>Field: </b><font color="red">curve_parameter</font>::RR0 = NULL<br/>
+<p>
+If the centre is $c_{Ek}(t)$, then this field should be set to $t$.
+</p>
+<b>Field: </b><font color="red">grid_index</font>::integer = 0<br/>
+<b>Method:</b> <font color="maroon">vertex_set_exact</font>(<font color='olive'>k</font>)
+<p>
+Set <font color="green">vertex_index</font> to <font color="green">k</font>, and calculate various associated data, using exact coefficients where appropriate.  This gives a chart of polynomial degree one.
+</p>
+<br/>
+<b>Method:</b> <font color="maroon">vertex_set_numeric</font>(<font color='olive'>k</font>)
+<p>
+Set <font color="green">vertex_index</font> to <font color="green">k</font>, and calculate various associated data, using numerical coefficients.  This gives a chart of polynomial degree one.
+</p>
+<br/>
+<b>Method:</b> <font color="maroon">curve_set_exact</font>(<font color='olive'>k0</font>::integer,<font color='olive'>t0</font>::RR0)
+<p>
+Set <font color="green">curve_index</font> to <font color="green">k0</font> and <font color="green">curve_parameter</font> to <font color="green">t0</font>, and calculate various associated data, using exact coefficients where appropriate.  This gives a chart of polynomial degree one.  For charts of this type, we will ensure that $p(t,0)$ is the Taylor approximation to $c_{k0}(t0+t)$.
+</p>
+<br/>
+<b>Method:</b> <font color="maroon">curve_improve_exact</font>()
+<p>
+Increase the polynomial degree of this chart by one.
+</p>
+<br/>
+<b>Method:</b> <font color="maroon">curve_set_degree_exact</font>(<font color='olive'>d</font>,<font color='olive'>force_</font>)
+<p>
+Set the degree of this chart to <font color="green">d</font>, and calculate the appropriate coefficients.
+</p>
+<br/>
+<b>Method:</b> <font color="maroon">curve_set_numeric</font>(<font color='olive'>k0</font>,<font color='olive'>t0</font>)
+<p>
+Set <font color="green">curve_index</font> to <font color="green">k0</font> and <font color="green">curve_parameter</font> to <font color="green">t0</font>, and calculate various associated data, using numerical coefficients.  This gives a chart of polynomial degree one.  For charts of this type, we will ensure that $p(t,0)$ is the Taylor approximation to $c_{k0}(t0+t)$.
+</p>
+<br/>
+<b>Method:</b> <font color="maroon">curve_improve_numeric</font>()
+<p>
+Increase the polynomial degree of this chart by one.
+</p>
+<br/>
+<b>Method:</b> <font color="maroon">curve_set_degree_numeric</font>(<font color='olive'>d</font>,<font color='olive'>force_</font>)
+<p>
+Set the degree of this chart to <font color="green">d</font>, and calculate the appropriate coefficients.
+</p>
+<br/>
+<b>Method:</b> <font color="maroon">centre_set_numeric</font>(<font color='olive'>x0</font>)
+<p>
+Set the centre and calculate coefficients, giving a chart of polynomial degree one.
+</p>
+<br/>
+<b>Method:</b> <font color="maroon">centre_improve_numeric</font>()
+<p>
+Increase the polynomial degree of this chart by one.
+</p>
+<br/>
+<b>Method:</b> <font color="maroon">centre_set_degree_numeric</font>(<font color='olive'>d</font>,<font color='olive'>force_</font>)
+<p>
+Set the degree of this chart to <font color="green">d</font>, and calculate the appropriate coefficients.
+</p>
+<br/>
+<b>Method:</b> <font color="maroon">improve_numeric</font>()
+<p>
+Increase the polynomial degree by one, using the <font color="green">curve_improve_numeric</font> method if applicable, otherwise the <font color="green">centre_improve_numeric</font> method.
+</p>
+<br/>
+<b>Method:</b> <font color="maroon">set_degree_numeric</font>(<font color='olive'>d</font>)
+<p>
+Set the polynomial degree, using the <font color="green">curve_set_degree_numeric</font> method if applicable, otherwise the <font color="green">centre_set_degree_numeric</font> method.
+</p>
+<br/>
+<b>Method:</b> <font color="maroon">square_set_numeric</font>(<font color='olive'>s0</font>)<br/>
+<b>Method:</b> <font color="maroon">isometrize</font>(<font color='olive'>log_rescale_z</font>)
+<p>
+This method assumes that <font color="green">log_rescale_z</font> defines a function $f$ on $EX^*$, and adjusts the chart to make it approximately isometric as a map from (the unit disk with the hyperbolic metric) to ($EX^*$ with $\exp(2f)$ times the standard metric).
+</p>
+<br/>
+<b>Method:</b> <font color="maroon">isometry_error</font>(<font color='olive'>log_rescale_z</font>,<font color='olive'>s1</font>::RR0_2)
+<p>
+This returns a measure of the failure of $p$ to be isometric, in the context described above.
+</p>
+<br/>
+<b>Method:</b> <font color="maroon">p_c</font>()
+<p>
+This is the composite of $p\colon\mathbb{R}^2\to EX^*$ with the standard isomorphism $\mathbb{C}\to\mathbb{R}^2$.
+</p>
+<br/>
+<b>Method:</b> <font color="maroon">p_inv</font>(<font color='olive'>x0</font>)
+<p>
+Inverse to the map $p\colon\mathbb{R}^2\to EX^*$
+</p>
+<br/>
+<b>Method:</b> <font color="maroon">p_inv_c</font>(<font color='olive'>x0</font>)
+<p>
+Inverse to the map $p_c\colon\mathbb{C}\to EX^*$
+</p>
+<br/>
+<b>Method:</b> <font color="maroon">disc_plot</font>(<font color='olive'>r</font>)
+<p>
+Generate a plot showing the image under $p$ of a disc of radius $r$ centred at the origin in $\mathbb{R}^2$
+</p>
+<br/>
+<b>Method:</b> <font color="maroon">circle_plot</font>(<font color='olive'>r</font>)
+<p>
+Generate a plot showing the image under $p$ of a circle of radius $r$ centred at the origin in $\mathbb{R}^2$
+</p>
+<br/>
+<b>Method:</b> <font color="maroon">err_plot</font>(<font color='olive'>r</font>)
+<p>
+Generate a plot measuring the failure of $p$ to be a conformal map landing in $EX^*$.  This uses the values of $p$ and its derivatives on a circle of radius $r$ centred at the origin in $\mathbb{R}^2$
+</p>
+<br/>
+<b>Method:</b> <font color="maroon">check</font>()
+<p>
+This returns a table <font color="green">T</font> whose entries are nonnegative real numbers.  If the chart has all the properties that it is supposed to have, then the entries in <font color="green">T</font> will all be zero.  The entry <font color="green">T[&quot;max&quot;]</font> is the maximum of all the other entries.  In practice we find that when working to 100 digit precision, we end up with <font color="green">T[&quot;max&quot;] &lt; 10^(-89)</font>.  Note that we only test whether we have the correct Taylor coefficients for $p$, we do not test anything about how well the series is converging.
+</p>
+<br/>
+
+ </body>
+</html>
+

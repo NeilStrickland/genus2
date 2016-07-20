@@ -1,0 +1,70 @@
+
+<html>
+ <head><title>domain_face</title><script type="text/x-mathjax-config">
+MathJax.Hub.Config({ tex2jax: {inlineMath: [['$','$']]}});</script>
+<script src="https://cdn.mathjax.org/mathjax/latest/MathJax.js?config=TeX-AMS_CHTML"></script>
+</head>
+ <body  style="width:700px">
+  <h1>Class domain_face</h1><br/>
+Code: <a href="../maple/domain/domain_face.mpl#CLASS_domain_face">domain/domain_face.mpl</a><br/>
+<p>
+An instance represents a triangular face in a domain.
+</p>
+<b>Field: </b><font color="red">grid_index</font>::integer = 0<br/>
+<p>
+In many cases faces will form part of a grid, and all the faces in the grid will be numbered from 0 to n-1 for some n.  The index number will be stored in this field.
+</p>
+<b>Field: </b><font color="red">corner</font>::table<br/>
+<p>
+This is a table with indices 0, 1 and 2; the entries are instances of an appropriate subclass of <font color="green">domain_point</font>, representing the three corners of the face.
+</p>
+<b>Field: </b><font color="red">side</font>::table<br/>
+<p>
+This is a table with indices 0, 1 and 2; the entries are instances of an appropriate subclass of <font color="green">domain_edge</font>, representing the three sides of the face.  side[0] should join corner[0] to corner[1], and side[1] should join corner[0] to corner[2], and side[2] should join corner[1] to corner[2].  In more detail, end[0] of side[0] should be the same Maple object as corner[0], so that changing the fields of end[0] of side[0] automatically changes the fields of corner[0], and similarly in the other cases; it is not enough for end[0] of side[0] to be a different object with the same coordinates.
+</p>
+<b>Field: </b><font color="red">orientation</font>::integer = 1<br/>
+<p>
+This should be +1 if circuit corner[0] -> corner[1] -> corner[2] -> corner[0] runs anticlockwise (with respect to the given orientation of the domain), and -1 otherwise.
+</p>
+<b>Field: </b><font color="red">flat_area</font>::scalar = 0<br/>
+<p>
+This is the area of the affine triangle with the same vertices as this face.
+</p>
+<b>Constructor:</b> `new/domain_face`(<font color='olive'>S0</font>::domain_edge,<font color='olive'>S1</font>::domain_edge,<font color='olive'>S2</font>::domain_edge,)
+<p>
+Construct a new face with sides <font color="green">S0</font>, <font color="green">S1</font> and <font color="green">S2</font>.  It is assumed that the endpoints of these sides match up correctly.
+</p>
+<b>Method:</b> <font color="maroon">set</font>(<font color='olive'>S0</font>::domain_edge,<font color='olive'>S1</font>::domain_edge,<font color='olive'>S2</font>::domain_edge,<font color='olive'>s_</font>)::void
+<p>
+Set the sides of this face to be <font color="green">S0</font>, <font color="green">S1</font> and <font color="green">S2</font>, and set the corners and other auxiliary quantities accordingly.  If the argument <font color="green">s_</font> is supplied, then it will be used as the orientation; otherwise the orientation will be calculated by a method that is valid provided that the face is not too strongly curved.  It is assumed that the endpoints of <font color="green">S0</font>, <font color="green">S1</font> and <font color="green">S2</font> match up correctly; this can be checked by the <font color="green">check_matching</font> method if necessary.
+</p>
+<br/>
+<b>Method:</b> <font color="maroon">set_orientation</font>()::void
+<p>
+Set the orientation,  by a method that is valid provided that the face is not too strongly curved.
+</p>
+<br/>
+<b>Method:</b> <font color="maroon">calculate</font>()::void
+<p>
+Calculate various auxiliary quantities such as the <font color="green">flat_area</font> field.  Subclasses may override this method to perform more interesting work.
+</p>
+<br/>
+<b>Method:</b> <font color="maroon">corner_indices</font>()::list(integer)
+<p>
+For an face in a grid, return the indices of the three corners.
+</p>
+<br/>
+<b>Method:</b> <font color="maroon">side_indices</font>()::list(integer)
+<p>
+For an face in a grid, return the indices of the three sidess.
+</p>
+<br/>
+<b>Method:</b> <font color="maroon">check_matching</font>(<font color='olive'>eq_</font>)::boolean
+<p>
+Check whether the endpoints of the sides are the same as the corresponding corners.  They should be the same Maple objects, which can be tested by the built in equality operator.  However, one can also pass an equality checking procedure as a second argument to this method.
+</p>
+<br/>
+
+ </body>
+</html>
+

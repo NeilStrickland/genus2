@@ -1,0 +1,66 @@
+
+<html>
+ <head><title>domain</title><script type="text/x-mathjax-config">
+MathJax.Hub.Config({ tex2jax: {inlineMath: [['$','$']]}});</script>
+<script src="https://cdn.mathjax.org/mathjax/latest/MathJax.js?config=TeX-AMS_CHTML"></script>
+</head>
+ <body  style="width:700px">
+  <h1>Class domain</h1><br/>
+Code: <a href="../maple/domain/domain.mpl#CLASS_domain">domain/domain.mpl</a><br/>
+<p>
+An instance represents the fundamental domain in a cromulent surface
+</p>
+<b>Field: </b><font color="red">type</font>::string = "abstract"<br/>
+<p>
+A string describing the type of domain (e.g. <font color="green">E</font> for a member of the embedded family)
+</p>
+<b>Field: </b><font color="red">dim</font>::posint<br/>
+<p>
+All domains are expected to be subsets of $\mathbb{R}^d$ for some integer $d$, stored in this field.
+</p>
+<b>Field: </b><font color="red">point_class_name</font><br/>
+<p>
+Points in the domain will be represented by instances of a subclass of the abstract class <font color="green">domain_point</font>.  The name of the relevant subclass is stored in this field, and the table representing the subclass is stored in the <font color="green">point_class</font> field.  Both fields should be set using the <font color="green">set_point_class</font> method.  Analogous comments apply to the fields <font color="green">edge_class_name</font>, <font color="green">edge_class</font>, <font color="green">face_class_name</font>, <font color="green">face_class</font>, <font color="green">grid_class_name</font> and <font color="green">grid_class</font>.
+</p>
+<b>Field: </b><font color="red">point_class</font><br/>
+<p>
+
+</p>
+<b>Field: </b><font color="red">edge_class_name</font><br/>
+<b>Field: </b><font color="red">edge_class</font><br/>
+<b>Field: </b><font color="red">face_class_name</font><br/>
+<b>Field: </b><font color="red">face_class</font><br/>
+<b>Field: </b><font color="red">grid_class_name</font><br/>
+<b>Field: </b><font color="red">grid_class</font><br/>
+<b>Constructor:</b> `new/domain`()
+<p>
+
+</p>
+<b>Method:</b> <font color="maroon">set_point_class</font>(<font color='olive'>classname</font>::string)::void<br/>
+<b>Method:</b> <font color="maroon">set_edge_class</font>(<font color='olive'>classname</font>::string)::void<br/>
+<b>Method:</b> <font color="maroon">set_face_class</font>(<font color='olive'>classname</font>::string)::void<br/>
+<b>Method:</b> <font color="maroon">set_grid_class</font>(<font color='olive'>classname</font>::string)::void<br/>
+<b>Method:</b> <font color="maroon">new_point</font>()::void
+<p>
+This method returns a new instance of the relevant point class.
+</p>
+<br/>
+<b>Method:</b> <font color="maroon">new_edge</font>(<font color='olive'>P0</font>,<font color='olive'>P1</font>)::void
+<p>
+This method returns a new instance of the relevant edge class.
+</p>
+<br/>
+<b>Method:</b> <font color="maroon">new_face</font>(<font color='olive'>S0</font>,<font color='olive'>S1</font>,<font color='olive'>S2</font>,<font color='olive'>s_</font>)::void
+<p>
+This method returns a new instance of the relevant face class.
+</p>
+<br/>
+<b>Method:</b> <font color="maroon">new_grid</font>()::void
+<p>
+This method returns a new instance of the relevant grid class.
+</p>
+<br/>
+
+ </body>
+</html>
+

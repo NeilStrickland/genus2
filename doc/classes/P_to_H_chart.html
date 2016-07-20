@@ -1,0 +1,95 @@
+
+<html>
+ <head><title>P_to_H_chart</title><script type="text/x-mathjax-config">
+MathJax.Hub.Config({ tex2jax: {inlineMath: [['$','$']]}});</script>
+<script src="https://cdn.mathjax.org/mathjax/latest/MathJax.js?config=TeX-AMS_CHTML"></script>
+</head>
+ <body  style="width:700px">
+  <h1>Class P_to_H_chart</h1><br/>
+Code: <a href="../maple/hyperbolic/P_to_H.mpl#CLASS_P_to_H_chart">hyperbolic/P_to_H.mpl</a><br/>
+<p>
+An instance of this class represents a pair of approximate polynomial solutions (f0,f1) near z=z0 to a certain linear second order differential equation depending on a parameter <font color="green">d</font>.  If <font color="green">d</font> is chosen correctly, then f0 and f1 will be closely related to the canonical hyperbolic covering of the surface PX(a_P).
+</p>
+<b>Field: </b><font color="red">a_P</font>::RR1<br/>
+<p>
+
+</p>
+<b>Field: </b><font color="red">degree</font>::posint = 100<br/>
+<p>
+The degree of polynomials used for approximate power series.
+</p>
+<b>Field: </b><font color="red">d</font>::RR1<br/>
+<p>
+
+</p>
+<b>Field: </b><font color="red">z0</font>::CC1<br/>
+<p>
+The centre around which we expand various power series.
+</p>
+<b>Field: </b><font color="red">ss0</font>::procedure<br/>
+<p>
+The series <font color="green">ff0</font> and <font color="green">ff1</font> satisfy $f''+s f/2=0$, where $s$ is <font color="green">ss0 + d * ss1</font>.  Note that we are primarily interested in the function <font color="green">s0(z)=ss0(z-z0)</font> rather than <font color="green">ss0</font> itself.
+</p>
+<b>Field: </b><font color="red">ss1</font>::procedure<br/>
+<p>
+The series <font color="green">ff0</font> and <font color="green">ff1</font> satisfy $f''+s f/2=0$, where $s$ is <font color="green">ss0 + d * ss1</font>.  Note that we are primarily interested in the function <font color="green">s1(z)=ss1(z-z0)</font> rather than <font color="green">ss1</font> itself.
+</p>
+<b>Field: </b><font color="red">ff0</font>::procedure<br/>
+<p>
+The series <font color="green">ff0</font> satisfies $f''+s f/2=0$ with $f(z)=1+O(z^2)$.  Note that we are primarily interested in the function <font color="green">f0(z)=ff0(z-z0)</font> rather than <font color="green">ff0</font> itself.
+</p>
+<b>Field: </b><font color="red">ff1</font>::procedure<br/>
+<p>
+The series <font color="green">ff1</font> satisfies $f''+s f/2=0$ with $f(z)=z+O(z^2)$.  Note that we are primarily interested in the function <font color="green">f1(z)=ff1(z-z0)</font> rather than <font color="green">ff1</font> itself.
+</p>
+<b>Field: </b><font color="red">M</font>::Matrix<br/>
+<p>
+This should be a $2\times 2$ invertible complex matrix, to be interpreted as follows.  We have solutions $f_0$ and $f_1$ satisfying $f_i=(z-z_0)^i+O((z-z_0)^2)$, and there are also solutions $f_{00}$ and $f_{01}$ satisfying $f_{0i}=z^i+O(z^2)$.  The <font color="green">M</font> field should be set so that $(f_0,f_1)=M.(f_{00},f_{01})$.
+</p>
+<b>Field: </b><font color="red">index</font>::integer<br/>
+<p>
+Objects of the class <font color="green">P_to_H_map</font> will maintain a table of charts, identified by an integer index, which is stored in this field.
+</p>
+<b>Field: </b><font color="red">parent_index</font>::integer<br/>
+<p>
+This is the index of another chart, whose centre is closer to the origin.  We will set the <font color="green">M</font> field of this chart by comparing it with the parent chart, whose <font color="green">M</font> field will have been calculated already.  (The induction starts with the chart of index zero, which is centred at the origin and has <font color="green">M</font> equal to the identity matrix.)
+</p>
+<b>Method:</b> <font color="maroon">ss</font>()::procedure<br/>
+<b>Method:</b> <font color="maroon">s0</font>(<font color='olive'>z</font>::CC)::CC<br/>
+<b>Method:</b> <font color="maroon">s1</font>(<font color='olive'>z</font>::CC)::CC<br/>
+<b>Method:</b> <font color="maroon">s</font>(<font color='olive'>z</font>::CC)::CC<br/>
+<b>Method:</b> <font color="maroon">f0</font>(<font color='olive'>z</font>::CC)::CC<br/>
+<b>Method:</b> <font color="maroon">f1</font>(<font color='olive'>z</font>::CC)::CC<br/>
+<b>Method:</b> <font color="maroon">df0</font>(<font color='olive'>z</font>::CC)::CC<br/>
+<b>Method:</b> <font color="maroon">df1</font>(<font color='olive'>z</font>::CC)::CC<br/>
+<b>Method:</b> <font color="maroon">f00</font>(<font color='olive'>z</font>::CC)::CC<br/>
+<b>Method:</b> <font color="maroon">f01</font>(<font color='olive'>z</font>::CC)::CC<br/>
+<b>Method:</b> <font color="maroon">g</font>(<font color='olive'>z</font>::CC)::CC
+<p>
+This is a function of the form $z+O(z^3)$, whose schwarzian derivative is $s$.
+</p>
+<br/>
+<b>Method:</b> <font color="maroon">set_a_P</font>(<font color='olive'>a</font>,<font color='olive'>d_</font>)::void
+<p>
+This sets the <font color="green">a_P</font> field, and also sets the <font color="green">d</font> field to a value that is approximately correct.
+</p>
+<br/>
+<b>Method:</b> <font color="maroon">set_s</font>()::void
+<p>
+This method sets the fields <font color="green">ss0</font> and <font color="green">ss1</font>.  Note that these are independent of <font color="green">d</font>, so we do not need to use this method again if we choose a new value of <font color="green">d</font>.
+</p>
+<br/>
+<b>Method:</b> <font color="maroon">set_f</font>()::void
+<p>
+This sets the fields <font color="green">ff0</font> and <font color="green">ff1</font>
+</p>
+<br/>
+<b>Method:</b> <font color="maroon">propagate_M</font>(<font color='olive'>C</font>::P_to_H_chart)::void
+<p>
+This method sets the <font color="green">M</font> field of this chart based on the <font color="green">M</font> field for another chart <font color="green">C</font> (whose centre should be close to the centre of this chart)
+</p>
+<br/>
+
+ </body>
+</html>
+

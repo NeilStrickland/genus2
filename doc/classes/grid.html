@@ -1,0 +1,164 @@
+
+<html>
+ <head><title>grid</title><script type="text/x-mathjax-config">
+MathJax.Hub.Config({ tex2jax: {inlineMath: [['$','$']]}});</script>
+<script src="https://cdn.mathjax.org/mathjax/latest/MathJax.js?config=TeX-AMS_CHTML"></script>
+</head>
+ <body  style="width:700px">
+  <h1>Class grid</h1><br/>
+Code: <a href="../maple/domain/grid.mpl#CLASS_grid">domain/grid.mpl</a><br/>
+<p>
+An instance of this class represents a triangulation of a domain.
+</p>
+<b>Field: </b><font color="red">description</font>::string = ""<br/>
+<b>Field: </b><font color="red">domain</font>::domain<br/>
+<p>
+This field should contain an instance of the <font color="green">domain</font> class (or a subclass), which specifies the domain on which this grid is based.
+</p>
+<b>Field: </b><font color="red">num_points</font>::integer = 0<br/>
+<p>
+Number of points in the grid
+</p>
+<b>Field: </b><font color="red">num_edges</font>::integer = 0<br/>
+<p>
+Nmber of edges in the grid
+</p>
+<b>Field: </b><font color="red">num_faces</font>::integer = 0<br/>
+<p>
+Number of triangular faces in the grid
+</p>
+<b>Field: </b><font color="red">num_vars</font>::integer = 0<br/>
+<p>
+Number of degrees of freedom to move the points while respecting the fact that some points are constrained to lie on a side of the domain or at a corner.
+</p>
+<b>Field: </b><font color="red">points</font>::table<br/>
+<p>
+A table of points (represented by instances of the class domain_point), indexed by natural numbers starting with 0.  If <font color="green">P=this[&quot;points&quot;][i]</font>, then <font color="green">P[&quot;grid_index&quot;]</font> should be set to <font color="green">i</font>.
+</p>
+<b>Field: </b><font color="red">edges</font>::table<br/>
+<p>
+A table of edges (represented by instances of the class domain_edge), indexed by natural numbers starting with 0.  If <font color="green">E=this[&quot;edges&quot;][i]</font>, then <font color="green">E[&quot;grid_index&quot;]</font> should be set to <font color="green">i</font>.
+</p>
+<b>Field: </b><font color="red">faces</font>::table<br/>
+<p>
+A table of faces (represented by instances of the class domain_face), indexed by natural numbers starting with 0.  If <font color="green">F=this[&quot;faces&quot;][i]</font>, then <font color="green">F[&quot;grid_index&quot;]</font> should be set to <font color="green">i</font>.
+</p>
+<b>Field: </b><font color="red">edges_by_ends</font>::table<br/>
+<p>
+This is a table containing the same objects as the <font color="green">edges</font> table, but indexed differently: if there is an edge <font color="green">E</font> from <font color="green">this[&quot;points&quot;][i]</font> to <font color="green">this[&quot;points&quot;][j]</font>, then <font color="green">this[&quot;edges_by_ends&quot;][i,j]</font> will be equal to <font color="green">E</font>.  This is set up automatically by the <font color="green">add_edge</font> method.  Note that edges are directed: we are assuming here that <font color="green">E[&quot;end&quot;][0]=this[&quot;points&quot;][i]</font> and <font color="green">E[&quot;end&quot;][1]=this[&quot;points&quot;][j]</font>, and <font color="green">this[&quot;edges_by_ends&quot;][j,i]</font> (with <font color="green">i</font> and <font color="green">j</font> the wrong way around) will not be set.
+</p>
+<b>Field: </b><font color="red">faces_by_corners</font>::table<br/>
+<p>
+This is a table containing the same objects as the <font color="green">faces</font> table, but indexed differently: if there is a face <font color="green">F</font> with corners <font color="green">this[&quot;points&quot;][i]</font>, <font color="green">this[&quot;points&quot;][j]</font> and <font color="green">this[&quot;points&quot;][k]</font>, then <font color="green">this[&quot;faces_by_corners&quot;][i,j,k]</font> will be equal to <font color="green">F</font>.  This is set up automatically by the <font color="green">add_face</font> method.
+</p>
+<b>Constructor:</b> `new/grid`(<font color='olive'>X_</font>,)
+<p>
+Construct a new grid with no points
+</p>
+<b>Field: </b><font color="red">total_flat_area</font>::scalar = 0<br/>
+<p>
+Total area of the simplicial complex whose 2-simplices are affine triangles with the same corners as the grid faces.  If the faces are small then this will be a reasonable approximation to the true area of the domain (but convergence is slow).
+</p>
+<b>Field: </b><font color="red">tension</font>::scalar = 0<br/>
+<p>
+This is a quantity depending on the edge lengths.  The idea is that minimising the tension should give a grid that is quite evenly spaced.  We have tried various different versions at different times.
+</p>
+<b>Method:</b> <font color="maroon">has_edge</font>(<font color='olive'>i</font>,<font color='olive'>j</font>)::boolean
+<p>
+Returns true if there is an edge whose endpoints have indices <font color="green">i</font> and <font color="green">j</font>.
+</p>
+<br/>
+<b>Method:</b> <font color="maroon">has_face</font>(<font color='olive'>i</font>,<font color='olive'>j</font>,<font color='olive'>k</font>)::boolean
+<p>
+Returns true if there is an face whose endpoints have indices <font color="green">i</font>, <font color="green">j</font> and <font color="green">k</font>.
+</p>
+<br/>
+<b>Method:</b> <font color="maroon">edge_indices</font>()::list(list(integer))
+<p>
+Returns the list of pairs <font color="green">[i,j]</font> such that there is an edge from point <font color="green">i</font> to point <font color="green">j</font>
+</p>
+<br/>
+<b>Method:</b> <font color="maroon">face_indices</font>()::list(list(integer))
+<p>
+Returns the list of triples <font color="green">[i,j,k]</font> such that there is a face with corners point <font color="green">i</font>, point <font color="green">j</font> and point <font color="green">k</font> (in order)
+</p>
+<br/>
+<b>Method:</b> <font color="maroon">add_point</font>(<font color='olive'>P</font>::domain_point)::integer
+<p>
+Add a point (represented by an instance of domain_point) to the grid; return the index of the added point.
+</p>
+<br/>
+<b>Method:</b> <font color="maroon">add_new_point</font>(<font color='olive'>c</font>::integer,<font color='olive'>x</font>::list(scalar))::integer
+<p>
+Create a new point with constraint <font color="green">c</font> and coordinates <font color="green">x</font>, add it to the grid, and return the index.
+</p>
+<br/>
+<b>Method:</b> <font color="maroon">add_new_C_point</font>(<font color='olive'>k</font>::integer,<font color='olive'>t</font>)::integer
+<p>
+Create a new point at $c_k(t)$, add it to the grid, and return the index.
+</p>
+<br/>
+<b>Method:</b> <font color="maroon">add_new_v_point</font>(<font color='olive'>k</font>::integer)::integer
+<p>
+Create a new point at $v_k$, add it to the grid, and return the index.
+</p>
+<br/>
+<b>Method:</b> <font color="maroon">add_edge</font>(<font color='olive'>E</font>::domain_edge)
+<p>
+Add an edge (represented by an instance of domain_edge) to the grid.  It is assumed that the endpoints of the edge have already been added.  Return the index of the added edge.
+</p>
+<br/>
+<b>Method:</b> <font color="maroon">add_new_edge</font>(<font color='olive'>i</font>,<font color='olive'>j</font>)
+<p>
+Create a new edge from point <font color="green">i</font> to point <font color="green">j</font>, add it to the grid, and return the index.
+</p>
+<br/>
+<b>Method:</b> <font color="maroon">add_face</font>(<font color='olive'>F</font>::domain_face)
+<p>
+Add a face (represented by an instance of domain_face) to the grid.  It is assumed that the corners and sides of the face have already been added.  Return the index of the added face.
+</p>
+<br/>
+<b>Method:</b> <font color="maroon">add_new_face</font>(<font color='olive'>i</font>,<font color='olive'>j</font>,<font color='olive'>k</font>,<font color='olive'>s_</font>)
+<p>
+Create a new face with corners at point <font color="green">i</font>, point <font color="green">j</font> and point <font color="green">k</font>.  Add the edges to the grid if this has not already been done, then add the face, and return the index of the new face.
+</p>
+<br/>
+<b>Method:</b> <font color="maroon">clone</font>()::domain_grid
+<p>
+Return an independent copy of this grid, which can be changed without affecting the original.  The points, edges and faces of the new grid are also independent of the points, edges and faces of the old grid
+</p>
+<br/>
+<b>Method:</b> <font color="maroon">calculate</font>()
+<p>
+Calculate various auxiliary quantities such as the <font color="green">total_flat_area</font> field.  Subclasses may override this method to perform more interesting work.
+</p>
+<br/>
+<b>Method:</b> <font color="maroon">set_var_indices</font>()
+<p>
+Set the <font color="green">var_index</font> fields of all the points in the grid.
+</p>
+<br/>
+<b>Method:</b> <font color="maroon">raw_adjust</font>()
+<p>
+This method sets the coordinates of all points in the grid to symbolic values involving variables <font color="green">t[j]</font>.  The idea is that we can then solve for the values of these variables that minimise some objective function, and then move the grid points accordingly.  Note that in order to isolate the variables <font color="green">t[j]</font> from any existing meaning of the symbol <font color="green">t</font>, we have declared <font color="green">t</font> to be a local variable in this procedure.  This creates a potentially confusing situation, because this local variable will exist outside the procedure and will be visually indistinguishable from the global symbol <font color="green">t</font>.  In order to refer to the correct variables when solving, we need to use the <font color="green">indets()</font> function.
+</p>
+<br/>
+<b>Method:</b> <font color="maroon">subdivide</font>()::void
+<p>
+This method subdivides the grid by adding new points at the midpoints of all the original edges, and reconnecting everything in an obvious way.  The old information is destroyed by default, so one should use the <font color="green">clone</font> method first if one wants to retain it.
+</p>
+<br/>
+<b>Method:</b> <font color="maroon">setup</font>(<font color='olive'>coords</font>::list(list(list(numeric))))
+<p>
+This method takes an argument <font color="green">coords</font> which should be a list of lists, all of the same length, giving a rectangular array.  Both dimensions of this array should be even.  Each element of the inner lists should itself be a list, giving coordinates of a point in the domain for this grid.  The <font color="green">setup</font> method creates a point for each entry in the array.  Points in the first row are constrained to lie on $C_1$, those in the last row are constrained to lie in $C_3$, those in the first column are constrained to lie on $C_0$, and those in the last column are constrained to lie on $C_5$.  The corners are constrained in the obvious way compatible with this.  Edges and faces are added in a slightly non-obvious pattern to ensure that no edge crosses a corner to join points on different sides of the domain. 
+</p>
+<br/>
+<b>Method:</b> <font color="maroon">edge_plot</font>(<font color='olive'>proj_</font>,<font color='olive'>opts__</font>)
+<p>
+This method returns a plot structure displaying the edges of the grid.  By default, it just uses the raw coordinates of the grid points (which will cause an error if the dimension is larger than three).  However, one can supply a map <font color="green">proj_</font> as an argument, and that map will then be applied to the coordinates before plotting.  Additional options for the <font color="green">display()</font> command can also be given as a second argument to the method.
+</p>
+<br/>
+
+ </body>
+</html>
+

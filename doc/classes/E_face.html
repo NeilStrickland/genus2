@@ -1,0 +1,55 @@
+
+<html>
+ <head><title>E_face</title><script type="text/x-mathjax-config">
+MathJax.Hub.Config({ tex2jax: {inlineMath: [['$','$']]}});</script>
+<script src="https://cdn.mathjax.org/mathjax/latest/MathJax.js?config=TeX-AMS_CHTML"></script>
+</head>
+ <body  style="width:700px">
+  <h1>Class E_face</h1><br/>
+Code: <a href="../maple/embedded/E_domain.mpl#CLASS_E_face">embedded/E_domain.mpl</a><br/>
+<p>
+
+</p>
+<b>Extends: </b>domain_face<br/>
+<b>Field: </b><font color="red">samples</font>::table<br/>
+<p>
+This is a table indexed by some points in the 2-simplex $\Delta_2$.  The entries are instances of the class <font color="green">E_sample_point</font>.  Typically we will fix a triangle quadrature rule <font color="green">Q</font>, with points $t_i$ say.  The <font color="green">samples</font> table will have indices $t_i$, and the corresponding entry will represent a point $u_i\in EX^*$ with barycentric coordinates $t_i$ with respect to this face.  This is set up by the <font color="green">create_samples</font> method.
+</p>
+<b>Field: </b><font color="red">sample_list</font>::list<br/>
+<p>
+This contains the same <font color="green">E_sample_point</font> objects as the <font color="green">samples</font> table, but organised as a list.  This is set up by the <font color="green">create_samples</font> method.
+</p>
+<b>Field: </b><font color="red">total_area</font>::scalar = 0<br/>
+<p>
+The area of this face, with respect to the metric on $EX^*$ inherited from the standard metric on $S^3$.  This is calculated by the <font color="green">create_samples</font> method.
+</p>
+<b>Field: </b><font color="red">total_curvature</font>::scalar = 0<br/>
+<p>
+The integral of the Gaussian curvature function over this face.  This is calculated by the <font color="green">create_samples</font> method.
+</p>
+<b>Field: </b><font color="red">barycentric_table</font><br/>
+<p>
+obsolete
+</p>
+<b>Constructor:</b> `new/E_face`(<font color='olive'>S0</font>::E_edge,<font color='olive'>S1</font>::E_edge,<font color='olive'>S2</font>::E_edge,)
+<p>
+
+</p>
+<b>Method:</b> <font color="maroon">create_samples</font>(<font color='olive'>Q</font>::triangle_quadrature_rule)::void
+<p>
+This method sets up the fields <font color="green">samples</font>, <font color="green">samples_list</font>, <font color="green">total_area</font> and <font color="green">total_curvature</font>, as described above.
+</p>
+<br/>
+<b>Method:</b> <font color="maroon">check</font>()
+<p>
+This checks the correctness of the sample points.  It returns an offset error (which measures the failure of the points to lie exactly on $EX^*$) and a barycentric error (which measures the failure of the barycentric coordinates to be equal to the indices in the <font color="green">samples</font> table).
+</p>
+<br/>
+<b>Method:</b> <font color="maroon">plot_x</font>(<font color='olive'>f</font>,<font color='olive'>vertical_range</font> := 2)<br/>
+<b>Method:</b> <font color="maroon">plot_z</font>(<font color='olive'>f</font>,<font color='olive'>z_range</font> := 2)<br/>
+<b>Method:</b> <font color="maroon">plot_x_ibj</font>(<font color='olive'>f</font>,<font color='olive'>vertical_range</font> := 2)<br/>
+<b>Method:</b> <font color="maroon">plot_z_ibj</font>(<font color='olive'>f</font>,<font color='olive'>z_range</font> := 2)<br/>
+
+ </body>
+</html>
+

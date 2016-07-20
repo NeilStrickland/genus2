@@ -1,0 +1,52 @@
+
+<html>
+ <head><title>HP_table</title><script type="text/x-mathjax-config">
+MathJax.Hub.Config({ tex2jax: {inlineMath: [['$','$']]}});</script>
+<script src="https://cdn.mathjax.org/mathjax/latest/MathJax.js?config=TeX-AMS_CHTML"></script>
+</head>
+ <body  style="width:700px">
+  <h1>Class HP_table</h1><br/>
+Code: <a href="../maple/hyperbolic/HP_table.mpl#CLASS_HP_table">hyperbolic/HP_table.mpl</a><br/>
+<p>
+An instance of this class encapsulates data about a family of cromulent isomorphisms $HX(a_H) \to PX(a_P)$ for various values of $a_H$ and $a_P$
+</p>
+<b>Field: </b><font color="red">H_to_P_maps</font>::table<br/>
+<p>
+A table of objects of class <font color="green">H_to_P_map</font>, indexed by values of <font color="green">a_H</font>
+</p>
+<b>Field: </b><font color="red">P_to_H_maps</font>::table<br/>
+<p>
+A table of objects of class <font color="green">P_to_H_map</font>, indexed by values of <font color="green">a_P</font>
+</p>
+<b>Field: </b><font color="red">H_to_P_num_samples</font>::posint = 200<br/>
+<b>Field: </b><font color="red">H_to_P_poly_deg</font>::posint = 20<br/>
+<b>Field: </b><font color="red">H_to_P_num_steps</font>::posint = 20<br/>
+<b>Field: </b><font color="red">P_to_H_poly_deg</font>::posint = 20<br/>
+<b>Field: </b><font color="red">P_to_H_num_charts</font>::posint = 10<br/>
+<b>Field: </b><font color="red">P_to_H_tolerance</font>::RR1 = .1000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000e-19<br/>
+<b>Field: </b><font color="red">P_to_H_gap</font>::RR1 = .2e-1<br/>
+<b>Field: </b><font color="red">a_H_to_a_P_spline</font> = NULL<br/>
+<b>Constructor:</b> `new/HP_table`()
+<p>
+
+</p>
+<b>Method:</b> <font color="maroon">a_H_indices</font>()<br/>
+<b>Method:</b> <font color="maroon">a_P_indices</font>()<br/>
+<b>Method:</b> <font color="maroon">a_H_a_P_pairs</font>()<br/>
+<b>Method:</b> <font color="maroon">a_P_a_H_pairs</font>()<br/>
+<b>Method:</b> <font color="maroon">set_spline</font>()<br/>
+<b>Method:</b> <font color="maroon">a_H_to_a_P</font>(<font color='olive'>a</font>)<br/>
+<b>Method:</b> <font color="maroon">a_P_to_a_H</font>(<font color='olive'>a</font>)<br/>
+<b>Method:</b> <font color="maroon">add_a_H</font>(<font color='olive'>a0</font>)<br/>
+<b>Method:</b> <font color="maroon">remove_a_H</font>(<font color='olive'>a0</font>)<br/>
+<b>Method:</b> <font color="maroon">add_a_P</font>(<font color='olive'>a0</font>)<br/>
+<b>Method:</b> <font color="maroon">remove_a_P</font>(<font color='olive'>a0</font>)<br/>
+<b>Method:</b> <font color="maroon">a_H_a_P_plot</font>()<br/>
+<b>Method:</b> <font color="maroon">a_P_a_H_plot</font>()<br/>
+<b>Method:</b> <font color="maroon">spline_plot</font>()<br/>
+<b>Method:</b> <font color="maroon">full_plot</font>()<br/>
+<b>Method:</b> <font color="maroon">spline_plot_tikz</font>()<br/>
+
+ </body>
+</html>
+

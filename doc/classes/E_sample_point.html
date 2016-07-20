@@ -1,0 +1,29 @@
+
+<html>
+ <head><title>E_sample_point</title><script type="text/x-mathjax-config">
+MathJax.Hub.Config({ tex2jax: {inlineMath: [['$','$']]}});</script>
+<script src="https://cdn.mathjax.org/mathjax/latest/MathJax.js?config=TeX-AMS_CHTML"></script>
+</head>
+ <body  style="width:700px">
+  <h1>Class E_sample_point</h1><br/>
+Code: <a href="../maple/embedded/E_domain.mpl#CLASS_E_sample_point">embedded/E_domain.mpl</a><br/>
+<p>
+An instance of this class represents a point in a triangular face of a domain of type <font color="green">E</font>.  In addition to the usual data for a point in such a domain, it has some additional fields that only make sense relative to the containing face.
+</p>
+<b>Extends: </b>E_point<br/>
+<b>Field: </b><font color="red">barycentric_coords</font>::list(scalar)<br/>
+<p>
+The (generalised) barycentric coordinates of the point, relative to the containing face.  This is a list of three nonnegative scalars, whose sum is one.
+</p>
+<b>Field: </b><font color="red">ibj</font>::scalar = 0<br/>
+<p>
+This field is the Jacobian of the inverse of the barycentric coordinate map.  (TODO: clarify the normalisation conditions.)
+</p>
+<b>Field: </b><font color="red">quadrature_weight</font>::scalar<br/>
+<p>
+This will be set in such a way that the integral (with respect to metric area) of a function on the face can be approximated by the sum of the values at the sample points multiplied by the corresponding quadrature weights
+</p>
+
+ </body>
+</html>
+
