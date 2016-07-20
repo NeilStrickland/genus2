@@ -3,7 +3,7 @@
 # are not necessarily relevant here.
 
 # Most of our code is not object oriented, but we have found the OO 
-# approach to be useful in a few places.  For example, we represent 
+# approach to be useful in some places.  For example, we represent 
 # triangulations and quadrature rules as objects.
 
 ######################################################################
@@ -13,11 +13,9 @@
 `Package/SaveClasses`      := [];
 `Package/Dependencies`     := [];
 
-`Package/Doc/HeaderFormat` := "\n<html>\n <head><title>Package %s</title><script type=\"text/x-mathjax-config\">\nMathJax.Hub.Config({ tex2jax: {inlineMath: [['$','$']]}});</script>\n<script src=\"https://cdn.mathjax.org/mathjax/latest/MathJax.js?config=TeX-AMS_CHTML\"></script>\n</head>\n <body  style=\"width:700px\">\n  <h1>Package %s</h1>\n  <hr/>\n  %s\n  <br/><hr/>\n":
+`Package/Doc/ClassHeaderFormat` := "\n<html>\n <head><title>%s</title><script type=\"text/x-mathjax-config\">\nMathJax.Hub.Config({ tex2jax: {inlineMath: [['$','$']]}});</script>\n<script src=\"https://cdn.mathjax.org/mathjax/latest/MathJax.js?config=TeX-AMS_CHTML\"></script>\n</head>\n <body  style=\"width:700px\">\n  <h1>Class %s</h1><br/>\n":
 
-`Package/Doc/EntryFormat` := "\n <a name='%s'><b><tt>%s</tt></b></a>\n <br/>\n %s\n <br/>\n <hr/>\n":
-
-`Package/Doc/Footer` := "\n </body>\n</html>\n":
+`Package/Doc/ClassFooter` := "\n </body>\n</html>\n":
 
 PackDocDir := cat(doc_dir,"/");
 
@@ -27,7 +25,7 @@ Package :=
   global `Package/Name`,
          `Package/SaveNames`,`Package/SaveNames/Hidden`,
          `Package/SaveClasses`,
-         `Package/Dependencies`,`Package/Documentation`;
+         `Package/Dependencies`;
 
   if (assigned(`Package/Name`)) then
    ERROR("Already defining a package");
@@ -38,10 +36,6 @@ Package :=
   `Package/SaveNames/Hidden` := [];
   `Package/SaveClasses`      := [];
   `Package/Dependencies`     := [];
-
-  `Package/Documentation` :=
-    sprintf(`Package/Doc/HeaderFormat`,
-             packname,packname,`Package/ConvertAt`(doc));
    
   NULL;
  end:
@@ -54,7 +48,6 @@ Package :=
      )
   local namspec1,nam,namstring,typespec,params,s,d,i,hide,trans;
   global `Package/SaveNames`,`Package/SaveNames/Hidden`,
-         `Package/Documentation`,
          `Package/ReportAssignment`;
   
   hide := `if`(nargs > 3, hide_, false);
@@ -124,10 +117,6 @@ Package :=
      break;
     fi;
    od;
-
-   `Package/Documentation` :=
-    `Package/Documentation`,
-     sprintf(`Package/Doc/EntryFormat`,nam,s,d);
   fi;
 
   # This actually performs the assignment
@@ -155,7 +144,6 @@ EndPackage :=
         nam,trans,s;
   global `Package/Name`,`Package/SaveNames`,`Package/SaveNames/Hidden`,
          `Package/SaveClasses`,
-         `Package/Documentation`,`Package/Doc`,
          `Package/List`,`Package/Classes`,
          `Package/Entries`,`Package/AllEntries`,
          `Package/Dependencies`,`Package/Depend`,
@@ -218,31 +206,6 @@ EndPackage :=
                 
   assign(convert(loadname,name) = true);
 
-#  savefile := cat(lib_dir,"/",`Package/Name`,".m");
-#  savedir := util_dirname(savefile);
-#  os_makedirectory(savedir);
-
-#  savestatement :=
-#   cat(
-#    "save(",
-#    op(map((s) -> cat("`",s,"`,"),`Package/SaveNames`)),
-#    op(map((s) -> cat("`",s,"`,"),`Package/SaveNames/Hidden`)),
-#    "\"",savefile,"\"",
-#    "):"
-#   );
-
-#  parse(savestatement,'statement');
-
-  `Package/Documentation` :=
-    cat(`Package/Documentation`,`Package/Doc/Footer`);
-
-  if not(assigned(`Package/Doc`)) then
-   `Package/Doc` := table([]);
-  fi;
-  `Package/Doc`[`Package/Name`] :=
-   `Package/Documentation`;
-
-
   if (`Package/FindTranslationStrings` = true) then
    if not(type([`Package/TranslationStrings`],[list])) then
     `Package/TranslationStrings` := []:
@@ -266,122 +229,65 @@ EndPackage :=
 
 `Package/MakeAllDocumentation` := 
  proc()
-  local c,d,i,j,l,m,n,p,f,entryfile,html,indexfile,navbar,
-        ents,classes,nam,nam0,nam1,docdir;
-  global Config,`Package/List`,PackDocDir;
+  local c,cc,f,s,index_file,index_html;
+  global `Package/List`;
 
-  if type([PackDocDir],[string]) then
-   docdir := PackDocDir;
-  else
-   docdir := Config['DocDir'];
-  fi;
+  index_html := cat(
+   "<html>\n",
+   "<head>\n",
+   "<title>Classes</title>\n",
+   "<style type=\"text/css\">\n",
+   "table { empty-cells:show; }\n",
+   "\n",
+   "table.edged { \n",
+   " border-collapse: collapse;\n",
+   "}\n",
+   "\n",
+   "table.edged td {\n",
+   " padding: 3px 0.5em;\n",
+   " margin-left: 3px;\n",
+   " border: 1px solid #CCCCCC; \n",
+   " vertical-align: top;\n",
+   "}\n",
+   "</style>\n",
+   "<script type=\"text/x-mathjax-config\">\n",
+   "MathJax.Hub.Config({ tex2jax: {inlineMath: [['$','$']]}});\n",
+   "</script>\n",
+   "<script src=\"https://cdn.mathjax.org/mathjax/latest/MathJax.js?config=TeX-AMS_CHTML\"></script>\n",
+   "</head>\n",
+   "<body>\n",
+   "<h1>Index of classes</h1>\n<br/>\n",
+   "<table class=\"edged\">\n"
+  );
 
-  html := "";
+  for c in `Package/SaveClasses` do
+   f := cat(doc_dir,"/classes/",c,".html");
+   cc := eval(convert(cat("class/",c),name));
+   traperror(fclose(f));
+   fprintf(f,"%s\n",cc["FullDoc"]);
+   traperror(fclose(f));
+   index_html := cat(
+    index_html,
+    "<tr>\n",
+    "<td width=\"200\"><a href=\"classes/",c,".html\">",c,"</a></td>\n",
+    "<td width=\"600\">",cc["Doc"],"</td>",
+    "</tr>\n"
+   );
+  od:
 
-  for p in sort([op(`Package/List`)]) do
-   `Package/MakeDocumentation`(p,docdir);
-   html :=
-    html,
-    sprintf("<td width='50%%'><a href='%s.html'>%s</a></td>\n",p,p);
-  od;
+  index_html := cat(
+   index_html,
+   "</table>\n</body>\n</html>\n"
+  );
 
-  html := [html][2..-1];
-  n := nops(html);
-  if type(n,odd) then 
-   n := n + 1;
-  html := [op(html),"<td>&nbsp;</td>"];
-  fi;
-  m := n/2;
+  index_file := cat(doc_dir,"/classes.html");
+  traperror(fclose(index_file));
+  fprintf(index_file,index_html);
+  traperror(fclose(index_file));
 
-  html := seq(cat("<tr>\n",html[i],html[i+m],"</tr>\n"),i=1..m);
+  NULL;
 
-  html := cat("\n   <html>\n    <head>\n     <title>Index of packages</title>\n    </head>\n    <body bgcolor='white'>\n     <h1>Index of packages</h1>\n     <br/>\n     <table width='100%'>\n     ",      html,"\n     </table>\n     <a href='entries.html'>Index of all package entries</a>\n    </body>\n   </html>\n    ");
-
-  indexfile := cat(docdir,"/packages.html");
-  traperror(fclose(indexfile));
-  fprintf(indexfile,"%s\n",html);
-  fclose(indexfile);
-
-  ents := map((x) -> op(x),{indices(`Package/Index`)});
-  ents := map(util_stripbackquotes,ents);
-  classes := select(util_startswith,ents,"class/");
-  # strip off class/ prefix.
-  classes := map((x) -> substring(x,7..-1),classes);
-  ents := ents minus map(x -> cat("class/",x),classes);
-  ents := ents minus map(x -> cat("type/",x),classes);
-  ents := ents minus map(x -> cat("index/",x),classes);
-  ents := ents minus map(x -> cat("new/",x),classes);
-
-  l := NULL;
-  for nam in  ents do
-   nam0,nam1 := op(util_splitfilename(nam));
-   l := l,[nam,nam0,nam1,StringTools[LowerCase](nam1)];
-  od;
-  l := sort([l],(a,b) -> evalb(a[4] < b[4]));
-
-  html := "\n   <html>\n    <head>\n     <title>Index of all package entries</title>\n    </head>\n    <body bgcolor='white'>\n     <h1>Index of all package entries</h1>\n     <br/>\n  ";
-
-  navbar := "";
-  for i from 1 to 26 do
-   c := convert([64+i],bytes);
-   navbar := 
-    navbar,
-     sprintf("<a href='#%s'>%s</a>\n",c,c);
-  od;
-  html := cat(html,navbar,"<br/>");
-
-  j := 1;
-  for i from 1 to 26 do
-   c := convert([64+i],bytes);
-   d := convert([96+i],bytes);
-   html :=
-    html,
-    sprintf("<hr/><a name='%s'><h2>%s</h2></a><br/>\n",c,c);
-   while(j <= nops(l) and substring(l[j][4],1..1) <= d) do
-    nam  := l[j][1];
-    nam0 := l[j][2];
-    nam1 := l[j][3];
-    p := `Package/Index`[nam];
-    html :=
-     html,
-     sprintf("%s/<a href='%s.html#%s'>%s</a><br/>\n",
-             nam0,p,nam,nam1);
-    j := j+1;
-   od;
-  od;
-
-  html := cat(html,"</body></html>\n");
-  entryfile := cat(docdir,"/entries.html");
-  traperror(fclose(entryfile));
-  fprintf(entryfile,"%s\n",html);
-  fclose(entryfile);
-
-  
  end:
-
-
-######################################################################
-
-`Package/MakeDocumentation` :=
- proc(packname::string,docdir::string)
-  local docfile,docsubdir,depth;
-
-  docfile := cat(docdir,"/",packname,".html");
-  docsubdir  := util_dirname(docfile);
-  os_makedirectory(docsubdir);
-  traperror(fclose(docfile));
-
-  # depth is the number of "/" characters (with ASCII
-  # code 47) in the package name.
-  depth :=
-   nops(select(c -> (c = 47),convert(packname,bytes)));
-
-  fprintf(docfile,"%s\n\n",
-   `Package/ConvertHash`(`Package/Doc`[packname],depth));
-
-  fclose(docfile);
- end:
-
 
 ######################################################################
 
@@ -823,11 +729,10 @@ convert_at :=
 `Class/Declare` :=  
  proc(classname::string) 
   global CLASS,CLASSNAME,
-  `Package/Name`,`Package/SaveClasses`,`Package/SaveNames/Hidden`,
-         `Package/Documentation`;
+  `Package/Name`,`Package/SaveClasses`,`Package/SaveNames/Hidden`;
   local
    c,indexfunction,typefunction,
-   constructor,consproc,consdoc,x,
+   constructor,consproc,consdoc,x,s,
    fieldname,fieldtype,fielddefault,realtype,
    typespecified,defaultspecified,
    methodname,fullmethodname,methodtype,
@@ -844,6 +749,8 @@ convert_at :=
 
   c := table(["Name" = classname,
               "Package" = "",
+              "Doc" = "",
+              "FullDoc" = "",
 	      "Constructor" = proc(this) end,
 	      "Fields" = {},
 	      "FieldType" = table(),
@@ -867,13 +774,21 @@ convert_at :=
   fi;
 
   classdoc :=
-   sprintf("<a name=\"%A\"><h2>Class: %s</h2></a><br/>\n",classname,classname);
+   sprintf(`Package/Doc/ClassHeaderFormat`,classname,classname);
 
+  if (type([_FILE_],[string])) then
+   classdoc := cat(
+    classdoc,
+    "Code: <a href=\"../maple/",_FILE_,"##CLASS_",classname,"\">",
+    _FILE_,"</a><br/>\n"
+   );
+  fi;
+ 
   for x in args[2..-1] do
    if type(x,string) then 
-    classdoc := 
-     classdoc,
-      "<p>\n",convert_at(x),"\n</p>\n";
+    s := cat("<p>\n",convert_at(x),"\n</p>\n");
+    classdoc := classdoc,s;
+    c["Doc"] := cat(c["Doc"],s);
    elif not(type(x,list)) then
     ERROR(
      sprintf("Non-list entry in declaration of class %a",classname));
@@ -1220,15 +1135,12 @@ convert_at :=
    fi;
   od;
 
-  if not(assigned(`Package/Documentation`)) then
-   `Package/Documentation` := "";
-  fi;
-
+  classdoc := classdoc,`Package/Doc/ClassFooter`;
   classdoc := cat(classdoc);
-  `Package/Documentation` :=
-   `Package/Documentation`,
-   classdoc,
-   "\n<hr/>\n";
+  classdoc := `Package/ConvertHash`(classdoc);
+
+  c["FullDoc"] := classdoc;
+  c["Doc"] := `Package/ConvertHash`(c["Doc"]);
 
   assign(cat(`class/`,classname) = eval(c));
 
