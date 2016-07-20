@@ -67,27 +67,53 @@ end:
 
 ######################################################################
 
-make_EX_rot_plots := proc()
+# Note: the following function does things in a strange way because
+# Maple seems not to like reading, modifying and immediately rewriting
+# an image file.
+
+make_EX_movie := proc()
  global pics;
- local i,s,P;
+ local i,R,P,n,FN,Q0,Q1,Q2,dir;
  
- load_plot("EX_wireframe");
+ load_plot("EX_wireframe"):
  for i from 0 to 8 do
   load_plot(sprintf("c_E[%d]",i));
- od;
-
- P := display(
-  pics["EX_wireframe"],
-  seq(pics[sprintf("c_E[%d]",i)],i=0..8),
-  view=[-3.5..3.5,-3.5..3.5,-3.5..3.5],
-  orientation=[-20,0,-100]
- );
-
- for i from 0 to 50 do
-  s := sprintf("EX_rot[%d]",i);
-  pics[s] :=
-   display(P,orientation=[-20+2*i,0,-100]);
-  save_jpg(s);
  od:
+
+ R := 2.0;
+ P := display(
+   pics["EX_wireframe"],
+   seq(pics[sprintf("c_E[%d]",i)],i=0..8),
+   view=[-R..R,-R..R,-R..R],
+   orientation=[-20,0,-100]
+  ):
+
+ dir := cat(images_dir,"/EXmovie"):
+ if not(FileTools[Exists](dir)) then mkdir(dir) fi;
+ n := 89;
+ FN := table():
+ Q0 := table():
+ Q1 := table():
+ Q2 := table():
+ for i from 0 to n do
+  FN[i] := sprintf("%s/EX%d.png",dir,i):
+  Q0[i] := display(P,orientation=[-20+2*i,0,-100]);
+  plotsetup(png,plotoutput=FN[i],plotoptions="width=800,height=800");
+  print(Q0[i]);
+  plotsetup(default);
+ od:
+ Threads[Sleep](5);
+ for i from 0 to n do
+  Q1[i] := ImageTools[Read](FN[i]);
+  Q2[i] := ImageTools[GetSubImage](Q1[i],250,150,300,500);
+ od:
+ for i from 0 to n do
+  FileTools[Remove](FN[i]);
+ od:
+ Threads[Sleep](5);
+ for i from 0 to n do
+  ImageTools[Write](FN[i],Q2[i]);
+ od:
+ NULL;
 end:
 
