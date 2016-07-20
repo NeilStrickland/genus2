@@ -1,9 +1,9 @@
 #@ CLASS: E_to_S_map
 
 `Class/Declare`("E_to_S_map",
- "An instance of this class represents a pair of approximations to the canonical conformal maps $p,q\\:EX^*\\to S^2$.",
+ "An instance of this class represents a pair of approximations to the canonical conformal maps $p,q\\colon EX^*\\to S^2$.",
 
- ["Field","u"::table,"This is a table indexed by $\\{1,2,3\\}$.  Each entry is a rational function from the $z$-plane to $\\R$, which gives an invariant real valued function on $EX^*$.  The $k$'th component of our map $p\\:EX^*\\to S^2$ will be the product of $u_k$ with a standard function, recorded in the global variable @s2p_core[k]@."],
+ ["Field","u"::table,"This is a table indexed by $\\{1,2,3\\}$.  Each entry is a rational function from the $z$-plane to $\\mathbb{R}$, which gives an invariant real valued function on $EX^*$.  The $k$'th component of our map $p\\colon EX^*\\to S^2$ will be the product of $u_k$ with a standard function, recorded in the global variable @s2p_core[k]@."],
 
  ["Field","samples_z_u"::table,"This is a table indexed by $\\{1,2,3\\}$.  The $k$'th entry is a list of pairs $(a,b)$, where we have learned by some other means that $u_k(a)$ should be equal to $b$.  We will try to adjust the coefficients of $u_k$ to make this true."],
 
