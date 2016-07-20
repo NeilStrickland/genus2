@@ -1,10 +1,24 @@
 # This file just reads in various other files. 
 
+# Maple has an automatic global variable __FILE__ (with four _ in total)
+# which contains the name of the current file.  Unfortunately the precise
+# definition of "current file" is not the one that we need for automatic
+# generation of cross-referenced HTML documentation.  We instead use a
+# different global variable called _FILE_ (with two _ in total), and we
+# manage the setting of this variable ourselves.
+
+_FILE_ := NULL;
+
 # We start by defining the function _read(), which announces the name
 # of a file before reading it.
-_read := proc(s) printf("Reading %s\n",s); read(s); end:
-# _read := proc(s) read(s); end:
 
+_read := proc(s) 
+ global _FILE_;
+ _FILE_ := s;
+ printf("Reading %s\n",s);
+ read(s); 
+ _FILE_ := NULL;
+end:
 
 _read("util.mpl");
 _read("class.mpl");
