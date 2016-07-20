@@ -718,9 +718,12 @@ save_data["EH_atlas"] := proc()
 end:
 
 load_data["EH_atlas"] := proc()
+ local a0;
+
  read(cat(save_dir,"/embedded/roothalf/EH_atlas.m"));
- if type([EH_atlas["a_H"]],[RR0]) then
-  set_a_H0(EH_atlas["a_H"]):
+ a0 := EH_atlas["a_H"];
+ if type([a0],[RR0]) then
+  set_a_H0(a0):
  fi;
 end:
 
@@ -927,6 +930,7 @@ make_data_plots := proc()
  local i,k,lbl,pp,ll,V,p;
 
  load_data["EH_atlas"]();
+
  userinfo(6,genus2,"Calculating ring values");
  V := EH_atlas["fourier_ring_vals",0.8,1024];
 
