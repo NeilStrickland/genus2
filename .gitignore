@@ -10,10 +10,11 @@
 /data_toy/**/*.m
 
 /doc/maple/**/*.mpl
+/doc/classes/*.html
+/doc/classes.html
 /doc/defs.html
 /doc/entries.html
-/doc/genus2.html
-/doc/packages.html
+/doc/images.html
 
 /images/*.jpg
 /images/*.png
@@ -38,6 +39,8 @@
 /latex/tikz_includes_a/
 
 /maple/**/scratch/
+
+/maple/embedded/roothalf/z.mpl
 
 /maple_output/*.aux
 /maple_output/*.log
