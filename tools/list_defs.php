@@ -57,6 +57,10 @@ HTML;
    $x->line_number = $i;
    $defs[] = $x;
    $line = $matches[1] . '<span style="color:red">#@ ' . $matches[2] . '</span>';
+   if (strlen($x->tag) >= 7 && substr($x->tag,0,7) == 'CLASS: ') {
+    $x->class_name = trim(substr($x->tag,7));
+    $line = '<a name="CLASS_' . $x->class_name . '"></a>' . $line; 
+   }
   }
   $html .= '<a name="line_' . $i . '"></a>' . $line; 
  }
