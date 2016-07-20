@@ -1,4 +1,5 @@
 \documentclass[9pt]{beamer}
+\usepackage{animate}
 \usepackage{beamerthemesplit}
 \usetheme[headheight=0pt,footheight=0pt]{boxes}
 \setbeamercovered{transparent} 
@@ -141,80 +142,24 @@
 \begin{frame}[t]
  \frametitle{An interesting example}
  \vspace{-5ex}\[ 
-\only<2>{\includegraphics[scale=0.25,clip=true,
+\only<1>{\includegraphics[scale=0.25,clip=true,
      trim=6cm 6cm 6cm 6cm]{../images/Omega[0].jpg}}%
-\only<3>{\includegraphics[scale=0.25,clip=true,
+\only<2>{\includegraphics[scale=0.25,clip=true,
      trim=6cm 6cm 6cm 6cm]{../images/Omega[1].jpg}}%
-\only<4>{\includegraphics[scale=0.25,clip=true,
+\only<3>{\includegraphics[scale=0.25,clip=true,
      trim=6cm 6cm 6cm 6cm]{../images/Omega[2].jpg}}%
-\only<5>{\includegraphics[scale=0.25,clip=true,
+\only<4>{\includegraphics[scale=0.25,clip=true,
      trim=6cm 6cm 6cm 6cm]{../images/Omega[3].jpg}}%
-\only<6>{\includegraphics[scale=0.25,clip=true,
+\only<5>{\includegraphics[scale=0.25,clip=true,
      trim=6cm 6cm 6cm 6cm]{../images/Omega[4].jpg}}%
-\only<7>{\includegraphics[scale=0.25,clip=true,
+\only<6>{\includegraphics[scale=0.25,clip=true,
      trim=6cm 6cm 6cm 6cm]{../images/Omega[5].jpg}}%
-\only<8>{\includegraphics[scale=0.25,clip=true,
-     trim=6cm 6cm 6cm 6cm]{../images/Omega[6].jpg}}%
-\only<9>{\includegraphics[scale=0.25,clip=true,
-     trim=6cm 6cm 6cm 6cm]{../images/Omega[7].jpg}}%
-\only<10>{\includegraphics[scale=0.25,clip=true,
-     trim=6cm 6cm 6cm 6cm]{../images/Omega[8].jpg}}%
-\only<11>{\includegraphics[scale=0.25,clip=true,
-     trim=6cm 6cm 6cm 6cm]{../images/Omega[9].jpg}}%
-\only<12>{\includegraphics[scale=0.25,clip=true,
-     trim=6cm 6cm 6cm 6cm]{../images/Omega[10].jpg}}%
-\only<13>{\includegraphics[scale=0.25,clip=true,
-     trim=6cm 6cm 6cm 6cm]{../images/Omega[11].jpg}}%
-\only<14>{\includegraphics[scale=0.25,clip=true,
-     trim=6cm 6cm 6cm 6cm]{../images/Omega[12].jpg}}%
-\only<15>{\includegraphics[scale=0.25,clip=true,
-     trim=6cm 6cm 6cm 6cm]{../images/Omega[13].jpg}}%
-\only<16>{\includegraphics[scale=0.25,clip=true,
-     trim=6cm 6cm 6cm 6cm]{../images/Omega[14].jpg}}%
-\only<17>{\includegraphics[scale=0.25,clip=true,
-     trim=6cm 6cm 6cm 6cm]{../images/Omega[15].jpg}}%
-\only<18>{\includegraphics[scale=0.25,clip=true,
-     trim=6cm 6cm 6cm 6cm]{../images/Omega[16].jpg}}%
-\only<19>{\includegraphics[scale=0.25,clip=true,
-     trim=6cm 6cm 6cm 6cm]{../images/Omega[17].jpg}}%
-\only<20>{\includegraphics[scale=0.25,clip=true,
-     trim=6cm 6cm 6cm 6cm]{../images/Omega[18].jpg}}%
-\only<21>{\includegraphics[scale=0.25,clip=true,
-     trim=6cm 6cm 6cm 6cm]{../images/Omega[19].jpg}}%
-\only<22>{\includegraphics[scale=0.25,clip=true,
-     trim=6cm 6cm 6cm 6cm]{../images/Omega[20].jpg}}%
-\only<23>{\includegraphics[scale=0.25,clip=true,
-     trim=6cm 6cm 6cm 6cm]{../images/Omega[21].jpg}}%
-\only<24>{\includegraphics[scale=0.25,clip=true,
-     trim=6cm 6cm 6cm 6cm]{../images/Omega[22].jpg}}%
-\only<25>{\includegraphics[scale=0.25,clip=true,
-     trim=6cm 6cm 6cm 6cm]{../images/Omega[23].jpg}}%
-\only<26>{\includegraphics[scale=0.25,clip=true,
-     trim=6cm 6cm 6cm 6cm]{../images/Omega[24].jpg}}%
-\only<27>{\includegraphics[scale=0.25,clip=true,
-     trim=6cm 6cm 6cm 6cm]{../images/Omega[25].jpg}}%
-\only<28>{\includegraphics[scale=0.25,clip=true,
-     trim=6cm 6cm 6cm 6cm]{../images/Omega[26].jpg}}%
-\only<29>{\includegraphics[scale=0.25,clip=true,
-     trim=6cm 6cm 6cm 6cm]{../images/Omega[27].jpg}}%
-\only<30>{\includegraphics[scale=0.25,clip=true,
-     trim=6cm 6cm 6cm 6cm]{../images/Omega[28].jpg}}%
-\only<31>{\includegraphics[scale=0.25,clip=true,
-     trim=6cm 6cm 6cm 6cm]{../images/Omega[29].jpg}}%
-\only<32>{\includegraphics[scale=0.25,clip=true,
-     trim=6cm 6cm 6cm 6cm]{../images/Omega[30].jpg}}%
-\only<33>{\includegraphics[scale=0.25,clip=true,
-     trim=6cm 6cm 6cm 6cm]{../images/Omega[31].jpg}}%
-\only<34>{\includegraphics[scale=0.25,clip=true,
-     trim=6cm 6cm 6cm 6cm]{../images/Omega[32].jpg}}%
-\only<35>{\includegraphics[scale=0.25,clip=true,
-     trim=6cm 6cm 6cm 6cm]{../images/Omega[33].jpg}}%
  \]
  \begin{itemize}
-  \item<2-> $f(x)=(2 x_2^2 + (x_4-1-\rt x_3)^2)(2 x_1^2 + (x_4-1+\rt x_3)^2)$; \\
+  \item<1-> $f(x)=(2 x_2^2 + (x_4-1-\rt x_3)^2)(2 x_1^2 + (x_4-1+\rt x_3)^2)$; \\
    the blue set is $\{x\in S^3\st f(-x)=0\}$.
-  \item<3-> The red set is $\{x\in S^3\st f(x)=0\}$.
-  \item<4-> The surface is $X=\{x\in S^3\st f(x)=f(-x)\}$.
+  \item<2-> The red set is $\{x\in S^3\st f(x)=0\}$.
+  \item<3-> The surface is $X=\{x\in S^3\st f(x)=f(-x)\}$.
  \end{itemize}
 \end{frame}
 
@@ -317,7 +262,7 @@
 
 \begin{frame}[t]
  \frametitle{Cromulent}
- \[ \includegraphics[scale=0.32]{../images_a/cromulent.png} \]
+ \[ \includegraphics[scale=0.32]{../images/cromulent.png} \]
 \end{frame}
 
 \begin{frame}[t]
@@ -583,110 +528,11 @@
 
 \begin{frame}[t]
  \frametitle{A curve system for $EX^*$}
- \vspace{-5ex}\[ 
-\only< 1>{\includegraphics[scale=0.50,clip=true,
-     trim=6cm 12cm 6cm 12cm]{../images/EX_rot[0].jpg}}%
-\only< 2>{\includegraphics[scale=0.50,clip=true,
-     trim=6cm 12cm 6cm 12cm]{../images/EX_rot[1].jpg}}%
-\only< 3>{\includegraphics[scale=0.50,clip=true,
-     trim=6cm 12cm 6cm 12cm]{../images/EX_rot[2].jpg}}%
-\only< 4>{\includegraphics[scale=0.50,clip=true,
-     trim=6cm 12cm 6cm 12cm]{../images/EX_rot[3].jpg}}%
-\only< 5>{\includegraphics[scale=0.50,clip=true,
-     trim=6cm 12cm 6cm 12cm]{../images/EX_rot[4].jpg}}%
-\only< 6>{\includegraphics[scale=0.50,clip=true,
-     trim=6cm 12cm 6cm 12cm]{../images/EX_rot[5].jpg}}%
-\only< 7>{\includegraphics[scale=0.50,clip=true,
-     trim=6cm 12cm 6cm 12cm]{../images/EX_rot[6].jpg}}%
-\only< 8>{\includegraphics[scale=0.50,clip=true,
-     trim=6cm 12cm 6cm 12cm]{../images/EX_rot[7].jpg}}%
-\only< 9>{\includegraphics[scale=0.50,clip=true,
-     trim=6cm 12cm 6cm 12cm]{../images/EX_rot[8].jpg}}%
-\only<10>{\includegraphics[scale=0.50,clip=true,
-     trim=6cm 12cm 6cm 12cm]{../images/EX_rot[9].jpg}}%
-\only<11>{\includegraphics[scale=0.50,clip=true,
-     trim=6cm 12cm 6cm 12cm]{../images/EX_rot[10].jpg}}%
-\only<12>{\includegraphics[scale=0.50,clip=true,
-     trim=6cm 12cm 6cm 12cm]{../images/EX_rot[11].jpg}}%
-\only<13>{\includegraphics[scale=0.50,clip=true,
-     trim=6cm 12cm 6cm 12cm]{../images/EX_rot[12].jpg}}%
-\only<14>{\includegraphics[scale=0.50,clip=true,
-     trim=6cm 12cm 6cm 12cm]{../images/EX_rot[13].jpg}}%
-\only<15>{\includegraphics[scale=0.50,clip=true,
-     trim=6cm 12cm 6cm 12cm]{../images/EX_rot[14].jpg}}%
-\only<16>{\includegraphics[scale=0.50,clip=true,
-     trim=6cm 12cm 6cm 12cm]{../images/EX_rot[15].jpg}}%
-\only<17>{\includegraphics[scale=0.50,clip=true,
-     trim=6cm 12cm 6cm 12cm]{../images/EX_rot[16].jpg}}%
-\only<18>{\includegraphics[scale=0.50,clip=true,
-     trim=6cm 12cm 6cm 12cm]{../images/EX_rot[17].jpg}}%
-\only<19>{\includegraphics[scale=0.50,clip=true,
-     trim=6cm 12cm 6cm 12cm]{../images/EX_rot[18].jpg}}%
-\only<20>{\includegraphics[scale=0.50,clip=true,
-     trim=6cm 12cm 6cm 12cm]{../images/EX_rot[19].jpg}}%
-\only<21>{\includegraphics[scale=0.50,clip=true,
-     trim=6cm 12cm 6cm 12cm]{../images/EX_rot[20].jpg}}%
-\only<22>{\includegraphics[scale=0.50,clip=true,
-     trim=6cm 12cm 6cm 12cm]{../images/EX_rot[21].jpg}}%
-\only<23>{\includegraphics[scale=0.50,clip=true,
-     trim=6cm 12cm 6cm 12cm]{../images/EX_rot[22].jpg}}%
-\only<24>{\includegraphics[scale=0.50,clip=true,
-     trim=6cm 12cm 6cm 12cm]{../images/EX_rot[23].jpg}}%
-\only<25>{\includegraphics[scale=0.50,clip=true,
-     trim=6cm 12cm 6cm 12cm]{../images/EX_rot[24].jpg}}%
-\only<26>{\includegraphics[scale=0.50,clip=true,
-     trim=6cm 12cm 6cm 12cm]{../images/EX_rot[25].jpg}}%
-\only<27>{\includegraphics[scale=0.50,clip=true,
-     trim=6cm 12cm 6cm 12cm]{../images/EX_rot[26].jpg}}%
-\only<28>{\includegraphics[scale=0.50,clip=true,
-     trim=6cm 12cm 6cm 12cm]{../images/EX_rot[27].jpg}}%
-\only<29>{\includegraphics[scale=0.50,clip=true,
-     trim=6cm 12cm 6cm 12cm]{../images/EX_rot[28].jpg}}%
-\only<30>{\includegraphics[scale=0.50,clip=true,
-     trim=6cm 12cm 6cm 12cm]{../images/EX_rot[29].jpg}}%
-\only<31>{\includegraphics[scale=0.50,clip=true,
-     trim=6cm 12cm 6cm 12cm]{../images/EX_rot[30].jpg}}%
-\only<32>{\includegraphics[scale=0.50,clip=true,
-     trim=6cm 12cm 6cm 12cm]{../images/EX_rot[31].jpg}}%
-\only<33>{\includegraphics[scale=0.50,clip=true,
-     trim=6cm 12cm 6cm 12cm]{../images/EX_rot[32].jpg}}%
-\only<34>{\includegraphics[scale=0.50,clip=true,
-     trim=6cm 12cm 6cm 12cm]{../images/EX_rot[33].jpg}}%
-\only<35>{\includegraphics[scale=0.50,clip=true,
-     trim=6cm 12cm 6cm 12cm]{../images/EX_rot[34].jpg}}%
-\only<36>{\includegraphics[scale=0.50,clip=true,
-     trim=6cm 12cm 6cm 12cm]{../images/EX_rot[35].jpg}}%
-\only<37>{\includegraphics[scale=0.50,clip=true,
-     trim=6cm 12cm 6cm 12cm]{../images/EX_rot[36].jpg}}%
-\only<38>{\includegraphics[scale=0.50,clip=true,
-     trim=6cm 12cm 6cm 12cm]{../images/EX_rot[37].jpg}}%
-\only<39>{\includegraphics[scale=0.50,clip=true,
-     trim=6cm 12cm 6cm 12cm]{../images/EX_rot[38].jpg}}%
-\only<40>{\includegraphics[scale=0.50,clip=true,
-     trim=6cm 12cm 6cm 12cm]{../images/EX_rot[39].jpg}}%
-\only<41>{\includegraphics[scale=0.50,clip=true,
-     trim=6cm 12cm 6cm 12cm]{../images/EX_rot[40].jpg}}%
-\only<42>{\includegraphics[scale=0.50,clip=true,
-     trim=6cm 12cm 6cm 12cm]{../images/EX_rot[41].jpg}}%
-\only<43>{\includegraphics[scale=0.50,clip=true,
-     trim=6cm 12cm 6cm 12cm]{../images/EX_rot[42].jpg}}%
-\only<44>{\includegraphics[scale=0.50,clip=true,
-     trim=6cm 12cm 6cm 12cm]{../images/EX_rot[43].jpg}}%
-\only<45>{\includegraphics[scale=0.50,clip=true,
-     trim=6cm 12cm 6cm 12cm]{../images/EX_rot[44].jpg}}%
-\only<46>{\includegraphics[scale=0.50,clip=true,
-     trim=6cm 12cm 6cm 12cm]{../images/EX_rot[45].jpg}}%
-\only<47>{\includegraphics[scale=0.50,clip=true,
-     trim=6cm 12cm 6cm 12cm]{../images/EX_rot[46].jpg}}%
-\only<48>{\includegraphics[scale=0.50,clip=true,
-     trim=6cm 12cm 6cm 12cm]{../images/EX_rot[47].jpg}}%
-\only<49>{\includegraphics[scale=0.50,clip=true,
-     trim=6cm 12cm 6cm 12cm]{../images/EX_rot[48].jpg}}%
-\only<50>{\includegraphics[scale=0.50,clip=true,
-     trim=6cm 12cm 6cm 12cm]{../images/EX_rot[49].jpg}}%
-\only<51>{\includegraphics[scale=0.50,clip=true,
-     trim=6cm 12cm 6cm 12cm]{../images/EX_rot[50].jpg}}%
- \]
+
+ \begin{center}
+  \animategraphics[scale=0.5,autoplay,loop]{20}{../images/EXmovie/EX}{0}{89}
+ \end{center}
+
  \begin{center}
  {\Large
  {\color{maplecyan}$c_0$}, 
@@ -2005,7 +1851,7 @@ regions is a fundamental domain for the action of $G$.
  \uc<4->{
  There is a classical theory which relates solutions of the nonlinear
  equation $S(f)=s$ to solutions of the linear equation $2g''+sg=0$.
- If we knew $d$, this would allow us to find $p_1^{-1}$ ad thus
+ If we knew $d$, this would allow us to find $p_1^{-1}$ and thus
  $p_1$.  In practice we have to guess $d$, find $p_1$, and then
  repeatedly adjust $d$ to eliminate inconsistencies.}
 
