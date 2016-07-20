@@ -161,7 +161,7 @@
 
 `Class/Declare`(
  "P_to_H_map",
- "An instance of this class encapsulates data about a cromulent isomorphism PX(a_P) -> HX(a_PH) for some specific numerical values of a_H and a_P",
+ "An instance of this class encapsulates data about a cromulent isomorphism $PX(a_P)\\to HX(a_H)$ for some specific numerical values of $a_H$ and $a_P$",
 
  ["Field","a_H"::RR1,""],
  ["Field","a_P"::RR1,""],
