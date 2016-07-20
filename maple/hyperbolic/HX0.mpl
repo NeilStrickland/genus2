@@ -19,7 +19,8 @@ set_a_H0 := proc(a)
         square_diffeo_H_ca0,square_diffeo_H_ra0,square_diffeo_H_ma0,square_diffeo_H_pa0,
         square_diffeo_H_cb0,square_diffeo_H_rb0,square_diffeo_H_mb0,square_diffeo_H_pb0;
 
- local ii,i,j,k,c_H_eqs,alpha,lambda;
+ local ii,i,j,k,c_H_eqs,alpha,lambda,s;
+
  a_H0 := a;               #@ a_H0
  a_H1 := evalf(a);        #@ a_H1
 
