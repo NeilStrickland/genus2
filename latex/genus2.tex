@@ -170,7 +170,7 @@
 %\numberwithin{equation}{subsection}
 
 \begin{document}
-\title{Uniformisation of embedded surfaces}
+\title{Uniformization of embedded surfaces}
 \author{N.~P.~Strickland}
 \date{\today}
 \bibliographystyle{abbrv}
@@ -351,7 +351,7 @@ Now fix a parameter $a\in (0,1)$.  We put
 and observe that $EX^*=EX(1/\rt)$.  In Section~\ref{sec-E} we
 will give $EX(a)$ a $G$-action and labelling making it a cromulent
 surface.  We call these surfaces the \emph{embedded family}.  Although
-our central problem is to study uniformisations of the surfaces
+our central problem is to study uniformizations of the surfaces
 $EX(a)$, we will also discuss many other features of their geometry
 and topology.  In particular, we will give an alternative definition
 which is much more geometric but takes longer to state.  Two special
@@ -487,6 +487,11 @@ dissuaded us from using this approach more extensively.)
 
 One can also repeat all the numerical calculations by following the
 instructions in Section~\ref{sec-build}.
+
+The most convenient place to view and download the code, documentation
+and other associated files is the page
+\url{https://neilstrickland.github.io/genus2/}.  A snapshot will also
+be placed on the arxiv, as a set of ancilliary files.
 
 \section{General theory of precromulent surfaces}
 \lbl{sec-general}
@@ -6217,7 +6222,7 @@ actually a right angled regular dodecagon.
  domain for this action.
 \end{proposition}
 \begin{proof}
- We will use the standard theorem of Poincar\'e (which is presented as
+ We will use a standard theorem of Poincar\'e (which is presented as
  Theorem VII.1.7 in the textbook~\cite{iv:hg}, for example).
  Recall that in Proposition~\ref{prop-Pi-Sg} we introduced elements
  $\sg_t\in\Pi$ for $t\in\{a,b,c,d,e,f\}$.  We claim that $\sg_t$
@@ -7471,7 +7476,10 @@ generate a plot of $a$ against $b$.
 
 Alternatively (as discussed in Section~\ref{sec-build}), one can read
 the file \fname+build_data.mpl+ and execute
-\mcode+build_data["HP_table"]()+ to perform all calculations for
+\begin{mcodeblock}
+   build_data["HP_table"](); 
+\end{mcodeblock}
+to perform all calculations for
 $b=0.06$ to $b=0.94$ in steps of $0.02$, and to do various other
 related work.  Here one may wish to enter 
 \mcode+infolevel[genus2] := 7;+ before starting the calculation; this
@@ -10797,7 +10805,10 @@ this information is computed to $100$ decimal places.  Because of
 this, the file is rather large (about 53MB).
 
 One can also regenerate the object \mcode+G+ using the function
-\mcode+build_data["grid"]()+ defined in \fname+build_data.mpl+.  See
+\begin{mcodeblock}
+   build_data["grid"]();
+\end{mcodeblock}
+defined in \fname+build_data.mpl+.  See
 Section~\ref{sec-build} for more discussion of this framework. 
 
 \subsection{Curvature and the Laplacian}
@@ -13979,11 +13990,10 @@ algorithm can be carried out by executing the function
 \mcode+build_data["EH_atlas",0]()+ defined in \mcode+build_data.mpl+,
 which in turn invokes the functions \mcode+build_data["EH_atlas",i]()+
 for $i$ from $1$ to $4$, each of which carries out a subset of the
-steps described below.
-
-Everything is implemented by methods of the class \mcode+EH_atlas+
-(which is declared in the file \fname+embedded/roothalf/EH_atlas.mpl+)
-and some other related classes.  We can enter
+steps described below.  All of these steps are implemented by methods
+of the class \mcode+EH_atlas+ (which is declared in the file
+\fname+embedded/roothalf/EH_atlas.mpl+) and some other related
+classes.  We can enter 
 \begin{mcodeblock}
  EHA := `new/EH_atlas`():
 \end{mcodeblock}
