@@ -142,9 +142,9 @@ $map->files['included_images'] =
        '/images/delta_ring.jpg',
        '/images/zeta_ring.jpg',
        '/images/y_ring.jpg',
-       '/images/E_to_S_u[1].jpg',
-       '/images/E_to_S_u[2].jpg',
-       '/images/E_to_S_u[3].jpg',
+       '/images/E_to_S_u1.jpg',
+       '/images/E_to_S_u2.jpg',
+       '/images/E_to_S_u3.jpg',
        '/images/cromulent.png'
        );
 
@@ -615,5 +615,6 @@ make_arxiv();
 make_thin_dist();
 make_fat_dist();
 make_page_dir();
+make_dist_archives();
 
 ?>
