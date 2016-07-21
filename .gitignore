@@ -9,15 +9,16 @@
 /data/**/*.m
 /data_toy/**/*.m
 
-/doc/maple/**/*.mpl
+/doc/maple/**/*.html
 /doc/classes/*.html
 /doc/classes.html
 /doc/defs.html
 /doc/entries.html
 /doc/images.html
 
-/images/*.jpg
-/images/*.png
+/images/**/*.jpg
+/images/**/*.gif
+/images/**/*.png
 
 /latex/**/*.aux
 /latex/**/*.bbl
