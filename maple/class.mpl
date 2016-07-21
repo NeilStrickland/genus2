@@ -779,7 +779,7 @@ convert_at :=
   if (type([_FILE_],[string])) then
    classdoc := cat(
     classdoc,
-    "Code: <a href=\"../maple/",_FILE_,"##CLASS_",classname,"\">",
+    "Code: <a href=\"../maple/",_FILE_,".html##CLASS_",classname,"\">",
     _FILE_,"</a><br/>\n"
    );
   fi;
