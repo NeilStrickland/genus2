@@ -954,7 +954,7 @@ make_data_plots := proc()
  load_data["E_to_S_map"]():
 
  for i from 1 to 3 do
-  lbl := sprintf("E_to_S_u[%d]",i);
+  lbl := sprintf("E_to_S_u%d",i);
   userinfo(6,genus2,sprintf("Generating pics[%s]",lbl));
   pics[lbl] := E_to_S_map["u_plot",i];
   save_plot(lbl);
