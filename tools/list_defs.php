@@ -72,7 +72,7 @@ HTML;
     
 HTML;
 
- file_put_contents('../doc/maple' . $f,$html);
+ file_put_contents('../doc/maple' . $f . '.html',$html);
 }
 
 usort($defs,'cmp_by_tag');
@@ -141,7 +141,7 @@ HTML;
  $list .= <<<HTML
    <tr>
     <td width="150"><tt>{$d->tag}</tt></td>
-    <td width="250"><a href="../doc/maple{$d->full_file}#line_{$d->line_number}">{$d->full_file}</a></td>
+    <td width="250"><a href="../doc/maple{$d->full_file}.html#line_{$d->line_number}">{$d->full_file}</a></td>
     <td width="100">line {$d->line_number}</td>
    </tr>
 
